@@ -1,0 +1,155 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;}
+
+a{
+    text-decoration: none;
+    color: inherit;}
+
+body{
+    height: 150000px;
+    background-color: #D9D9D9;}
+
+
+#menugeral{
+    width:100%;
+    max-width: 1600px;
+    height: 80px;
+    display:flex;
+    flex-direction: space-between;
+    background-color: rgb(24, 24, 24);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;}
+
+#menugeral h1{
+    width: 20%;
+    padding:20px;
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    font-size: 36px;
+    font-weight: 700;
+    cursor: pointer;}
+
+#menugeral ul{
+    width: 80%;
+    display:flex;
+    align-items: center;
+    list-style: none;}
+
+#menugeral ul li{
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 400;}
+
+#menugeral ul li a::after{
+    content:""; /*Define que conteúdo aparece depois do elemento*/
+    display:block; /*Define que o conteúdo é exibido como um bloco*/
+    width:0; /*Define a largura do conteúdo como 0% do elemento de início*/
+    height:2px; /*Define a altura do conteúdo como 2px*/
+    background-color: rgb(123, 44, 191);
+    transition: width 0.3s; /*Define a transição da largura do conteúdo para 0.3 segundos*/}
+#menugeral ul li a:hover::after{width: 100%; /*Define a largura do conteúdo como 100% do elemento de início*/}
+
+#destaque{
+    width:100%;
+    height: 630px;
+    padding: 20px;
+    background-color: #D9D9D9;
+    display:flex;
+    align-items: flex-end;
+}
+
+#btnjogo{
+    width: 300px;
+    height: 60px;
+    background: linear-gradient(-110deg, #4A148C, #8A2BE2);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    color: #FFFFFF;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s ease;}
+#btnjogo:hover{transform: translateY(-5px);}
+
+#btnloja{
+    width: 200px;
+    height: 40px;
+    margin-left: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 5px;
+    background-color:rgba(0,0,0,0);
+    border: 3px solid rgb(123, 44, 191);
+    transition: transform 0.3s ease;}
+#btnloja:hover{transform: translateY(-5px);}
+
+
+#droptime{
+    width: 450px;
+    height: 180px;
+    background-color: rgb(255, 255, 255,0.25);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 30px;
+    transition: transform 0.3s ease;}
+#droptime:hover{transform: translateY(-5px);}
+
+
+#drop{
+    width: 400px;
+    height: 150px;
+    background-color:rgba(0,0,0,0);
+    border: 3px solid rgb(123, 44, 191);
+    border-radius: 10px;
+    display:flex;
+    margin: 0 auto;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;}
+    
+#drop h2{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    color: rgb(24, 24, 24);
+    font-weight: 700;
+    padding: 20px;}
+
+#tempo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: 600;}
+
+#legendas {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    color: #666666;}
+
+
+#trapezio {
+    width: 300px;
+    height: 100px;
+    background: linear-gradient(110deg, #4A148C, #8A2BE2);
+
+    clip-path: polygon(
+        15% 0,
+        85% 0,
+        10% 100%,
+        0 100%
+    );
+}
