@@ -38,7 +38,12 @@ async function login(req, res) {
     if (!senhaConfere) return res.status(401).json({ mensagem: 'Email ou senha inválidos' });
 
     const token = jwt.sign(
-      { id_usuario: usuario.id_usuario, tipo: usuario.tipo, nivel: usuario.nivel },
+      { 
+        id: usuario.id_usuario, 
+        id_usuario: usuario.id_usuario, 
+        tipo: usuario.tipo, 
+        nivel: usuario.nivel 
+      },
       process.env.JWT_SECRET,
       { expiresIn: '8h' }
     );

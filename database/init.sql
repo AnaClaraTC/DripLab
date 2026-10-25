@@ -41,7 +41,7 @@ CREATE TABLE pedidos (
     data_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
     valor_total DECIMAL(10, 2) NOT NULL,
     metodo_pagamento ENUM('Cartao', 'Pix', 'Boleto'),
-    status_atual ENUM('Aguardando pagamento', 'Pago', 'Embalado',' Enviado/Em transito', 'Entregue','Cancelado','Devolvido/Em troca'),
+    status_atual ENUM('Aguardando pagamento', 'Pago', 'Embalado','Enviado/Em transito', 'Entregue','Cancelado','Devolvido/Em troca'),
     id_usuario INT NOT NULL,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE
 );
@@ -71,7 +71,7 @@ CREATE TABLE propostas_votacao (
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
     categoria VARCHAR(50) NOT NULL,
-    status_votacao ENUM ('Em Votação', 'Apurada', 'Vencedora', 'Encerrada'),
+    status_votacao ENUM ('Em Votacao', 'Apurada', 'Vencedora', 'Encerrada'),
     quantidade_votos INT DEFAULT 0
 );
 
