@@ -7,10 +7,7 @@ a{
     text-decoration: none;
     color: inherit;}
 
-body{
-    height: 150000px;
-    background-color: #D9D9D9;}
-
+body{background-color: #D9D9D9;}
 
 #menugeral{
     width:100%;
@@ -59,8 +56,7 @@ body{
     padding: 20px;
     background-color: #D9D9D9;
     display:flex;
-    align-items: flex-end;
-}
+    align-items: flex-end;}
 
 #btnjogo{
     width: 300px;
@@ -85,8 +81,13 @@ body{
     border-radius: 5px;
     background-color:rgba(0,0,0,0);
     border: 3px solid rgb(123, 44, 191);
-    transition: transform 0.3s ease;}
-#btnloja:hover{transform: translateY(-5px);}
+    transition: transform 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;}
+#btnloja:hover{
+    transform: translateY(-5px);
+    background-color: rgb(123, 44, 191);
+    color: #FFFFFF;}
 
 
 #droptime{
@@ -140,16 +141,81 @@ body{
     font-size: 20px;
     color: #666666;}
 
+#trapeziodrops{
+    width: 100%;
+    height: 800px;
+    display: flex;
+    flex-direction: row;}
 
-#trapezio {
-    width: 300px;
-    height: 100px;
-    background: linear-gradient(110deg, #4A148C, #8A2BE2);
+.trapezio{
+    width: 1000px;
+    height: 200px;
+    margin-top: 20px;
+    background-color: rgb(0,0,0);
+    display: flex;
+    flex-direction: column;}
+
+.trapezio h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin-top:20px;}
+
+.trapezio p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    color: #FFFFFF;}
+
+#cima {
+    padding: 20px;
 
     clip-path: polygon(
-        15% 0,
-        85% 0,
-        10% 100%,
-        0 100%
-    );
-}
+        0 0,
+        100% 0,
+        80% 100%,
+        0 100%,
+        0 10%);}
+
+#baixo {
+    clip-path: polygon(
+        20% 0,
+        100% 0,
+        100% 100%,
+        0 100%);
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;}
+
+#baixo h2 {
+    margin-left: 25%;
+    white-space: nowrap;}
+
+#baixo p {
+    margin-left: 25%;
+    white-space: nowrap;}
+
+
+#rodape{
+    width: 100%;
+    height: 200px;
+    background-color: rgb(24, 24, 24);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;}
+
+#rodape h1{
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    font-size: 36px;
+    font-weight: 700;
+    cursor: pointer;}
+
+#rodape p{
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;}
