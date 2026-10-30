@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Site - DripLab</title>
+
+    <!-- Adicionando a fonte Montserrat do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    
+</head>
+
+<body>
+
+    <!--Código do Áudio do Site-->
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    const music = document.getElementById("bg-music");
+
+    document.addEventListener("click", () => {
+        music.volume = 0.2; // bem baixo
+        music.play();
+    }, { once: true });
+    </script>
+    <!--Fim do código-->
+
+    <!--Menu do Site-->
+    <nav id="menugeral">
+        <h1><a href="index.html">DRIP LAB</a></h1>
+        <ul id="base">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="jogar.html">Jogar</a></li>
+            <li><a href="loja.html">Loja</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+        </ul>
+
+        <ul id="conta">
+            <li class="perfil">
+                <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                    <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                </button>
+
+                <div id="menuextra" class="menuextra">
+                    <ul id="loginfo">
+                        <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                        <li><button type="button">DESCONECTAR</button></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a href="carrinho.html">
+                    <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!--Seção de Destaque-->
+    <div id="destaque">
+        <button id="btnjogo"><a href="jogar.html">JOGAR AGORA</a></button>
+        <button id="btnloja"><a href="loja.html">EXPLORAR A LOJA</a></button>
+
+        <div id="droptime">
+            <div id="drop">
+                <h2>PRÓXIMO DROP EM : </h2>
+
+                <div id="tempo">
+                    <span>02</span>
+                    <span>:</span>
+                    <span>45</span>
+                    <span>:</span>
+                    <span>05</span>
+                </div>
+
+                <div id="legendas">
+                    <span>DIAS</span>
+                    <span>HORAS</span>
+                    <span>MIN</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dropatual">
+        <div id="textodropatual">
+            <h2>[DROP ATUAL : POLARIZAÇÃO]</h2>
+            <p>DOIS LADOS DE UM ESTILO</p>
+        </div>
+
+        <div id="divdrop">
+            <div id="dropimg">
+                <a href="loja.html">
+                    <img src="../static/images/promocional/banner_polarizacao.png" alt="Imagem do Drop Atual">
+                </a>
+            </div>
+
+            <div id="dropslides">
+                <div class="dropslider">
+                    <div class="droptrilho">
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </div>
+
+                    </div><!-- Fim do trilho-->
+                </div><!-- Fim do slider -->
+
+                <div class="dropslider">
+                    <div class="droptrilho">
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/camiseta-boxy-eclipse.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>CAMISETA BOXY ECLIPSE</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/calca-cargo-phantom.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>CALÇA CARGO PHANTOM</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>CAMISETA OVERSIZED SHADOW</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/camiseta-street-logo.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>CAMISETA STREET LOGO</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>CAMISETA GRAFFITI 404</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>CAMISETA HEAVY COTTON</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>CALÇA BAGGY ASPHALT</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/calca-reta-concrete.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>CALÇA RETA CONCRETE</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>BERMUDA CARGO UTILITY</h3>
+                                <p>R$ 49,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>BERMUDA BAGGY DOWNTOWN</h3>
+                                <p>R$ 49,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>JAQUETA CORTA-VENTO STORM</h3>
+                                <p>R$ 89,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/bone-five-panel.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>BONÉ FIVE PANEL</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </div>
+
+                        <div class="dropitem">
+                            <div class="dropitem-img">
+                                <img src="../static/images/loja/gorro-midnight.png" alt="Imagem 1">
+                            </div>
+                            <div class="dropitem-content">
+                                <h3>GORRO MIDNIGHT</h3>
+                                <p>R$ 24,99</p>
+                            </div>
+                        </div>
+                    </div><!-- Fim do trilho -->
+                </div><!-- Fim do slider -->
+            </div><!-- Fim do dropslides -->
+        </div><!-- Fim do divdrop -->
+    </div><!-- Fim do dropatual -->
+
+    <div id="trapeziodrops">
+        <div class="trapezio" id="cima">
+            <h2>DROP ANTERIOR</h2>
+            <p>ZONA MORTA</p>
+        </div>
+        <div class="trapezio" id="baixo">
+            <h2>PRÓXIMO DROP</h2>
+            <p>CONTRAMÃO</p>
+        </div>
+    </div><!-- Fim da seção de drops -->
+
+    <div id="destaques">
+
+        <div id="textodestaque">
+            <h2>[DESTAQUES]</h2>
+            <p><a href="loja.html">VER TODOS</a></p>
+        </div>
+
+        <!-- Grade de produtos -->
+        <div id="grade-destaques">
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                </div>
+                <div class="item-content">
+                    <h3>MOLETOM OVERSIZED</h3>
+                    <p>R$ 29,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/camiseta-boxy-eclipse.png" alt="Camiseta Boxy Eclipse">
+                </div>
+                <div class="item-content">
+                    <h3>CAMISETA BOXY ECLIPSE</h3>
+                    <p>R$ 39,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/calca-cargo-phantom.png" alt="Calça Cargo Phantom">
+                </div>
+                <div class="item-content">
+                    <h3>CALÇA CARGO PHANTOM</h3>
+                    <p>R$ 59,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Camiseta Oversized Shadow">
+                </div>
+                <div class="item-content">
+                    <h3>CAMISETA OVERSIZED SHADOW</h3>
+                    <p>R$ 39,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/camiseta-street-logo.png" alt="Camiseta Street Logo">
+                </div>
+                <div class="item-content">
+                    <h3>CAMISETA STREET LOGO</h3>
+                    <p>R$ 39,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Camiseta Graffiti 404">
+                </div>
+                <div class="item-content">
+                    <h3>CAMISETA GRAFFITI 404</h3>
+                    <p>R$ 39,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Camiseta Heavy Cotton">
+                </div>
+                <div class="item-content">
+                    <h3>CAMISETA HEAVY COTTON</h3>
+                    <p>R$ 39,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Calça Baggy Asphalt">
+                </div>
+                <div class="item-content">
+                    <h3>CALÇA BAGGY ASPHALT</h3>
+                    <p>R$ 59,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/calca-reta-concrete.png" alt="Calça Reta Concrete">
+                </div>
+                <div class="item-content">
+                    <h3>CALÇA RETA CONCRETE</h3>
+                    <p>R$ 59,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Bermuda Cargo Utility">
+                </div>
+                <div class="item-content">
+                    <h3>BERMUDA CARGO UTILITY</h3>
+                    <p>R$ 49,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Bermuda Baggy Downtown">
+                </div>
+                <div class="item-content">
+                    <h3>BERMUDA BAGGY DOWNTOWN</h3>
+                    <p>R$ 49,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Jaqueta Corta-Vento Storm">
+                </div>
+                <div class="item-content">
+                    <h3>JAQUETA CORTA-VENTO STORM</h3>
+                    <p>R$ 89,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/bone-five-panel.png" alt="Boné Five Panel">
+                </div>
+                <div class="item-content">
+                    <h3>BONÉ FIVE PANEL</h3>
+                    <p>R$ 29,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/gorro-midnight.png" alt="Gorro Midnight">
+                </div>
+                <div class="item-content">
+                    <h3>GORRO MIDNIGHT</h3>
+                    <p>R$ 24,99</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-img">
+                    <img src="../static/images/loja/shoulder-bag-utility.png" alt="Shoulder Bag Utility">
+                </div>
+                <div class="item-content">
+                    <h3>SHOULDER BAG UTILITY</h3>
+                    <p>R$ 39,99</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Paginação -->
+        <div id="paginacao-destaques"></div>
+
+    </div>
+    
+    <div id="juntesesite">
+        <a href="https://pt.wikipedia.org/wiki/Auto_da_Compadecida">
+            <img src="../static/images/promocional/imagem-juntese-site.png">
+        </a>
+    </div>
+
+    <footer id="rodape">
+        <h1>DRIP LAB</h1>
+        <p>© 2026 DripLab. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const sliders = document.querySelectorAll(".dropslider");
+
+        sliders.forEach((slider) => {
+
+            let arrastando = false;
+            let inicioX = 0;
+            let scrollInicial = 0;
+            let ponteiroId = null;
+
+            // Inicia o arraste
+            slider.addEventListener("pointerdown", (evento) => {
+
+                if (evento.pointerType === "mouse" && evento.button !== 0) {
+                    return;
+                }
+
+                if (evento.target.closest("button, a")) {
+                    return;
+                }
+
+                arrastando = true;
+                ponteiroId = evento.pointerId;
+                inicioX = evento.clientX;
+                scrollInicial = slider.scrollLeft;
+
+                slider.classList.add("arrastando");
+                slider.setPointerCapture(evento.pointerId);
+            });
+
+            // Movimenta o slider
+            slider.addEventListener("pointermove", (evento) => {
+
+                if (!arrastando || evento.pointerId !== ponteiroId) {
+                    return;
+                }
+
+                const distancia = evento.clientX - inicioX;
+
+                slider.scrollLeft = scrollInicial - distancia;
+            });
+
+            // Finaliza o arraste
+            function pararArrasto(evento) {
+
+                if (evento && evento.pointerId !== ponteiroId) {
+                    return;
+                }
+
+                arrastando = false;
+                ponteiroId = null;
+
+                slider.classList.remove("arrastando");
+            }
+
+            slider.addEventListener("pointerup", pararArrasto);
+            slider.addEventListener("pointercancel", pararArrasto);
+            slider.addEventListener("lostpointercapture", pararArrasto);
+
+        });
+    </script>
+    <script src="../static/js/paginacao.js" defer></script>
+    <script src="../static/js/menuex.js" defer></script>
+</body>
+</html>
