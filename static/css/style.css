@@ -10,11 +10,12 @@ a{
 body{background-color: #D9D9D9;}
 
 .contmenugeral{background-color: #fff;}
-#menugeral{
-    width:100%;
+#menugeral {
+    width: 100%;
     height: 80px;
-    display:flex;
-    flex-direction: space-between;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: rgb(24, 24, 24);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;}
@@ -28,27 +29,86 @@ body{background-color: #D9D9D9;}
     font-weight: 700;
     cursor: pointer;}
 
-#menugeral ul{
-    width: 80%;
+#base{
+    width: 40%;
     display:flex;
     align-items: center;
     list-style: none;}
 
-#menugeral ul li{
+#base li{
     padding: 20px;
     font-family: 'Montserrat', sans-serif;
     color: #FFFFFF;
     font-size: 18px;
     font-weight: 400;}
 
-#menugeral ul li a::after{
+#base a::after{
     content:""; /*Define que conteúdo aparece depois do elemento*/
     display:block; /*Define que o conteúdo é exibido como um bloco*/
     width:0; /*Define a largura do conteúdo como 0% do elemento de início*/
     height:2px; /*Define a altura do conteúdo como 2px*/
     background-color: rgb(123, 44, 191);
     transition: width 0.3s; /*Define a transição da largura do conteúdo para 0.3 segundos*/}
-#menugeral ul li a:hover::after{width: 100%; /*Define a largura do conteúdo como 100% do elemento de início*/}
+#base a:hover::after{width: 100%; /*Define a largura do conteúdo como 100% do elemento de início*/}
+
+#conta {
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    list-style: none;
+    padding-right: 40px;
+    margin: 0;}
+
+#conta img {
+    width: 40px;
+    display: block;
+    transition: filter 0.3s ease;}
+#conta img:hover {filter: drop-shadow(0 0 5px #FF5A1F);}
+
+#btnperfil{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    box-shadow: none;}
+
+#loginfo a,
+#loginfo button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;}
+
+#loginfo a:hover,
+#loginfo button:hover {
+    background-color: rgb(123, 44, 191);
+    border-radius: 5px;}
+.perfil {position: relative;}
+
+#menuextra {
+    display: none;
+    position: absolute;
+    top: calc(100% + 15px);
+    right: 0;
+    width: 190px;
+    background-color: rgb(24, 24, 24);
+    border: 2px solid rgb(123, 44, 191);
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 1000;}
+#menuextra.aberto {display: block;}
+
+#loginfo{
+    list-style: none;
+    }
 
 #destaque{
     width:100%;
@@ -769,8 +829,132 @@ body{background-color: #D9D9D9;}
     background-color: #fff;
     gap: 5px;
     font-family: 'Montserrat',sans-serif;}
+#graderoupas .item{margin-bottom: 20px;}
 
-#graderoupas .item{
-    margin-bottom: 20px;
+#destaques {
+    width: 90%;
+    margin: 60px auto;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 10px;
 }
 
+/* TÍTULO */
+
+#textodestaque {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* GRADE DE PRODUTOS */
+
+#grade-destaques {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 30px 20px;
+}
+
+/* CARD */
+
+#grade-destaques .item {
+    width: 100%;
+    min-width: 0;
+}
+
+/* IMAGEM */
+
+#grade-destaques .item-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #e9e9e9;
+}
+
+#grade-destaques .item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+#grade-destaques .item:hover .item-img img {
+    transform: scale(1.05);
+}
+
+/* INFORMAÇÕES */
+
+#grade-destaques .item-content {
+    padding-top: 10px;
+}
+
+#grade-destaques .item-content h3 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+#grade-destaques .item-content p {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* PAGINAÇÃO */
+
+#paginacao-destaques {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 45px;
+}
+
+#paginacao-destaques button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background-color: #eeeeee;
+    color: #181818;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#paginacao-destaques button:hover {
+    background-color: #d8d8d8;
+}
+
+#paginacao-destaques button.ativo {
+    background-color: #7b2cbf;
+    color: white;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 900px) {
+    #grade-destaques {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    #grade-destaques {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px 12px;
+    }
+
+    #grade-destaques .item-content h3 {
+        font-size: 11px;
+    }
+
+    #grade-destaques .item-content p {
+        font-size: 12px;
+    }
+}

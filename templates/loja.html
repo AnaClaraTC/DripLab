@@ -33,13 +33,35 @@
 
     <!--Menu do Site-->
     <div class="contmenugeral">
+        <!--Menu do Site-->
         <nav id="menugeral">
-            <h1>DRIP LAB</h1>
-            <ul>
+            <h1><a href="index.html">DRIP LAB</a></h1>
+            <ul id="base">
                 <li><a href="index.html">Início</a></li>
                 <li><a href="jogar.html">Jogar</a></li>
                 <li><a href="loja.html">Loja</a></li>
                 <li><a href="sobre.html">Sobre Nós</a></li>
+            </ul>
+
+            <ul id="conta">
+                <li class="perfil">
+                    <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                        <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                    </button>
+
+                    <div id="menuextra" class="menuextra">
+                        <ul id="loginfo">
+                            <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                            <li><button type="button">DESCONECTAR</button></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="carrinho.html">
+                        <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -454,6 +476,7 @@
         <h1>DRIP LAB</h1>
         <p>© 2026 DripLab. Todos os direitos reservados.</p>
     </footer>
+    <script src="../static/js/menuex.js" defer></script>
 
 </body>
 </html>
