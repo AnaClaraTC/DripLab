@@ -16,16 +16,136 @@
 
 <body>
 
+    <!--Código do Áudio do Site-->
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    const music = document.getElementById("bg-music");
+
+    document.addEventListener("click", () => {
+        music.volume = 0.2; // bem baixo
+        music.play();
+    }, { once: true });
+    </script>
+    <!--Fim do código-->
+
     <!--Menu do Site-->
-    <nav id="menugeral">
-        <h1>DRIP LAB</h1>
-        <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="jogar.html">Jogar</a></li>
-            <li><a href="loja.html">Loja</a></li>
-            <li><a href="sobre.html">Sobre Nós</a></li>
-        </ul>
-    </nav>
+    <div class="contmenugeral">
+        <nav id="menugeral">
+            <h1>DRIP LAB</h1>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="jogar.html">Jogar</a></li>
+                <li><a href="loja.html">Loja</a></li>
+                <li><a href="sobre.html">Sobre Nós</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="bannerloja">
+        <img src="../static/images/promocional/banner_loja_colecao.png">
+    </div>
+
+    <div id="droptimeloja">
+
+        <div id="boxtimeloja">
+            <div id="textodroptimeloja">
+                <h2>PRÓXIMO</h2>
+                <p>DROP EM :</p>
+            </div>
+
+            <div id="conttempodrop">
+
+               <div id="tempo">
+                    <span>02</span>
+                    <span>:</span>
+                    <span>45</span>
+                    <span>:</span>
+                    <span>05</span>
+                </div>
+
+                <div id="legendas">
+                    <span>DIAS</span>
+                    <span>HORAS</span>
+                    <span>MIN</span>
+                </div>
+            </div>
+
+            <div id="imgdroptimeloja">
+                <img src="../static/images/promocional/banner_contramao.jpg">
+            </div>
+
+        </div> <!--Fim da Caixa de Tempo-->
+    </div><!-- Fim da Div da Caixa de Tempo-->
+
+    <div id="contbuscaloja">
+        <form id="pesquisaloja" method="get">
+
+            <section class="pesquisaroupa">
+                <button type="submit" aria-label="Pesquisar">
+                    <img src="../static/images/icones_menu/pesquisa.png" alt="">
+                </button>
+                <input type="text" id="campopesquisa" name="busca" placeholder="PESQUISE O DESEJADO...">
+            </section>
+
+            <!--Linha de Filtros-->
+            <div class="linhafiltros">
+
+                <!--Parte dos Tipos de Roupa-->
+                <div class="grupofiltro grupolargo">
+                    <span class="titulopesqform">TIPO DE ROUPA</span>
+                    <div id="opcroupatipo">
+                        <label class="opcroupa"><input type="radio" name="roupa" value="camisa"><span>CAMISA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="camiseta"><span>CAMISETA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="bermuda"><span>BERMUDA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="calca"><span>CALÇA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="casaco"><span>CASACO</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="jaqueta"><span>JAQUETA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="acessorios"><span>ACESSÓRIOS</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="bolsa"><span>BOLSA</span></label>
+                    </div>
+                </div>
+                <!--Fim da Parte dos Tipos de Roupa-->
+
+                <!--Parte dos Tamanhos de Roupa-->
+                <div class="grupofiltro">
+                    <span class="titulopesqform">TAMANHO</span>
+                    <div id="opctamanhoroupa">
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="PP"><span>PP</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="P"><span>P</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="M"><span>M</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="G"><span>G</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="GG"><span>GG</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="XGG"><span>XGG</span></label>
+                    </div>
+                </div>
+                <!--Parte dos Tamanhos de Roupa-->
+
+                <!--Parte dos Filtros-->
+                <div class="grupofiltro">
+                    <label class="titulopesqform" for="ordenar">ORDENAR POR</label>
+                    <select id="ordenar" name="ordem">
+                        <option value="recente">MAIS RECENTE</option>
+                        <option value="antigo">MAIS ANTIGO</option>
+                        <option value="comprado">MAIS COMPRADO</option>
+                    </select>
+                </div>
+                <!--Fim Parte dos Filtros-->
+
+            </div>
+            <!--Fim da Linha de Filtros-->
+
+            <!--Parte das Ações dos Filtros-->
+            <div class="acoesfiltro">
+                <button type="reset" class="btn-limpar">LIMPAR FILTROS</button>
+                <button type="submit" class="btn-aplicar">APLICAR</button>
+            </div>
+            <!--Fim daParte das Ações dos Filtros-->
+
+        </form>
+    </div>
 
    <footer id="rodape">
         <h1>DRIP LAB</h1>

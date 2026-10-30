@@ -9,9 +9,9 @@ a{
 
 body{background-color: #D9D9D9;}
 
+.contmenugeral{background-color: #fff;}
 #menugeral{
     width:100%;
-   
     height: 80px;
     display:flex;
     flex-direction: space-between;
@@ -89,7 +89,6 @@ body{background-color: #D9D9D9;}
     background-color: rgb(123, 44, 191);
     color: #FFFFFF;}
 
-
 #droptime{
     width: 450px;
     height: 180px;
@@ -102,7 +101,6 @@ body{background-color: #D9D9D9;}
     margin-right: 30px;
     transition: transform 0.3s ease;}
 #droptime:hover{transform: translateY(-5px);}
-
 
 #drop{
     width: 400px;
@@ -158,34 +156,30 @@ body{background-color: #D9D9D9;}
     flex-direction: column;
     justify-content: center;
     gap: 5px;
-    font-family: 'Montserrat', sans-serif;
-}
+    font-family: 'Montserrat', sans-serif;}
 
 .trapezio h2 {
     font-size: 32px;
     font-weight: 400;
     color: #FFFFFF;
-    margin: 0;
-}
+    margin: 0;}
 
 .trapezio p {
     font-size: 60px;
     font-weight: 700;
     color: #FFFFFF;
-    margin: 0;
-}
+    margin: 0;}
 
 /* Drop anterior */
 #cima {
     align-items: flex-start;
-    padding: 20px 20px 20px 10%;
+    padding: 20px 100px 20px 10%;
     clip-path: polygon(
         0 0,
         100% 0,
         80% 100%,
         0 100%
-    );
-}
+    );}
 
 /* Próximo drop */
 #baixo {
@@ -198,7 +192,6 @@ body{background-color: #D9D9D9;}
         0 100%
     );
 }
-
 
 #baixo h2 {
     margin-left: 25%;
@@ -238,32 +231,33 @@ body{background-color: #D9D9D9;}
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    align-items: stretch;
     gap: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
     padding-left: 30px;
-    padding-right: 30px;
-}
+    padding-right: 30px;}
 
 #dropimg {
     width: 50%;
     min-width: 0;
+    display: flex;
+    align-self: stretch;
     border-radius: 10px;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease;
-}
+    transition: transform 0.3s ease;}
 #dropimg:hover{transform: translateY(-5px);}
 
 #dropimg img {
+    display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;}
+
+#dropimg a {
     display: block;
-    padding: 0;}
+    width: 100%;
+    height: 100%;}
 
 #dropslides {
     width: 50%;
@@ -483,3 +477,139 @@ body{background-color: #D9D9D9;}
     font-size: 18px;
     font-weight: 400;
     cursor: pointer;}
+
+
+/*Página da loja*/
+#bannerloja{
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 10px;}
+
+#bannerloja img{
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;}
+
+#droptimeloja{
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    display: flex;}
+
+#boxtimeloja {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    padding: 15px;
+    background-color: #181818;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s ease;}
+#boxtimeloja:hover{transform: translateY(-5px);}
+
+#textodroptimeloja{
+    width: 20%;
+    height: auto;
+    margin-right: 30px;
+    font-family: 'Montesserrat',sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    text-align: center;}
+
+#textodroptimeloja h2{
+    font-size: 50px;
+    font-weight: 700;}
+
+#textodroptimeloja p{
+    font-size: 40px;
+    font-weight: 400;}
+
+#conttempodrop{
+    width: 30%;
+    display: flex;
+    flex-direction: column;}
+
+#conttempodrop #tempo span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 60px;
+    font-weight: 600;
+    color: #fff;}
+
+#conttempodrop #legendas span {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    color: #fff;}
+
+#imgdroptimeloja {
+    margin-left: 30px;
+    width: 50%;
+    height: auto;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    overflow: hidden;}
+
+#imgdroptimeloja img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;}
+
+#contbuscaloja{
+    width: 100%;
+    height: auto;
+    display: flex;
+    background-color: #fff;
+    padding: 5px 0px 20px 0px;}
+
+#pesquisaloja{
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    background-color: #D9D9D9;
+    border-radius: 10px;}
+
+.PesquisaT{
+    display: flex;
+    align-items: center;      
+    justify-content: center;
+    gap: 0;
+    padding-bottom: 10px;}
+
+#campopesquisa{
+    width: 100%; 
+    max-width: 100%;
+    height: 50px;
+    border: 4px solid rgba(255, 193, 7, 0.92);
+    border-radius: 0px 5px 5px 0px; /* canto esquerdo arredondado */
+    padding: 0 10px; /*Espaçamento interno que afeta o texto do placeholder*/
+    box-shadow: 0 8px 2px rgba(0, 0, 0, 0.9);
+    outline: none;}
+#BotaoPesqT{
+    width: 50px;
+    height: 50px;
+    background-color:  rgba(230, 81, 0, 0.90);
+    border: none;
+    border-radius: 5px 0px 0px 5px; /* canto direito arredondado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 2px rgba(0, 0, 0, 0.9);}
