@@ -94,7 +94,7 @@
             <div class="linhafiltros">
 
                 <!--Parte dos Tipos de Roupa-->
-                <div class="grupofiltro grupolargo">
+                <div class="grupofiltro" id="grupotiporoupa">
                     <span class="titulopesqform">TIPO DE ROUPA</span>
                     <div id="opcroupatipo">
                         <label class="opcroupa"><input type="radio" name="roupa" value="camisa"><span>CAMISA</span></label>
@@ -110,7 +110,7 @@
                 <!--Fim da Parte dos Tipos de Roupa-->
 
                 <!--Parte dos Tamanhos de Roupa-->
-                <div class="grupofiltro">
+                <div class="grupofiltro" id="grupotamroupa">
                     <span class="titulopesqform">TAMANHO</span>
                     <div id="opctamanhoroupa">
                         <label class="opctamanho"><input type="checkbox" name="tamanho" value="PP"><span>PP</span></label>
@@ -124,7 +124,7 @@
                 <!--Parte dos Tamanhos de Roupa-->
 
                 <!--Parte dos Filtros-->
-                <div class="grupofiltro">
+                <div class="grupofiltro" id="grupoordena">
                     <label class="titulopesqform" for="ordenar">ORDENAR POR</label>
                     <select id="ordenar" name="ordem">
                         <option value="recente">MAIS RECENTE</option>
@@ -145,6 +145,309 @@
             <!--Fim daParte das Ações dos Filtros-->
 
         </form>
+    </div>
+
+    <div id="graderoupas">
+                  <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>MOLETOM OVERSIZED</h3>
+                        <p>R$ 29,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-boxy-eclipse.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CAMISETA BOXY ECLIPSE</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/calca-cargo-phantom.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CALÇA CARGO PHANTOM</h3>
+                        <p>R$ 59,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CAMISETA OVERSIZED SHADOW</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-street-logo.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CAMISETA STREET LOGO</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CAMISETA GRAFFITI 404</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CAMISETA HEAVY COTTON</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CALÇA BAGGY ASPHALT</h3>
+                        <p>R$ 59,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/calca-reta-concrete.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CALÇA RETA CONCRETE</h3>
+                        <p>R$ 59,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>BERMUDA CARGO UTILITY</h3>
+                        <p>R$ 49,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>BERMUDA BAGGY DOWNTOWN</h3>
+                        <p>R$ 49,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>JAQUETA CORTA-VENTO STORM</h3>
+                        <p>R$ 89,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/bone-five-panel.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>BONÉ FIVE PANEL</h3>
+                        <p>R$ 29,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/gorro-midnight.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>GORRO MIDNIGHT</h3>
+                        <p>R$ 24,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/shoulder-bag-utility.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>SHOULDER BAG UTILITY</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>MOLETOM OVERSIZED</h3>
+                        <p>R$ 29,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-boxy-eclipse.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CAMISETA BOXY ECLIPSE</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/calca-cargo-phantom.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CALÇA CARGO PHANTOM</h3>
+                        <p>R$ 59,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CAMISETA OVERSIZED SHADOW</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-street-logo.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CAMISETA STREET LOGO</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CAMISETA GRAFFITI 404</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CAMISETA HEAVY COTTON</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CALÇA BAGGY ASPHALT</h3>
+                        <p>R$ 59,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/calca-reta-concrete.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>CALÇA RETA CONCRETE</h3>
+                        <p>R$ 59,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>BERMUDA CARGO UTILITY</h3>
+                        <p>R$ 49,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>BERMUDA BAGGY DOWNTOWN</h3>
+                        <p>R$ 49,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>JAQUETA CORTA-VENTO STORM</h3>
+                        <p>R$ 89,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/bone-five-panel.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>BONÉ FIVE PANEL</h3>
+                        <p>R$ 29,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/gorro-midnight.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>GORRO MIDNIGHT</h3>
+                        <p>R$ 24,99</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="item-img">
+                        <img src="../static/images/loja/shoulder-bag-utility.png" alt="Imagem 1">
+                    </div>
+                    <div class="item-content">
+                        <h3>SHOULDER BAG UTILITY</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </div>
     </div>
 
    <footer id="rodape">
