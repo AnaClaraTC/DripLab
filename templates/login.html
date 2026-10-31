@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Site - DripLab</title>
+
+    <!-- Adicionando a fonte Montserrat do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/menuex.js" defer></script>
+    
+</head>
+
+<body>
+
+    <!--Código do Áudio do Site-->
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    const music = document.getElementById("bg-music");
+
+    document.addEventListener("click", () => {
+        music.volume = 0.2; // bem baixo
+        music.play();
+    }, { once: true });
+    </script>
+    <!--Fim do código-->
+
+    <div class="contmenugeral">
+        <!--Menu do Site-->
+        <nav id="menugeral">
+            <h1><a href="index.html">DRIP LAB</a></h1>
+            <ul id="base">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="jogar.html">Jogar</a></li>
+                <li><a href="loja.html">Loja</a></li>
+                <li><a href="sobre.html">Sobre Nós</a></li>
+            </ul>
+
+            <ul id="conta">
+                <li class="perfil">
+                    <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                        <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                    </button>
+
+                    <div id="menuextra" class="menuextra">
+                        <ul id="loginfo">
+                            <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                            <li><button type="button">DESCONECTAR</button></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="carrinho.html">
+                        <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="contlogin">
+
+        <form id="loginloja">
+            <img src="../static/images/promocional/banner_login.png" id="imglogin">
+
+            <label for="email" >E-MAIL</label>
+            <input type="email" name="email" id="email" required placeholder="Insira seu E-mail Corporativo">
+
+            <label id="titulosenha">SENHA</label>
+            <input type="password" name="senha" id="senha" required placeholder="Insira sua Senha">
+            <a href="">Esqueceu a Senha ?</a>
+            <a href="">Quero me cadastrar</a>
+            <button id="entrar">Entrar</button>
+        </form>
+    </div>
+
+    <footer id="rodape">
+        <h1>DRIP LAB</h1>
+        <p>© 2026 DripLab. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
