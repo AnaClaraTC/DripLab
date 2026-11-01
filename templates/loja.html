@@ -62,6 +62,12 @@
                         <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
                     </a>
                 </li>
+
+                <li>
+                    <a href="configuracoes.html">
+                        <img src="../static/images/icones_menu/configuracoes.png" alt="Configuracoes">
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -127,6 +133,7 @@
                         <label class="opcroupa"><input type="radio" name="roupa" value="jaqueta"><span>JAQUETA</span></label>
                         <label class="opcroupa"><input type="radio" name="roupa" value="acessorios"><span>ACESSÓRIOS</span></label>
                         <label class="opcroupa"><input type="radio" name="roupa" value="bolsa"><span>BOLSA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="meia"><span>MEIAS</span></label>
                     </div>
                 </div>
                 <!--Fim da Parte dos Tipos de Roupa-->
@@ -170,14 +177,16 @@
     </div>
 
     <div id="graderoupas">
-                  <div class="item">
-                    <div class="item-img">
-                        <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
-                    </div>
-                    <div class="item-content">
-                        <h3>MOLETOM OVERSIZED</h3>
-                        <p>R$ 29,99</p>
-                    </div>
+                <div class="item">
+                    <a href="produto.html">
+                        <div class="item-img">
+                            <img src="../static/images/loja/moletom-oversized.png" alt="Imagem 1">
+                        </div>
+                        <div class="item-content">
+                            <h3>MOLETOM OVERSIZED</h3>
+                            <p>R$ 29,99</p>
+                        </div>
+                    </a>
                 </div>
 
                 <div class="item">
@@ -471,6 +480,22 @@
                     </div>
                 </div>
     </div>
+
+    <script>
+        document.querySelectorAll("#graderoupas .item").forEach((item) => {
+            const link = document.createElement("a");
+            link.href = "produto.html";
+
+            const linkExistente = item.querySelector(":scope > a");
+            if (linkExistente) {
+                link.append(...linkExistente.childNodes);
+                linkExistente.remove();
+            }
+
+            link.append(...item.childNodes);
+            item.append(link);
+        });
+    </script>
 
    <footer id="rodape">
         <h1>DRIP LAB</h1>

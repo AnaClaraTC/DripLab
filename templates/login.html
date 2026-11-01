@@ -13,6 +13,8 @@
 
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/autenticacao.js" defer></script>
+
     
 </head>
 
@@ -63,29 +65,118 @@
                         <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
                     </a>
                 </li>
+
+                <li>
+                    <a href="configuracoes.html">
+                        <img src="../static/images/icones_menu/configuracoes.png" alt="Configuracoes">
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
 
-    <div id="contlogin">
+    <div id="contforms">
 
-        <form id="loginloja">
-            <img src="../static/images/promocional/banner_login.png" id="imglogin">
+        <div id="arealogin">
+            <form id="login">
+                <img src="../static/images/promocional/banner_login.png" class="imglogin">
 
-            <label for="email" >E-MAIL</label>
-            <input type="email" name="email" id="email" required placeholder="Insira seu E-mail Corporativo">
+                <label class="form-label" for="emailLogin">E-MAIL</label>
+                <input class="inputform" type="email" name="email" id="emailLogin" required placeholder="Insira seu E-mail">
 
-            <label id="titulosenha">SENHA</label>
-            <input type="password" name="senha" id="senha" required placeholder="Insira sua Senha">
-            <a href="">Esqueceu a Senha ?</a>
-            <a href="">Quero me cadastrar</a>
-            <button id="entrar">Entrar</button>
-        </form>
+                <label class="form-label" for="senhaLogin">SENHA</label>
+                <input class="inputform" type="password" name="senha" id="senhaLogin" required placeholder="Insira sua Senha">
+                
+                <a href="#" id="abrirRecuperacao">Esqueceu a senha?</a>
+                <a href="#" id="abrirCadastro">Quero me cadastrar</a>
+                <button type="button" class="btnform" id="loginbtn">ENTRAR</button>
+            </form>
+        </div>
+
+        <div id="areasenha">
+
+            <form id="recuperacao">
+
+                <div id="etapaemail">
+                    <img src="../static/images/promocional/banner_senha.png" class="imglogin">
+
+                    <label class="form-label" for="emailrecuperacao">E-MAIL</label>
+                    <input class="inputform" type="email" id="emailrecuperacao" name="email" required placeholder="Insira seu e-mail" >
+                    <button class="btnform" type="button" id="enviarCodigo"> ENVIAR CÓDIGO </button>
+                </div>
+
+                <div id="etapacodigo" style="display: none;">
+                    <h1>CÓDIGO DE VERIFICAÇÃO</h1>
+                    <p>Enviamos um código de verificação para seu e-mail. Insira-o abaixo.</p>
+
+                    <label class="form-label" for="codigoVerif">CÓDIGO</label>
+                    <input class="inputform" type="text" id="codigoVerif" name="codigo" placeholder="Insira o código" >
+
+                    <button class="btnform" type="button" id="verificarCodigo">VERIFICAR CÓDIGO</button>
+                </div>
+
+                <div id="etapanovasenha" style="display: none;">
+                    <h1>NOVA SENHA</h1>
+                    <p>Crie uma nova senha para continuar sua experiência DripLab.</p>
+
+                    <label class="form-label" for="novaSenha">NOVA SENHA</label>
+                    <input class="inputform" type="password" id="novaSenha" name="novaSenha" required placeholder="Insira sua nova senha">
+
+                    <label class="form-label" for="confirmarNovaSenha">CONFIRMAR SENHA</label>
+                    <input class="inputform" type="password" id="confirmarNovaSenha" name="confirmarNovaSenha" required placeholder="Confirme sua nova senha">
+
+                    <button class="btnform" type="button" id="salvarNovaSenha">ALTERAR SENHA</button>
+
+                </div>
+
+                <a href="#" id="voltarLoginSenha">Voltar para o login</a>
+            </form>
+        </div>
+
+
+        <div id="areacadastro">
+            <form id="cadastro">
+                <img src="../static/images/promocional/banner_cadastro.png" class="imglogin">
+
+                <label class="form-label" for="nomeCadastro" >NOME</label>
+                <input class="inputform" type="text" name="nome" id="nomeCadastro" required placeholder="Insira seu Nome">
+
+                <label class="form-label" for="cpfCadastro" >CPF</label>
+                <input class="inputform" type="text" name="cpf" id="cpfCadastro" required placeholder="Insira seu CPF">
+
+                <label class="form-label" for="emailCadastro" >E-MAIL</label>
+                <input class="inputform" type="email" name="email" id="emailCadastro" required placeholder="Insira seu E-mail">
+
+                <label class="form-label" for="nascimentoCadastro">DATA DE NASCIMENTO</label>
+                <input class="inputform" type="date" id="nascimentoCadastro" name="nascimento" min="1900-01-01" max="2026-12-31" required>
+                
+                <label class="form-label" for="senhaCadastro">SENHA</label>
+                <input class="inputform" type="password" name="senha" id="senhaCadastro" required placeholder="Insira sua Senha">
+
+                <label class="form-label" for="confirmar-senha">CONFIRMAR SENHA</label>
+                <input class="inputform" type="password" name="confirmar-senha" id="confirmar-senha" required placeholder="Confirme sua Senha">
+                
+                <a href="#" id="voltarLoginCadastro"> Já tenho uma conta </a>
+                <button type="button" class="btnform" id="cadastrobtn">CADASTRAR</button>
+            </form>
+        </div>
+
     </div>
-
     <footer id="rodape">
         <h1>DRIP LAB</h1>
         <p>© 2026 DripLab. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        document.getElementById('cpf').addEventListener('input', function(e) {
+        var value = e.target.value;
+        var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+                                .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+                                .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+                                .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono dígito
+                                .replace(/(-\d{2})\d+?$/, '$1'); // Impede entrada de mais de 11 dígitos
+        e.target.value = cpfPattern;
+        });
+    </script>
 </body>
 </html>

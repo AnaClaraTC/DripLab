@@ -62,6 +62,12 @@
                     <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
                 </a>
             </li>
+
+            <li>
+                <a href="configuracoes.html">
+                    <img src="../static/images/icones_menu/configuracoes.png" alt="Configuracoes">
+                </a>
+            </li>
         </ul>
     </nav>
 
@@ -583,6 +589,23 @@
 
         });
     </script>
+
+    <script>
+        document.querySelectorAll("#dropslides .dropitem,#grade-destaques .item").forEach((item) => {
+            const link = document.createElement("a");
+            link.href = "produto.html";
+
+            const linkExistente = item.querySelector(":scope > a");
+            if (linkExistente) {
+                link.append(...linkExistente.childNodes);
+                linkExistente.remove();
+            }
+
+            link.append(...item.childNodes);
+            item.append(link);
+        });
+    </script>
+
     <script src="../static/js/paginacao.js" defer></script>
     
 </body>
