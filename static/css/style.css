@@ -61,6 +61,53 @@
     }
 }
 
+@media (max-width: 600px) {
+    #modallocal .linhalocal {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    #contcarrinho #carrinhobox {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #contcarrinho #carrinholista,
+    #contcarrinho #resumocarrinho {
+        flex: none;
+        width: 100%;
+    }
+
+    #contcarrinho #resumocarrinho {
+        position: static;
+    }
+}
+
+@media (max-width: 600px) {
+    #contcarrinho #titulocarrinho {
+        font-size: 26px;
+    }
+
+    #contcarrinho .itemcarrinho {
+        grid-template-columns: 80px 1fr auto;
+        grid-template-areas:
+            "img info remover"
+            "img qtd  preco";
+        gap: 10px 14px;
+    }
+
+    #contcarrinho .itemcarrinho-img     { grid-area: img; }
+    #contcarrinho .itemcarrinho-info    { grid-area: info; }
+    #contcarrinho .itemcarrinho-remover { grid-area: remover; }
+    #contcarrinho .itemcarrinho-qtd     { grid-area: qtd; }
+
+    #contcarrinho .itemcarrinho-preco {
+        grid-area: preco;
+        width: auto;
+    }
+}
+
 /* =====================================================
    2. BASE
    ===================================================== */
@@ -1224,8 +1271,8 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 13px;
     line-height: 1.6;
-    color: #333;
-}
+    color: #333;}
+#produtodescricao::-webkit-scrollbar {display: none;}
 
 #adicionar-carrinho {
     width: 90%;
@@ -1329,65 +1376,14 @@ body {
     height:100%;
     min-height:400px;
     padding-bottom:40px;
-    background-color:#fff
+    background-color:#fff;
+    display:flex;
+    flex-direction:column;
 }
 
-/* =====================================================
-   COLE NA SEÇÃO 1 (MEDIA QUERIES), NO TOPO DO ARQUIVO
-   ===================================================== */
-
-@media (max-width: 900px) {
-    #contcarrinho #carrinhobox {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    #contcarrinho #carrinholista,
-    #contcarrinho #resumocarrinho {
-        flex: none;
-        width: 100%;
-    }
-
-    #contcarrinho #resumocarrinho {
-        position: static;
-    }
-}
-
-@media (max-width: 600px) {
-    #contcarrinho #titulocarrinho {
-        font-size: 26px;
-    }
-
-    #contcarrinho .itemcarrinho {
-        grid-template-columns: 80px 1fr auto;
-        grid-template-areas:
-            "img info remover"
-            "img qtd  preco";
-        gap: 10px 14px;
-    }
-
-    #contcarrinho .itemcarrinho-img     { grid-area: img; }
-    #contcarrinho .itemcarrinho-info    { grid-area: info; }
-    #contcarrinho .itemcarrinho-remover { grid-area: remover; }
-    #contcarrinho .itemcarrinho-qtd     { grid-area: qtd; }
-
-    #contcarrinho .itemcarrinho-preco {
-        grid-area: preco;
-        width: auto;
-    }
-}
-
-
-/* =====================================================
-   10. PÁGINA DO CARRINHO (cole no final do arquivo)
-   ===================================================== */
-
-#contcarrinho {
-    width: 100%;
-    min-height: 500px;
-    padding: 40px 0 60px;
-    font-family: 'Montserrat', sans-serif;
-    display:flex;}
+.imgcompra{
+    width: 1000px;
+    margin: 0 auto;}
 
 #compra{
     display:flex;
@@ -1505,6 +1501,7 @@ body {
     color: #fff;}
 
 .itemcarrinho-qtd .qtd {
+    font-family: 'Montserrat', sans-serif;
     min-width: 42px;
     text-align: center;
     font-size: 14px;
@@ -1536,13 +1533,15 @@ body {
 
 #recibo{
     width:35%;
-    height:100%;
+    height:800px;
     display:flex;
     flex-direction: column;
     align-items: center;
     background-color:#181818;
     border-radius:10px;
-}
+     position: sticky;
+    top: 20px;                 
+    align-self: flex-start;}
 
 #recibotitulo{
     font-family:'Montserrat',sans-serif;
@@ -1654,8 +1653,7 @@ body {
 #opcpagamento {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-}
+    gap: 8px;}
 
 .opcpagamento {
     position: relative;
@@ -1666,45 +1664,33 @@ body {
     border: 2px solid #333;
     border-radius: 5px;
     cursor: pointer;
-    transition: border-color 0.3s, background-color 0.3s, transform 0.3s ease;
-}
+    transition: border-color 0.3s, background-color 0.3s, transform 0.3s ease;}
 
 .opcpagamento input {
     position: absolute;
     opacity: 0;
     width: 0;
-    height: 0;
-}
+    height: 0;}
 
 .opcpagamento span {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     font-weight: 600;
-    color: #fff;
-}
+    color: #fff;}
 
 .opcpagamento:hover {
     transform: translateY(-2px);
-    border-color: rgb(123, 44, 191);
-}
+    border-color: rgb(123, 44, 191);}
 
 .opcpagamento:has(input:checked) {
     border-color: rgb(123, 44, 191);
-    background-color: rgb(123, 44, 191);
-}
-.opcpagamento:has(input:checked) span {
-    color: #fff;
-}
-
-.opcpagamento:has(input:focus-visible) {
-    box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);
-}
+    background-color: rgb(123, 44, 191);}
+.opcpagamento:has(input:checked) span {color: #fff;}
+.opcpagamento:has(input:focus-visible) {box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);}
 
 /* ---------- Modal ---------- */
 
-dialog {
-    margin: auto;
-}
+dialog {margin: auto;}
 
 #modalpagamento {
     width: 90%;
@@ -1714,20 +1700,16 @@ dialog {
     border-radius: 10px;
     background-color: #fff;
     font-family: 'Montserrat', sans-serif;
-    color: #181818;
-}
+    color: #181818;}
 
-#modalpagamento::backdrop {
-    background-color: rgba(24, 24, 24, 0.7);
-}
+#modalpagamento::backdrop {background-color: rgba(24, 24, 24, 0.7);}
 
 .conteudomodal {
     position: relative;
     padding: 32px 28px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-}
+    gap: 8px;}
 
 #fecharmodal {
     position: absolute;
@@ -1741,35 +1723,28 @@ dialog {
     line-height: 1;
     color: #181818;
     cursor: pointer;
-    transition: color 0.3s ease;
-}
-#fecharmodal:hover {
-    color: #FF5A1F;
-}
+    transition: color 0.3s ease;}
+#fecharmodal:hover {color: #FF5A1F;}
 
 #titulomodal {
     font-size: 28px;
-    font-weight: 700;
-}
+    font-weight: 700;}
 
 #valormodal {
     margin-bottom: 12px;
     font-size: 16px;
-    font-weight: 500;
-}
+    font-weight: 500;}
 
 /* Campos (cartão e Pix) */
 #modalpagamento form,
 #areapix {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-}
+    gap: 6px;}
 
 #modalpagamento label {
     font-size: 14px;
-    font-weight: 600;
-}
+    font-weight: 600;}
 
 #modalpagamento input,
 #modalpagamento select {
@@ -1785,19 +1760,16 @@ dialog {
     font-size: 14px;
     font-weight: 500;
     color: #181818;
-    transition: border-color 0.4s, box-shadow 0.4s;
-}
+    transition: border-color 0.4s, box-shadow 0.4s;}
 #modalpagamento input:focus,
 #modalpagamento select:focus {
     border-color: rgb(123, 44, 191);
-    box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);
-}
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);}
 
 .linhacartao {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
-}
+    gap: 14px;}
 
 /* Botões do modal */
 .btnmodal {
@@ -1811,28 +1783,17 @@ dialog {
     font-weight: 700;
     color: #fff;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.btnmodal:hover {
-    transform: translateY(-3px);
-}
+    transition: transform 0.3s ease, box-shadow 0.3s ease;}
+.btnmodal:hover {transform: translateY(-3px);}
+.btnpagar {background-color: #FF5A1F;}
+.btnpagar:hover {box-shadow: 0 8px 20px rgba(255, 90, 31, 0.35);}
 
-.btnpagar {
-    background-color: #FF5A1F;
-}
-.btnpagar:hover {
-    box-shadow: 0 8px 20px rgba(255, 90, 31, 0.35);
-}
-
-.btncopiar {
-    background-color: rgb(123, 44, 191);
-}
+.btncopiar {background-color: rgb(123, 44, 191);}
 
 /* Pix */
 #areapix {
     align-items: center;
-    text-align: center;
-}
+    text-align: center;}
 
 #qrpix {
     width: 200px;
@@ -1844,19 +1805,204 @@ dialog {
     background-color: #D9D9D9;
     border-radius: 10px;
     font-weight: 700;
-    color: #181818;
-}
+    color: #181818;}
 
 #areapix p {
     font-size: 14px;
-    font-weight: 500;
-}
+    font-weight: 500;}
 
-#codigopix {
-    text-align: center;
-}
-
+#codigopix {text-align: center;}
 .avisopix {
     margin-top: 8px;
+    opacity: 0.6;}
+
+#semlocais {
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
     opacity: 0.6;
-}
+    text-align: center;}
+
+/* Rolável, mas sem barra */
+#listalocais {
+    width: 100%;
+    max-height: 230px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 4px;
+    margin-bottom: 14px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;}
+#listalocais::-webkit-scrollbar {display: none;}
+
+/* Cada local (seletores com #entrega para vencer o "#entrega label/input" antigo) */
+#entrega .opclocal {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 0;
+    padding: 14px 16px;
+    background-color: transparent;
+    border: 2px dotted #D9D9D9;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease,
+                border-color 0.3s ease,
+                transform 0.3s ease;}
+
+/* Esconde a bolinha do radio (continua funcionando e acessível) */
+#entrega .opclocal input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;}
+
+#entrega .opclocal:hover {
+    transform: translateY(-2px);
+    border-color: rgb(123, 44, 191);}
+
+/* Selecionado: bloco roxo */
+#entrega .opclocal:has(input:checked) {
+    background-color: rgb(123, 44, 191);
+    border-color: rgb(123, 44, 191);}
+#entrega .opclocal:has(input:focus-visible) {box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);}
+
+.opclocal-nome {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;}
+
+.opclocal-end {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;}
+
+.opclocal-cidade {
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    opacity: 0.7;}
+
+/* Botão "+ ADICIONAR NOVO LOCAL" */
+#abrirmodallocal {
+    width: 100%;
+    height: 40px;
+    background-color: rgb(123, 44, 191);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease;}
+#abrirmodallocal:hover {transform: scale(1.05);}
+
+
+/* ---------- Modal de novo local ---------- */
+
+#modallocal {
+    width: 90%;
+    max-width: 480px;
+    max-height: 90vh;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    color: #181818;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;}
+#modallocal::-webkit-scrollbar {display: none;}
+#modallocal::backdrop {background-color: rgba(24, 24, 24, 0.7)}
+
+#fecharmodallocal {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: #181818;
+    cursor: pointer;
+    transition: color 0.3s ease;}
+#fecharmodallocal:hover {color: #FF5A1F;}
+
+#titulomodallocal {
+    font-size: 28px;
+    font-weight: 700;}
+
+#modallocal .textomodal {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.6;}
+
+#formlocal {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;}
+
+#formlocal label {
+    font-size: 14px;
+    font-weight: 600;}
+
+/* Inputs no estilo da página de cadastro (.inputform) */
+#formlocal input {
+    width: 100%;
+    height: 44px;
+    margin-bottom: 8px;
+    padding: 14px;
+    background-color: transparent;
+    border: 2px solid #181818;
+    border-radius: 10px;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #181818;
+    text-align: center;
+    transition: border-color 0.4s, box-shadow 0.4s;}
+#formlocal input:focus {
+    border-color: rgb(123, 44, 191);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);}
+
+/* Link "Não sei meu CEP" */
+#formlocal .linkcep {
+    align-self: flex-start;
+    margin-top: -4px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #181818;
+    opacity: 0.6;
+    transition: color 0.3s ease, opacity 0.3s ease;}
+#formlocal .linkcep:hover {
+    color: rgb(123, 44, 191);
+    opacity: 1;}
+
+.linhalocal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;}
+
+/* Botão salvar */
+.btnsalvar {background-color: rgb(123, 44, 191);}
+.btnsalvar:hover {
+    box-shadow: 0 8px 20px rgba(123, 44, 191, 0.35);}
+

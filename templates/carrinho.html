@@ -75,6 +75,8 @@
 
     <div id="contcarrinho">
 
+        <img src="../static/images/promocional/banner_carrinho.png" class="imgcompra">
+
         <form id="compra">
 
         <div id="carrinho-layout">
@@ -375,32 +377,33 @@
 
                     <section id="entrega">
                         <h2>LOCAL DE ENTREGA</h2>
-
-                        <label for="cep">CEP</label> 
-                        <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" required>
-
-                        <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank">
-                            Não sei meu CEP
-                        </a>
-
-                        <label for="estado">Estado</label>
-                        <input type="text" id="estado" name="estado" placeholder="Ex.: RJ" required>
-
-                        <label for="cidade">Cidade</label>
-                        <input type="text" id="cidade" name="cidade" placeholder="Digite sua cidade" required>
-
-                        <label for="bairro">Bairro</label>
-                        <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro" required>
-
-                        <label for="rua">Rua / Avenida</label>
-                        <input type="text" id="rua" name="rua" placeholder="Digite o nome da rua" required>
-
-                        <label for="numero">Número</label>
-                        <input type="text" id="numero" name="numero" placeholder="Nº da residência" required>
-
-                        <label for="complemento">Complemento (opcional)</label>
-                        <input type="text" id="complemento" name="complemento" placeholder="Apartamento, bloco, casa...">
+                    
+                        <p id="semlocais" hidden>Você ainda não tem locais salvos.</p>
+                    
+                        <!-- Locais salvos do cadastro.
+                            Hoje são exemplos fixos; a Ana vai gerar estas <label> a partir do banco.
+                            O value do radio deve ser o ID do local no banco. -->
+                        <div id="listalocais">
+                    
+                            <label class="opclocal">
+                                <input type="radio" name="local" value="1" checked required>
+                                <span class="opclocal-nome">CASA</span>
+                                <span class="opclocal-end">Rua Exemplo, 123 - Apto 4</span>
+                                <span class="opclocal-cidade">Bairro · Cidade - UF · 00000-000</span>
+                            </label>
+                    
+                            <label class="opclocal">
+                                <input type="radio" name="local" value="2" required>
+                                <span class="opclocal-nome">TRABALHO</span>
+                                <span class="opclocal-end">Avenida Exemplo, 456</span>
+                                <span class="opclocal-cidade">Bairro · Cidade - UF · 00000-000</span>
+                            </label>
+                    
+                        </div>
+                    
+                        <button type="button" id="abrirmodallocal">+ ADICIONAR NOVO LOCAL</button>
                     </section>
+ 
 
                     <section id="resumovalores">
 
@@ -505,6 +508,62 @@
                 
                     </div>
                 </dialog>
+
+                <dialog id="modallocal" class="modal" aria-labelledby="titulomodallocal">
+                    <div class="conteudomodal">
+                
+                        <button type="button" id="fecharmodallocal" class="fecharmodal" aria-label="Fechar">&times;</button>
+                
+                        <h2 id="titulomodallocal" class="titulomodal">NOVO LOCAL</h2>
+                        <p class="textomodal">Salve um endereço para usar nos próximos pedidos.</p>
+                
+                        <form id="formlocal">
+                            <label for="nomelocal">Nome do local</label>
+                            <input type="text" id="nomelocal" name="nomelocal" placeholder="Ex.: Casa, Trabalho" maxlength="30" required>
+                
+                            <label for="cep">CEP</label>
+                            <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9"
+                                inputmode="numeric" autocomplete="postal-code" required>
+                            <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+                            target="_blank" rel="noopener" class="linkcep">Não sei meu CEP</a>
+                
+                            <div class="linhalocal">
+                                <div>
+                                    <label for="estado">Estado</label>
+                                    <input type="text" id="estado" name="estado" placeholder="Ex.: RJ"
+                                        autocomplete="address-level1" required>
+                                </div>
+                                <div>
+                                    <label for="cidade">Cidade</label>
+                                    <input type="text" id="cidade" name="cidade" placeholder="Digite sua cidade"
+                                        autocomplete="address-level2" required>
+                                </div>
+                            </div>
+                
+                            <label for="bairro">Bairro</label>
+                            <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro" required>
+                
+                            <label for="rua">Rua / Avenida</label>
+                            <input type="text" id="rua" name="rua" placeholder="Digite o nome da rua"
+                                autocomplete="address-line1" required>
+                
+                            <div class="linhalocal">
+                                <div>
+                                    <label for="numero">Número</label>
+                                    <input type="text" id="numero" name="numero" placeholder="Nº" required>
+                                </div>
+                                <div>
+                                    <label for="complemento">Complemento (opcional)</label>
+                                    <input type="text" id="complemento" name="complemento"
+                                        placeholder="Apartamento, bloco, casa..." autocomplete="address-line2">
+                                </div>
+                            </div>
+                
+                            <button type="submit" class="btnmodal btnsalvar">SALVAR LOCAL</button>
+                        </form>
+                
+                    </div>
+                </dialog>
  
         </div><!--Fim do carrinho-layout-->
     </div><!--Fim do contcarrinho-->
@@ -606,5 +665,80 @@
             setTimeout(() => (botao.textContent = "COPIAR CÓDIGO"), 2000);
         });
     </script>
+
+    <script>
+    const modalLocal = document.getElementById("modallocal");
+    const formLocal = document.getElementById("formlocal");
+    const listaLocais = document.getElementById("listalocais");
+    const semLocais = document.getElementById("semlocais");
+ 
+    // Mostra a mensagem só quando não há nenhum local na lista
+    const atualizarListaVazia = () => {
+        semLocais.hidden = listaLocais.children.length > 0;
+    };
+ 
+    // Monta a opção com textContent (nunca innerHTML), para dados do usuário não virarem HTML
+    function criarOpcaoLocal(id, dados) {
+        const opcao = document.createElement("label");
+        opcao.className = "opclocal";
+ 
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "local";
+        radio.value = id;
+        radio.required = true;
+ 
+        const nome = document.createElement("span");
+        nome.className = "opclocal-nome";
+        nome.textContent = dados.nomelocal.toUpperCase();
+ 
+        const endereco = document.createElement("span");
+        endereco.className = "opclocal-end";
+        endereco.textContent = dados.rua + ", " + dados.numero +
+            (dados.complemento ? " - " + dados.complemento : "");
+ 
+        const cidade = document.createElement("span");
+        cidade.className = "opclocal-cidade";
+        cidade.textContent = dados.bairro + " · " + dados.cidade + " - " +
+            dados.estado.toUpperCase() + " · " + dados.cep;
+ 
+        opcao.append(radio, nome, endereco, cidade);
+        return opcao;
+    }
+ 
+    // Abrir e fechar o modal
+    document.getElementById("abrirmodallocal").addEventListener("click", () => {
+        formLocal.reset();
+        modalLocal.showModal();
+    });
+ 
+    document.getElementById("fecharmodallocal").addEventListener("click", () => modalLocal.close());
+    modalLocal.addEventListener("click", (evento) => {
+        if (evento.target === modalLocal) modalLocal.close();
+    });
+ 
+    // Salvar o novo local
+    formLocal.addEventListener("submit", (evento) => {
+        evento.preventDefault();
+ 
+        // Chaves: nomelocal, cep, estado, cidade, bairro, rua, numero, complemento
+        const dados = Object.fromEntries(new FormData(formLocal));
+ 
+        // TODO (Ana): enviar ao back-end e usar o ID que ele devolver, por exemplo:
+        // fetch("/api/locais", { method: "POST", body: new FormData(formLocal) })
+        //     .then((resposta) => resposta.json())
+        //     .then(({ id }) => { ...criar a opção com esse id... });
+        const id = "novo-" + Date.now(); // provisório, só para testar a tela
+ 
+        const opcao = criarOpcaoLocal(id, dados);
+        listaLocais.append(opcao);
+        opcao.querySelector("input").checked = true; // já deixa o novo local selecionado
+ 
+        atualizarListaVazia();
+        modalLocal.close();
+    });
+ 
+    atualizarListaVazia();
+</script>
 </body>
 </html>

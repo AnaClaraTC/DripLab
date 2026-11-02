@@ -150,6 +150,32 @@
                 <label class="form-label" for="telefoneCadastro" >TELEFONE</label>
                 <input class="inputform" type="tel" name="telefone" id="telefoneCadastro" required placeholder="+XX (XX) XXXXX-XXXX">
 
+                <label class="form-label" for="nomelocal">NOME DO LOCAL</label>
+                <input class="inputform" type="text" id="nomelocal" name="nomelocal" placeholder="Escolha o local padrão de entrega (ex.: Casa, Trabalho)" maxlength="30" required>
+
+                <label class="form-label" for="cep">CEP</label>
+                <input class="inputform" type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" inputmode="numeric" autocomplete="postal-code" required>
+                <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank" rel="noopener" class="linkcep">Não sei meu CEP</a>
+
+                <label class="form-label" for="estado">ESTADO</label>
+                <input class="inputform" type="text" id="estado" name="estado" placeholder="Ex.: RJ" autocomplete="address-level1" required>
+                       
+                <label class="form-label" for="cidade">CIDADE</label>
+                <input class="inputform" type="text" id="cidade" name="cidade" placeholder="Digite sua cidade" autocomplete="address-level2" required>
+                     
+
+                <label class="form-label" for="bairro">BAIRRO</label>
+                <input class="inputform" type="text" id="bairro" name="bairro" placeholder="Digite seu bairro" required>
+
+                <label class="form-label" for="rua">RUA / AVENIDA</label>
+                <input class="inputform" type="text" id="rua" name="rua" placeholder="Digite o nome da rua" autocomplete="address-line1" required>
+
+                <label class="form-label" for="numero">NÚMERO</label>
+                <input class="inputform" type="text" id="numero" name="numero" placeholder="Nº" required>
+                     
+                <label class="form-label" for="complemento">COMPLEMENTO (OPCIONAL)</label>
+                <input class="inputform" type="text" id="complemento" name="complemento" placeholder="Apartamento, bloco, casa..." autocomplete="address-line2">
+
                 <label class="form-label" for="nascimentoCadastro">DATA DE NASCIMENTO</label>
                 <input class="inputform" type="date" id="nascimentoCadastro" name="nascimento" min="1900-01-01" max="2026-12-31" required>
                 
