@@ -147,6 +147,9 @@
                 <label class="form-label" for="emailCadastro" >E-MAIL</label>
                 <input class="inputform" type="email" name="email" id="emailCadastro" required placeholder="Insira seu E-mail">
 
+                <label class="form-label" for="telefoneCadastro" >TELEFONE</label>
+                <input class="inputform" type="tel" name="telefone" id="telefoneCadastro" required placeholder="+XX (XX) XXXXX-XXXX">
+
                 <label class="form-label" for="nascimentoCadastro">DATA DE NASCIMENTO</label>
                 <input class="inputform" type="date" id="nascimentoCadastro" name="nascimento" min="1900-01-01" max="2026-12-31" required>
                 
@@ -176,6 +179,22 @@
                                 .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono dígito
                                 .replace(/(-\d{2})\d+?$/, '$1'); // Impede entrada de mais de 11 dígitos
         e.target.value = cpfPattern;
+        });
+    </script>
+    <script>
+        const telefoneCadastro = document.getElementById('telefoneCadastro');
+
+        telefoneCadastro.addEventListener('input', function () {
+            const digits = this.value.replace(/\D/g, '').slice(0, 13);
+            let formatted = '';
+
+            if (digits.length > 0) formatted = '+' + digits.slice(0, 2);
+            if (digits.length > 2) formatted += ' (' + digits.slice(2, 4);
+            if (digits.length > 4) formatted += ') ' + digits.slice(4, 9);
+            if (digits.length > 9) formatted += '-' + digits.slice(9, 13);
+
+            this.value = formatted;
+            this.setCustomValidity(digits.length === 13 ? '' : 'Informe o telefone no formato +XX (XX) XXXXX-XXXX.');
         });
     </script>
 </body>

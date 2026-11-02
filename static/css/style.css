@@ -50,6 +50,17 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
+
+@media (max-width: 600px) {
+    #modalpagamento .conteudomodal {
+        padding: 28px 18px;
+    }
+
+    #modalpagamento .linhacartao {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* =====================================================
    2. BASE
    ===================================================== */
@@ -1239,64 +1250,38 @@ body {
     transform: translateY(-3px);}
 
 #produtoinfo #grupotamroupa {
+    width: 100%;            /* anula o width: 20% da loja */
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: 15px;}
 
-#grupotamroupa > label {
+#produtoinfo #grupotamroupa > label {
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     font-weight: 700;
     color: #181818;}
 
-#opctamanhoroupa {
+/* Todas as opções em uma única linha */
+#produtoinfo #opctamanhoroupa {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
     gap: 8px;}
 
-#opctamanhoroupa .opctamanho {
+/* Só o que muda em relação ao .opctamanho da loja */
+#produtoinfo #opctamanhoroupa .opctamanho {
+    position: relative;
     width: 55px;
     height: 40px;
     flex-shrink: 0;
-    box-sizing: border-box;
+    margin-left: 0;         /* anula o margin-left: 20px da loja */}
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border: 2px solid #333;
-    border-radius: 5px;
-    background-color: transparent;
-
-    cursor: pointer;
-    transition: all 0.3s ease;}
-
-
-#opctamanhoroupa .opctamanho input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;}
-
-#opctamanhoroupa .opctamanho span {
-    font-family: 'Montserrat', sans-serif;
+#produtoinfo #opctamanhoroupa .opctamanho span {
+    font-family:'Montserrat', sans-serif;
     font-size: 14px;
-    font-weight: 600;
-    color: #181818;}
-
-
-#opctamanhoroupa .opctamanho:hover {
-    transform: translateY(-2px);
-    border-color: #7B2CBF;}
-
-
-#opctamanhoroupa .opctamanho:has(input:checked) {
-    border-color: #7B2CBF;
-    background-color: #7B2CBF;}
-#opctamanhoroupa .opctamanho:has(input:checked) span {color: #fff;}
+    font-weight: 600;}
 
 .secao-produtos {
     width: 90%;
@@ -1334,3 +1319,544 @@ body {
 
     padding: 10px 0 15px;
     box-sizing: border-box;}
+
+/* =====================================================
+   10.PÁGINA DE COMPRA
+   ===================================================== */
+
+#contcarrinho{
+    width:100%;
+    height:100%;
+    min-height:400px;
+    padding-bottom:40px;
+    background-color:#fff
+}
+
+/* =====================================================
+   COLE NA SEÇÃO 1 (MEDIA QUERIES), NO TOPO DO ARQUIVO
+   ===================================================== */
+
+@media (max-width: 900px) {
+    #contcarrinho #carrinhobox {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #contcarrinho #carrinholista,
+    #contcarrinho #resumocarrinho {
+        flex: none;
+        width: 100%;
+    }
+
+    #contcarrinho #resumocarrinho {
+        position: static;
+    }
+}
+
+@media (max-width: 600px) {
+    #contcarrinho #titulocarrinho {
+        font-size: 26px;
+    }
+
+    #contcarrinho .itemcarrinho {
+        grid-template-columns: 80px 1fr auto;
+        grid-template-areas:
+            "img info remover"
+            "img qtd  preco";
+        gap: 10px 14px;
+    }
+
+    #contcarrinho .itemcarrinho-img     { grid-area: img; }
+    #contcarrinho .itemcarrinho-info    { grid-area: info; }
+    #contcarrinho .itemcarrinho-remover { grid-area: remover; }
+    #contcarrinho .itemcarrinho-qtd     { grid-area: qtd; }
+
+    #contcarrinho .itemcarrinho-preco {
+        grid-area: preco;
+        width: auto;
+    }
+}
+
+
+/* =====================================================
+   10. PÁGINA DO CARRINHO (cole no final do arquivo)
+   ===================================================== */
+
+#contcarrinho {
+    width: 100%;
+    min-height: 500px;
+    padding: 40px 0 60px;
+    font-family: 'Montserrat', sans-serif;
+    display:flex;}
+
+#compra{
+    display:flex;
+    margin:0 auto;
+}
+#carrinho-layout {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;}
+
+#esqcompra{
+    width:65%;
+    height:100%;
+    display:flex;
+    flex-direction:column;}
+
+#titulocarrinho{
+    font-family: 'Montserrat',sans-serif;
+    font-size:34px;
+    font-weight:700;
+    color:#181818;
+    text-align:center;}
+
+#titulocarrinho span{
+    font-family: 'Montserrat',sans-serif;
+    font-size:20px;
+    opacity:0.6;}
+
+#listaprodutos{
+    width:100%;
+    height:930px;
+    display:flex;
+    flex-direction:column;
+    border: 2px dotted #D9D9D9;
+    border-radius: 10px;
+    gap:20px;
+    padding:20px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;}
+#listaprodutos::-webkit-scrollbar {display: none;}
+
+.itemcarrinho{
+    width:100%;
+    height:130px;
+    display:flex;
+    margin:0 auto;
+    padding:10px;
+    gap:20px;
+    border-radius: 8px;
+    align-items: center;
+    border-bottom: 2px dotted #D9D9D9;}
+
+.itemcarrinho-img{
+    width:120px;
+    height:100%;
+    padding:10px;
+    background-color:#D9D9D9;
+    border-radius: 8px;
+    cursor:pointer;}
+
+.itemcarrinho-img img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;}
+.itemcarrinho-img img:hover{transform: scale(1.05);}
+
+.itemcarrinho-info{
+    width:110px;
+    height:100%;
+    display:flex;
+    margin-right: 60px;
+    flex-direction:column;}
+
+.itemcarrinho-info h2{
+    font-family: 'Montserrat',sans-serif;
+    font-size:20px;
+    font-weight:700;
+    color:#181818;
+    text-align:center;}
+
+.itemcarrinho-info span{
+    font-family: 'Montserrat',sans-serif;
+    font-size:12px;
+    font-weight:700;
+    color:#181818;
+    opacity:0.6;
+    text-align:center;}
+
+.itemcarrinho-qtd {
+    display: flex;
+    align-items: center;
+    border: 2px solid rgba(24, 24, 24, 0.4);
+    border-radius: 5px;
+    overflow: hidden;}
+ 
+.itemcarrinho-qtd button {
+    width: 62px;
+    height: 32px;
+    background-color: transparent;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #181818;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;}
+
+.itemcarrinho-qtd button:hover {
+    background-color: rgb(123, 44, 191);
+    color: #fff;}
+
+.itemcarrinho-qtd .qtd {
+    min-width: 42px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #181818;}
+
+.preco{
+    font-family: 'Montserrat',sans-serif;
+    font-size:20px;
+    font-weight:700;
+    color:#181818;
+    text-align:center;
+    margin-left: 60px;}
+
+.remover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #FF5A1F;
+    border: none;
+    font-size:30px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.3s ease;}
+.remover:hover {transform: scale(1.1);}
+
+#recibo{
+    width:35%;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:#181818;
+    border-radius:10px;
+}
+
+#recibotitulo{
+    font-family:'Montserrat',sans-serif;
+    font-size:30px;
+    font-weight:700;
+    color:#fff;
+    margin-top:20px;
+    margin-bottom:20px;
+    border-bottom: 2px dotted #D9D9D9;}
+
+#entrega{
+    width:90%;
+    height:auto;
+    display:flex;
+    padding-bottom:20px;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 2px dotted #D9D9D9;}
+
+#entrega h2, #formapagamento h2{
+    font-family: 'Montsserrat',sans-serif;
+    font-size:20px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:10px;}
+
+#entrega label{
+    font-family: 'Montsserrat',sans-serif;
+    font-size:16px;
+    font-weight:600;
+    color:#fff;
+    margin-bottom:10px;}
+
+#entrega input{
+    width:90%;
+    height:30px;
+    border:none;
+    box-shadow: none;
+    border-radius:10px;
+    margin-bottom:10px;
+    font-family: 'Montsserrat',sans-serif;
+    font-size:14px;
+    text-align:center;}
+
+#entrega a{
+    font-family: 'Montsserrat',sans-serif;
+    font-size:14px;
+    font-weight:600;
+    color:#fff;
+    opacity: 0.6;
+    margin-bottom:10px;}
+
+#resumovalores{
+    width:90%;
+    height:auto;
+    display:flex;
+    margin-top:20px;
+    padding-bottom:20px;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 2px dotted #D9D9D9;}
+
+#resumovalores h2{
+    font-family: 'Montsserrat',sans-serif;
+    font-size:20px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:10px;}
+
+#resumovalores span{
+    font-family: 'Montsserrat',sans-serif;
+    font-size:18px;
+    font-weight:600;
+    color:#fff;}
+
+.linha-valor-total{
+    display: flex;
+    gap:10px;
+    margin-top: 20px;
+    font-family: 'Montsserrat',sans-serif;
+    font-size:20px;
+    font-weight:600;
+    color:#fff;
+}
+
+#confirmarcompra{
+    width: 300px;
+    height: 34px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    
+    border: none;
+    box-shadow: none;
+    border-radius: 10px;
+    font-family: 'Montserrat',sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background-color: rgb(123, 44, 191);}
+#confirmarcompra:hover{transform: scale(1.05);}
+
+/* ---------- Escolha da forma de pagamento (no recibo) ---------- */
+#formapagamento h2{margin-top:20px;}
+
+#opcpagamento {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.opcpagamento {
+    position: relative;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s, transform 0.3s ease;
+}
+
+.opcpagamento input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.opcpagamento span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.opcpagamento:hover {
+    transform: translateY(-2px);
+    border-color: rgb(123, 44, 191);
+}
+
+.opcpagamento:has(input:checked) {
+    border-color: rgb(123, 44, 191);
+    background-color: rgb(123, 44, 191);
+}
+.opcpagamento:has(input:checked) span {
+    color: #fff;
+}
+
+.opcpagamento:has(input:focus-visible) {
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);
+}
+
+/* ---------- Modal ---------- */
+
+dialog {
+    margin: auto;
+}
+
+#modalpagamento {
+    width: 90%;
+    max-width: 480px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    color: #181818;
+}
+
+#modalpagamento::backdrop {
+    background-color: rgba(24, 24, 24, 0.7);
+}
+
+.conteudomodal {
+    position: relative;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#fecharmodal {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: #181818;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+#fecharmodal:hover {
+    color: #FF5A1F;
+}
+
+#titulomodal {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+#valormodal {
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Campos (cartão e Pix) */
+#modalpagamento form,
+#areapix {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#modalpagamento label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#modalpagamento input,
+#modalpagamento select {
+    width: 100%;
+    height: 44px;
+    margin-bottom: 8px;
+    padding: 0 14px;
+    background-color: transparent;
+    border: 2px solid #181818;
+    border-radius: 10px;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #181818;
+    transition: border-color 0.4s, box-shadow 0.4s;
+}
+#modalpagamento input:focus,
+#modalpagamento select:focus {
+    border-color: rgb(123, 44, 191);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);
+}
+
+.linhacartao {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+/* Botões do modal */
+.btnmodal {
+    width: 100%;
+    height: 50px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btnmodal:hover {
+    transform: translateY(-3px);
+}
+
+.btnpagar {
+    background-color: #FF5A1F;
+}
+.btnpagar:hover {
+    box-shadow: 0 8px 20px rgba(255, 90, 31, 0.35);
+}
+
+.btncopiar {
+    background-color: rgb(123, 44, 191);
+}
+
+/* Pix */
+#areapix {
+    align-items: center;
+    text-align: center;
+}
+
+#qrpix {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    font-weight: 700;
+    color: #181818;
+}
+
+#areapix p {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#codigopix {
+    text-align: center;
+}
+
+.avisopix {
+    margin-top: 8px;
+    opacity: 0.6;
+}
