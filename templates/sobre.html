@@ -35,47 +35,55 @@
     </script>
     <!--Fim do código-->
 
-    <div class="contmenugeral">
-        <!--Menu do Site-->
-        <nav id="menugeral">
-            <h1><a href="index.html">DRIP LAB</a></h1>
-            <ul id="base">
-                <li><a href="index.html">Início</a></li>
-                <li><a href="jogar.html">Jogar</a></li>
-                <li><a href="loja.html">Loja</a></li>
-                <li><a href="sobre.html">Sobre Nós</a></li>
-            </ul>
+  
+    <!--Menu do Site-->
+    <nav id="menugeral">
+        <h1><a href="index.html">DRIP LAB</a></h1>
+        <ul id="base">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="jogar.html">Jogar</a></li>
+            <li><a href="loja.html">Loja</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+        </ul>
 
-            <ul id="conta">
-                <li class="perfil">
-                    <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
-                        <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
-                    </button>
+        <ul id="conta">
+            <li class="perfil">
+                <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                    <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                </button>
 
-                    <div id="menuextra" class="menuextra">
-                        <ul id="loginfo">
-                            <li><a href="login.html">CADASTRAR/LOGAR</a></li>
-                            <li><button type="button">DESCONECTAR</button></li>
-                        </ul>
-                    </div>
-                </li>
+                <div id="menuextra" class="menuextra">
+                    <ul id="loginfo">
+                        <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                        <li><a href="perfil.html">ACESSAR PERFIL</a></li>
+                        <li><button type="button">DESCONECTAR</button></li>
+                    </ul>
+                </div>
+            </li>
 
-                <li>
-                    <a href="carrinho.html">
-                        <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
-                    </a>
-                </li>
+            <li>
+                <a href="carrinho.html">
+                    <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                </a>
+            </li>
 
-                <li>
-                    <a href="configuracoes.html">
-                        <img src="../static/images/icones_menu/configuracoes.png" alt="Configuracoes">
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+
+        </ul>
+    </nav>
 
     <div id="sobrecont">
+
+        <div class="sobrecontainer">
+
+            <div id="sobretitulo">
+                <h2>NÃO É <br>SÓ SOBRE ROUPA</h2>
+                <h3><em>SOBRE O QUE VOCÊ REPRESENTA.</em></h3>
+            </div>
+
+            <div id="sobremascote">
+                <img src="../static/images/promocional/icone_mascote.png">
+            </div>
+        </div>
 
         <div class="sobrecontainer">
 
@@ -95,11 +103,59 @@
             </div>
         </div>
 
+        <div id="divtopicos">
 
+            <div class="cartasobre">
+                <div class="cartaimg">
+                    <img src="../static/images/promocional/icone_comunidade.png">
+                </div>
+
+                <div class="cartatexto">
+                    <p id="textocomunidade">Moda urbana com personalidade, peças marcantes e coleções que fogem 
+                        do óbvio. Vista o que representa você, não o que esperam de você.</p>
+                </div>
+            </div>
+
+            <div class="cartasobre">
+                <div class="cartaimg">
+                    <img src="../static/images/promocional/icone_gamificacao.png">
+                </div>
+
+                <div class="cartatexto">
+                    <p >Exploramos o universo dos games com desafios, 
+                        interações e recompensas que conectam o mundo da moda ao digital.</p>
+                </div>
+            </div>
+
+            <div class="cartasobre">
+                <div class="cartaimg">
+                    <img src="../static/images/promocional/icone_streetwear.png">
+                </div>
+
+                <div class="cartatexto">
+                    <p id="textostreet">Moda urbana com personalidade, peças marcantes e coleções que fogem 
+                        do óbvio. Vista o que representa você, não o que esperam de você.</p>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div id="jogosobre">
+            <h2><em>SEU ESTILO. SUAS REGRAS.</em></h2>
+
+            <div id="btnsobre">
+                <button id="btnsobrejogo"><a href="jogar.html">JOGAR AGORA</a></button>
+                <button id="btnsobreloja"><a href="loja.html">EXPLORAR A LOJA</a></button>
+            </div>
+        </div>
+
+        <div id="imgbannersobre">
+            <img src="../static/images/promocional/banner_rodape.png">
+        </div>
 
 
     </div>
-
     <footer id="rodape">
         <h1>DRIP LAB</h1>
         <p>© 2026 DripLab. Todos os direitos reservados.</p>

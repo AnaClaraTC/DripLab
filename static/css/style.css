@@ -124,7 +124,7 @@ a {
 }
 
 body {
-    background-color: #D9D9D9;
+    background-color: #181818;
 }
 
 
@@ -132,20 +132,13 @@ body {
    3. MENU
    ===================================================== */
 
-.contmenugeral {
-    background-color: #fff;
-}
-
 #menugeral {
     width: 100%;
     height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(24, 24, 24);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
+    background-color: rgb(24, 24, 24);}
 
 #menugeral h1 {
     width: 20%;
@@ -264,9 +257,16 @@ body {
 
 #destaque {
     width: 100%;
-    height: 630px;
-    padding: 20px;
-    background-color: #D9D9D9;
+    min-height: 850px;
+    padding: 40px;
+    box-sizing: border-box;
+
+    background-image: url("../images/promocional/banner_index.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #181818;
+
     display: flex;
     align-items: flex-end;
 }
@@ -298,19 +298,19 @@ body {
     background-color: transparent;
     border: 3px solid rgb(123, 44, 191);
     transition: transform 0.3s ease,
-                background-color 0.3s ease,
-                color 0.3s ease;
+                background-color 0.3s ease;
+    color: #FFFFFF;
 }
 #btnloja:hover {
     transform: translateY(-5px);
     background-color: rgb(123, 44, 191);
-    color: #FFFFFF;
+    
 }
 
 #droptime {
     width: 450px;
     height: 180px;
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -326,6 +326,7 @@ body {
 #drop {
     width: 400px;
     height: 150px;
+    cursor: pointer;
     background-color: transparent;
     border: 3px solid rgb(123, 44, 191);
     border-radius: 10px;
@@ -361,7 +362,7 @@ body {
     margin-top: 4px;
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
-    color: #666666;
+    color: #181818;
 }
 
 /* ---------- Trapézios (drop anterior / próximo) ---------- */
@@ -2017,14 +2018,90 @@ dialog {margin: auto;}
    11.PÁGINA DE CONFIGURAÇÕES
    ===================================================== */
 
-#contconfig{
+#contperfil{
     width: 100%;
     height: 100%;
     min-height: 800px;    
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     background-color: #fff;
     padding-bottom: 40px;}
+
+#divmenuperfil{
+    width: 20%;
+    height: auto;
+}
+
+#menuperfil {
+    width: 60%;
+    height: auto;
+    background-color: #fff;
+    margin: 20px 0px 20px 7px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 2px solid #181818;
+
+    position: sticky; /*Fica fixo na tela*/
+    top: 20px;        /*Distância do topo da tela ao grudar */
+    align-self: flex-start; /*Sem isso o sticky não funciona */}
+
+#menuperfil ul {
+    list-style: none;
+    
+    width: 220px; 
+    padding: 10px;}
+
+#menuperfil li {
+    width: 100%;
+    border-radius: 8px;
+    
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 2.5;
+    display: flex;
+
+    align-items: center;
+    gap: 12px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap; /*Texto não quebra linha durante animação */}
+#menuperfil li:hover {
+    color: #fff;
+    background-color: rgb(123, 44, 191);}
+
+.opcperfil span{
+    text-align: center;
+}
+
+#MenuB img {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0; /*Impede a imagem de encolher quando a div fecha */
+    min-width: 28px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #imgconfig{
     width: 1000px;
@@ -2546,8 +2623,7 @@ dialog {margin: auto;}
     min-height: 800px;    
     display: flex;
     flex-direction: column;
-    background-color: #fff;
-    padding-bottom: 40px;}
+    background-color: #fff;}
 
 .sobrecontainer{
     width: 100%;
@@ -2555,6 +2631,29 @@ dialog {margin: auto;}
     display: flex;
     justify-content: space-between;
     align-items: center;}
+
+#sobretitulo{
+    width: 60%;
+    margin-left: 40px;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 800;}
+#sobretitulo h2{font-size: 100px;}
+#sobretitulo h3{font-size: 60px; color: rgb(123, 44, 191);}
+
+#sobremascote {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;}
+
+#sobremascote img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transform: translateX(50%);}
 
 #divbanner {
     background-color: #181818;
@@ -2586,5 +2685,131 @@ dialog {margin: auto;}
     font-family: 'Montserrat',sans-serif;
     font-size: 30px;
     font-weight: 700;}
-#textolaranja{color:#FF5A1F}
-#textoroxo{color:rgba(123, 44, 191)}
+#textolaranja{color:#FF5A1F;}
+#textoroxo{color:rgba(123, 44, 191);}
+
+#divtopicos{
+    width: 100%;
+    height: auto;
+    padding: 40px 0px 40px 0px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 5px;
+    align-items: center;}
+
+.cartasobre {
+    width: 400px;
+    height: 480px;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;}
+
+.cartaimg {
+    width: 100%;
+    height: 100%;}
+
+.cartaimg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;}
+
+.cartatexto {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    background-color: rgba(24, 24, 24, 0.90);
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+
+    opacity: 0;
+    transition: opacity 0.4s ease;}
+#textocomunidade{text-align: left;}
+#textostreet{text-align: right;}
+
+.cartasobre:hover .cartatexto {opacity: 1;}
+.cartasobre:hover .cartaimg img {transform: scale(1.05);}
+
+#imgbannersobre{
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin: 0 auto;}
+
+#imgbannersobre img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;}
+
+#jogosobre{
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+    padding: 40px 0px 40px 0px;
+    background-color: #181818;
+    display: flex;
+    flex-direction: column;}
+
+#jogosobre h2{
+    font-family: 'Montserrat',sans-serif;
+    font-size: 100px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 40px;}
+
+#btnsobre{
+    width: 60%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#btnsobrejogo {
+    width: 500px;
+    height: 150px;
+    background: linear-gradient(-110deg, #4A148C, #8A2BE2);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    color: #FFFFFF;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+#btnsobrejogo:hover {
+    transform: translateY(-5px);
+}
+
+#btnsobreloja {
+    width: 500px;
+    height: 100px;
+    margin-left: 20px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 3px solid #fff;
+    color: #fff;
+    transition: transform 0.3s ease, background-color 0.3s ease;}
+#btnsobreloja:hover {
+    transform: translateY(-5px);
+    background-color: rgb(123, 44, 191);}
