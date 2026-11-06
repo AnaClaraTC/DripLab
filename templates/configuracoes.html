@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Site - DripLab</title>
+
+    <!-- Adicionando a fonte Montserrat do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/autenticacao.js" defer></script>
+
+    
+</head>
+
+<body>
+
+    <!--Código do Áudio do Site-->
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    const music = document.getElementById("bg-music");
+
+    document.addEventListener("click", () => {
+        music.volume = 0.2; // bem baixo
+        music.play();
+    }, { once: true });
+    </script>
+    <!--Fim do código-->
+
+    <div class="contmenugeral">
+        <!--Menu do Site-->
+        <nav id="menugeral">
+            <h1><a href="index.html">DRIP LAB</a></h1>
+            <ul id="base">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="jogar.html">Jogar</a></li>
+                <li><a href="loja.html">Loja</a></li>
+                <li><a href="sobre.html">Sobre Nós</a></li>
+            </ul>
+
+            <ul id="conta">
+                <li class="perfil">
+                    <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                        <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                    </button>
+
+                    <div id="menuextra" class="menuextra">
+                        <ul id="loginfo">
+                            <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                            <li><button type="button">DESCONECTAR</button></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="carrinho.html">
+                        <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                    </a>
+                </li>
+
+                <li>
+                    <a href="configuracoes.html">
+                        <img src="../static/images/icones_menu/configuracoes.png" alt="Configuracoes">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="contconfig">
+        <img id="imgconfig" src="../static/images/promocional/banner_config.png">
+
+        <div id="divperfil">
+
+            <div class="tituloconfig">
+                <h2>[INFORMAÇÕES PESSOAIS]</h2>
+            </div>
+
+            <div id="gradeinfoperfil">
+
+                <div class="infoperfil">
+                    <label for="nomeperfil">NOME COMPLETO</label>
+                    <div class="valorperfil">
+                        <span id="nomeperfil">Gabriel Marques de Oliveira</span>
+                        <button type="button" class="editarperfil" data-campo="nome" aria-label="Editar nome completo">
+                            <img src="../static/images/icones_menu/editar.png" alt="">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="infoperfil">
+                    <label for="dataperfil">DATA DE NASCIMENTO</label>
+                    <div class="valorperfil">
+                        <span id="dataperfil">05.08.2008</span>
+                        <button type="button" class="editarperfil" data-campo="data" aria-label="Editar data de nascimento">
+                            <img src="../static/images/icones_menu/editar.png" alt="">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="infoperfil">
+                    <label for="cpfperfil">CPF</label>
+                    <div class="valorperfil" id="valorcpf">
+                        <span id="cpfperfil">000.000.000-00</span>
+                        <span class="dicaconfig">O CPF não pode ser alterado.</span>
+                    </div>
+                </div>
+
+                <div class="infoperfil">
+                    <label for="emailperfil">E-MAIL</label>
+                    <div class="valorperfil">
+                        <span id="emailperfil">gabrielmarquesdeoliveira@gmail.com</span>
+                        <button type="button" class="editarperfil" data-campo="email" aria-label="Editar e-mail">
+                            <img src="../static/images/icones_menu/editar.png" alt="">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="infoperfil">
+                    <label for="telefoneperfil">TELEFONE</label>
+                    <div class="valorperfil">
+                        <span id="telefoneperfil">+55 (21) 99999-9999</span>
+                        <button type="button" class="editarperfil" data-campo="telefone" aria-label="Editar telefone">
+                            <img src="../static/images/icones_menu/editar.png" alt="">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="infoperfil">
+                    <label>SENHA</label>
+
+                    <div class="valorperfil">
+                        <span id="senhaperfil">••••••••••</span>
+
+                        <a href="login.html#recuperar-senha"
+                        class="editarperfil"
+                        aria-label="Recuperar ou alterar senha">
+
+                            <img src="../static/images/icones_menu/editar.png" alt="">
+
+                        </a>
+                    </div>
+                </div>
+
+            </div><!--Fim da grade de informações -->
+        </div><!--Fim do bloco de perfil-->
+
+        <div id="divlocais">
+
+            <div class="tituloconfig">
+                <h2>[ADICIONAR OU EDITAR LOCAIS]</h2>
+            </div>
+
+            <!-- Locais já salvos (a lista é montada pelo JavaScript) -->
+            <h3 class="subtitulolocais">LOCAIS SALVOS</h3>
+            <p id="semlocaisconfig" hidden>Você ainda não tem locais salvos.</p>
+            <div id="listalocaisconfig"></div>
+
+            <!-- Novo local -->
+            <h3 class="subtitulolocais">ADICIONAR NOVO LOCAL</h3>
+
+            <form id="formnovolocal" novalidate>
+                <div id="gradenovolocal">
+
+                    <div class="infoperfil">
+                        <label for="novo-nomelocal">NOME DO LOCAL</label>
+                        <input class="inputlocalconfig" type="text" id="novo-nomelocal" name="nomelocal"
+                            placeholder="Ex.: Casa, Trabalho" maxlength="30">
+                    </div>
+
+                    <div class="infoperfil">
+                        <label for="novo-cep">CEP</label>
+                        <input class="inputlocalconfig campocep" type="text" id="novo-cep" name="cep"
+                            placeholder="00000-000" maxlength="9" inputmode="numeric" autocomplete="postal-code">
+                        <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+                        target="_blank" rel="noopener" class="linkcepconfig">Não sei meu CEP</a>
+                    </div>
+
+                    <div class="infoperfil">
+                        <label for="novo-estado">ESTADO</label>
+                        <input class="inputlocalconfig" type="text" id="novo-estado" name="estado"
+                            placeholder="Ex.: RJ" maxlength="2" autocomplete="address-level1">
+                    </div>
+
+                    <div class="infoperfil">
+                        <label for="novo-cidade">CIDADE</label>
+                        <input class="inputlocalconfig" type="text" id="novo-cidade" name="cidade"
+                            placeholder="Digite sua cidade" autocomplete="address-level2">
+                    </div>
+
+                    <div class="infoperfil">
+                        <label for="novo-bairro">BAIRRO</label>
+                        <input class="inputlocalconfig" type="text" id="novo-bairro" name="bairro"
+                            placeholder="Digite seu bairro">
+                    </div>
+
+                    <div class="infoperfil">
+                        <label for="novo-rua">RUA / AVENIDA</label>
+                        <input class="inputlocalconfig" type="text" id="novo-rua" name="rua"
+                            placeholder="Digite o nome da rua" autocomplete="address-line1">
+                    </div>
+
+                    <div class="infoperfil">
+                        <label for="novo-numero">NÚMERO</label>
+                        <input class="inputlocalconfig" type="text" id="novo-numero" name="numero" placeholder="Nº">
+                    </div>
+
+                    <div class="infoperfil">
+                        <label for="novo-complemento">COMPLEMENTO (OPCIONAL)</label>
+                        <input class="inputlocalconfig" type="text" id="novo-complemento" name="complemento"
+                            placeholder="Apartamento, bloco, casa..." autocomplete="address-line2">
+                    </div>
+
+                </div>
+
+                <p id="erronovolocal" class="erroform" role="alert" hidden></p>
+                <button type="submit" class="btnform" id="btnaddlocal">ADICIONAR LOCAL</button>
+            </form>
+
+        </div><!--Fim do bloco de locais-->
+
+        <div id="divdelete">
+
+            <div class="tituloconfig">
+                <h2>[DELETAR SUA CONTA]</h2>
+            </div>
+
+            <div class="infodelete">
+                <label for="emaildelete">E-MAIL</label>
+                <input class="inputdelete" type="email" name="email" id="emaildelete" required placeholder="Insira seu E-mail">
+            </div>
+
+            <div class="infodelete">
+                <label for="senhadelete">SENHA</label>
+                <input class="inputdelete" type="password" name="senha" id="senhadelete" required placeholder="Insira seu E-mail">
+            </div>
+
+            <button type="button" id="btndelete">DELETAR</button>
+        </div>
+    </div>
+
+
+    <dialog id="modalperfil" aria-labelledby="tituloperfilmodal">
+        <div class="conteudomodal">
+
+            <button type="button" id="fecharmodalperfil" aria-label="Fechar">&times;</button>
+
+            <h2 id="tituloperfilmodal"></h2>
+            <p id="textoperfilmodal"></p>
+
+            <form id="formperfil" novalidate>
+                <!-- Os campos são criados pelo JavaScript -->
+                <div id="camposperfil"></div>
+
+                <p id="erromodalperfil" role="alert" hidden></p>
+
+                <div class="acoesmodalperfil">
+                    <button type="button" class="btnmodal btncancelar" id="cancelarperfil">CANCELAR</button>
+                    <button type="submit" class="btnmodal btnsalvar" id="btnenviarperfil">SALVAR ALTERAÇÃO</button>
+                </div>
+            </form>
+
+        </div>
+    </dialog>
+
+    <dialog id="modallocalconfig" aria-labelledby="titulomodallocalconfig">
+        <div class="conteudomodal">
+
+            <button type="button" id="fecharmodallocalconfig" aria-label="Fechar">&times;</button>
+
+            <h2 id="titulomodallocalconfig">EDITAR LOCAL</h2>
+            <p id="textomodallocalconfig">Altere as informações do endereço.</p>
+
+            <form id="formeditarlocal" novalidate>
+                <label for="edit-nomelocal">Nome do local</label>
+                <input type="text" id="edit-nomelocal" name="nomelocal" placeholder="Ex.: Casa, Trabalho" maxlength="30">
+
+                <label for="edit-cep">CEP</label>
+                <input type="text" id="edit-cep" name="cep" class="campocep" placeholder="00000-000"
+                    maxlength="9" inputmode="numeric" autocomplete="postal-code">
+                <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+                target="_blank" rel="noopener" class="linkcepconfig">Não sei meu CEP</a>
+
+                <div class="linhalocal">
+                    <div>
+                        <label for="edit-estado">Estado</label>
+                        <input type="text" id="edit-estado" name="estado" placeholder="Ex.: RJ" maxlength="2"
+                            autocomplete="address-level1">
+                    </div>
+                    <div>
+                        <label for="edit-cidade">Cidade</label>
+                        <input type="text" id="edit-cidade" name="cidade" placeholder="Digite sua cidade"
+                            autocomplete="address-level2">
+                    </div>
+                </div>
+
+                <label for="edit-bairro">Bairro</label>
+                <input type="text" id="edit-bairro" name="bairro" placeholder="Digite seu bairro">
+
+                <label for="edit-rua">Rua / Avenida</label>
+                <input type="text" id="edit-rua" name="rua" placeholder="Digite o nome da rua" autocomplete="address-line1">
+
+                <div class="linhalocal">
+                    <div>
+                        <label for="edit-numero">Número</label>
+                        <input type="text" id="edit-numero" name="numero" placeholder="Nº">
+                    </div>
+                    <div>
+                        <label for="edit-complemento">Complemento (opcional)</label>
+                        <input type="text" id="edit-complemento" name="complemento" placeholder="Apartamento, bloco, casa..."
+                            autocomplete="address-line2">
+                    </div>
+                </div>
+
+                <p id="erroeditarlocal" class="erroform" role="alert" hidden></p>
+
+                <div class="acoesmodalperfil">
+                    <button type="button" class="btnmodal btncancelar" id="cancelareditarlocal">CANCELAR</button>
+                    <button type="submit" class="btnmodal btnsalvar" id="btnsalvareditar">SALVAR ALTERAÇÃO</button>
+                </div>
+            </form>
+
+        </div>
+    </dialog>
+
+    <footer id="rodape">
+        <h1>DRIP LAB</h1>
+        <p>© 2026 DripLab. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        (() => {
+            const modal      = document.getElementById("modalperfil");
+            const form       = document.getElementById("formperfil");
+            const titulo     = document.getElementById("tituloperfilmodal");
+            const texto      = document.getElementById("textoperfilmodal");
+            const area       = document.getElementById("camposperfil");
+            const erro       = document.getElementById("erromodalperfil");
+            const btnEnviar  = document.getElementById("btnenviarperfil");
+
+            let campoAtual = null;   // "nome", "data", "email" ou "telefone"
+            let etapa = 1;           // 1 = formulário, 2 = código de verificação
+            let dadosEtapa1 = {};
+
+            const soNumeros = (v) => v.replace(/\D/g, "");
+            const el = (id) => document.getElementById(id);
+
+            /* ---------- O que muda em cada edição ---------- */
+            const CONFIG = {
+                nome: {
+                    titulo: "ALTERAR NOME COMPLETO",
+                    texto: "Informe seu novo nome completo.",
+                    botao: "SALVAR ALTERAÇÃO",
+                    verificacao: false,
+                    alvo: "nomeperfil",
+                    campos: [{
+                        id: "novoNome", label: "Novo nome", type: "text",
+                        placeholder: "Digite seu nome completo", maxlength: 60, autocomplete: "name",
+                        atual: () => el("nomeperfil").textContent.trim()
+                    }],
+                    validar(v) {
+                        const n = v.novoNome.replace(/\s+/g, " ").trim();
+                        if (!n) return "Informe seu nome completo.";
+                        if (n.length < 3 || n.length > 60) return "O nome deve ter entre 3 e 60 caracteres.";
+                        if (!/^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/.test(n)) return "Use apenas letras, espaços, apóstrofo ou hífen.";
+                        if (n.split(" ").length < 2) return "Informe nome e sobrenome.";
+                        return "";
+                    },
+                    exibir: (v) => v.novoNome.replace(/\s+/g, " ").trim()
+                },
+
+                data: {
+                    titulo: "ALTERAR DATA DE NASCIMENTO",
+                    texto: "Selecione sua nova data de nascimento.",
+                    botao: "SALVAR ALTERAÇÃO",
+                    verificacao: false,
+                    alvo: "dataperfil",
+                    campos: [{
+                        id: "novaData", label: "Data de nascimento", type: "date",
+                        // exibida como 05.08.2008 -> o input date precisa de 2008-08-05
+                        atual: () => el("dataperfil").textContent.trim().split(".").reverse().join("-")
+                    }],
+                    validar(v) {
+                        if (!v.novaData) return "Selecione uma data.";
+                        const [a, m, d] = v.novaData.split("-").map(Number);
+                        const dt = new Date(a, m - 1, d);
+                        if (dt.getFullYear() !== a || dt.getMonth() !== m - 1 || dt.getDate() !== d)
+                            return "Essa data não existe.";
+                        if (a < 1900) return "Data anterior ao limite permitido.";
+                        if (dt > new Date()) return "A data não pode estar no futuro.";
+                        return "";
+                    },
+                    exibir: (v) => v.novaData.split("-").reverse().join(".")
+                },
+
+                email: {
+                    titulo: "ALTERAR E-MAIL",
+                    texto: "Informe o novo endereço de e-mail que deseja utilizar.",
+                    botao: "ENVIAR CÓDIGO DE VERIFICAÇÃO",
+                    verificacao: true,
+                    textoCodigo: "Enviamos um código de 6 dígitos para o novo e-mail. Insira-o abaixo.",
+                    alvo: "emailperfil",
+                    campos: [
+                        { id: "novoEmail",      label: "Novo e-mail",       type: "email",    placeholder: "Digite seu novo e-mail", autocomplete: "email" },
+                        { id: "confirmarEmail", label: "Confirmar e-mail",  type: "email",    placeholder: "Repita seu novo e-mail" },
+                        { id: "senhaAtual",     label: "Senha atual",       type: "password", placeholder: "Confirme sua senha atual", autocomplete: "current-password" }
+                    ],
+                    validar(v) {
+                        const novo = v.novoEmail.trim().toLowerCase();
+                        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novo)) return "Informe um e-mail válido.";
+                        if (novo !== v.confirmarEmail.trim().toLowerCase()) return "Os e-mails não coincidem.";
+                        if (novo === el("emailperfil").textContent.trim().toLowerCase()) return "Esse já é o seu e-mail atual.";
+                        if (!v.senhaAtual) return "Informe sua senha atual.";
+                        return "";
+                    },
+                    exibir: (v) => v.novoEmail.trim().toLowerCase()
+                },
+
+                telefone: {
+                    titulo: "ALTERAR TELEFONE",
+                    texto: "Informe seu novo número de telefone.",
+                    botao: "ENVIAR CÓDIGO POR SMS",
+                    verificacao: true,   // coloque false para a opção A (sem código)
+                    textoCodigo: "Enviamos um código de 6 dígitos por SMS para o novo número.",
+                    alvo: "telefoneperfil",
+                    campos: [{
+                        id: "novoTelefone", label: "Novo telefone", type: "tel",
+                        placeholder: "+XX (XX) XXXXX-XXXX", maxlength: 19, inputmode: "numeric",
+                        atual: () => el("telefoneperfil").textContent.trim()
+                    }],
+                    validar(v) {
+                        return soNumeros(v.novoTelefone).length === 13
+                            ? "" : "Informe o telefone no formato +XX (XX) XXXXX-XXXX.";
+                    },
+                    exibir: (v) => v.novoTelefone
+                }
+            };
+
+            // A opção A do telefone não precisa de código: o botão vira "SALVAR"
+            if (!CONFIG.telefone.verificacao) CONFIG.telefone.botao = "SALVAR ALTERAÇÃO";
+
+            /* ---------- Back-end (Ana) ---------- */
+            async function chamarServidor(acao, dados) {
+                // TODO (Ana): trocar por fetch real. Exemplos de ação:
+                //   "nome/salvar", "data/salvar",
+                //   "email/solicitar-codigo", "email/salvar" (com o código),
+                //   "telefone/solicitar-codigo", "telefone/salvar"
+                // O servidor DEVE validar tudo de novo (nunca confie só no JavaScript),
+                // conferir a senha atual, gerar/validar o código com prazo e limite de tentativas.
+                console.log("Enviar ao servidor:", acao, dados);
+                return { ok: true };
+            }
+
+            /* ---------- Montagem do modal ---------- */
+            function mostrarErro(msg) {
+                erro.textContent = msg;
+                erro.hidden = false;
+            }
+
+            function limparErro() {
+                erro.textContent = "";
+                erro.hidden = true;
+            }
+
+            function renderCampos(lista) {
+                area.replaceChildren();
+
+                lista.forEach((c) => {
+                    const label = document.createElement("label");
+                    label.htmlFor = c.id;
+                    label.textContent = c.label;
+
+                    const input = document.createElement("input");
+                    input.id = c.id;
+                    input.name = c.id;
+                    input.type = c.type;
+                    input.placeholder = c.placeholder || "";
+                    if (c.maxlength)     input.maxLength = c.maxlength;
+                    if (c.autocomplete)  input.autocomplete = c.autocomplete;
+                    if (c.inputmode)     input.inputMode = c.inputmode;
+                    if (c.atual)         input.value = c.atual();
+
+                    if (c.type === "date") {
+                        input.min = "1900-01-01";
+                        input.max = new Date().toLocaleDateString("sv-SE"); // hoje, AAAA-MM-DD
+                    }
+
+                    area.append(label, input);
+                });
+
+                area.querySelector("input").focus();
+            }
+
+            function abrir(campo) {
+                const cfg = CONFIG[campo];
+                campoAtual = campo;
+                etapa = 1;
+                dadosEtapa1 = {};
+
+                titulo.textContent = cfg.titulo;
+                texto.textContent = cfg.texto;
+                btnEnviar.textContent = cfg.botao;
+                limparErro();
+                renderCampos(cfg.campos);
+                modal.showModal();
+            }
+
+            function irParaEtapaCodigo(cfg) {
+                etapa = 2;
+                titulo.textContent = "CÓDIGO DE VERIFICAÇÃO";
+                texto.textContent = cfg.textoCodigo;
+                btnEnviar.textContent = "CONFIRMAR CÓDIGO";
+                limparErro();
+                renderCampos([{
+                    id: "codigo", label: "Código", type: "text",
+                    placeholder: "000000", maxlength: 6, inputmode: "numeric", autocomplete: "one-time-code"
+                }]);
+            }
+
+            /* ---------- Eventos ---------- */
+            document.querySelectorAll(".editarperfil[data-campo]").forEach((botao) => {
+                botao.addEventListener("click", () => abrir(botao.dataset.campo));
+            });
+
+            document.getElementById("fecharmodalperfil").addEventListener("click", () => modal.close());
+            document.getElementById("cancelarperfil").addEventListener("click", () => modal.close());
+            modal.addEventListener("click", (evento) => {
+                if (evento.target === modal) modal.close();
+            });
+
+            // Máscaras (telefone e código só com números)
+            area.addEventListener("input", (evento) => {
+                const campo = evento.target;
+
+                if (campo.id === "novoTelefone") {
+                    const d = soNumeros(campo.value).slice(0, 13);
+                    let f = "";
+                    if (d.length > 0) f = "+" + d.slice(0, 2);
+                    if (d.length > 2) f += " (" + d.slice(2, 4);
+                    if (d.length > 4) f += ") " + d.slice(4, 9);
+                    if (d.length > 9) f += "-" + d.slice(9, 13);
+                    campo.value = f;
+                }
+
+                if (campo.id === "codigo") {
+                    campo.value = soNumeros(campo.value).slice(0, 6);
+                }
+            });
+
+            form.addEventListener("submit", async (evento) => {
+                evento.preventDefault();
+                limparErro();
+
+                const cfg = CONFIG[campoAtual];
+                const valores = Object.fromEntries(new FormData(form));
+
+                try {
+                    if (etapa === 1) {
+                        const msg = cfg.validar(valores);
+                        if (msg) return mostrarErro(msg);
+
+                        dadosEtapa1 = valores;
+                        btnEnviar.disabled = true;
+
+                        if (cfg.verificacao) {
+                            const r = await chamarServidor(campoAtual + "/solicitar-codigo", valores);
+                            if (!r.ok) return mostrarErro(r.mensagem || "Não foi possível enviar o código.");
+                            irParaEtapaCodigo(cfg);
+                            return;
+                        }
+
+                        const r = await chamarServidor(campoAtual + "/salvar", valores);
+                        if (!r.ok) return mostrarErro(r.mensagem || "Não foi possível salvar.");
+                    } else {
+                        if (!/^\d{6}$/.test(valores.codigo || "")) return mostrarErro("O código tem 6 dígitos.");
+
+                        btnEnviar.disabled = true;
+                        const r = await chamarServidor(campoAtual + "/salvar", { ...dadosEtapa1, codigo: valores.codigo });
+                        if (!r.ok) return mostrarErro(r.mensagem || "Código inválido ou expirado.");
+                    }
+
+                    // Sucesso: atualiza o valor mostrado na página
+                    el(cfg.alvo).textContent = cfg.exibir(dadosEtapa1);
+                    modal.close();
+                } catch (err) {
+                    mostrarErro("Erro de conexão. Tente novamente.");
+                } finally {
+                    btnEnviar.disabled = false;
+                }
+            });
+
+            // Limpa tudo ao fechar (inclusive senha digitada)
+            modal.addEventListener("close", () => {
+                area.replaceChildren();
+                dadosEtapa1 = {};
+                campoAtual = null;
+                etapa = 1;
+                limparErro();
+            });
+        })();
+        </script>
+
+        <script>
+            (() => {
+                const el = (id) => document.getElementById(id);
+
+                const lista       = el("listalocaisconfig");
+                const semLocais   = el("semlocaisconfig");
+
+                const formNovo    = el("formnovolocal");
+                const erroNovo    = el("erronovolocal");
+                const btnAdd      = el("btnaddlocal");
+
+                const modal       = el("modallocalconfig");
+                const formEdit    = el("formeditarlocal");
+                const erroEdit    = el("erroeditarlocal");
+                const btnSalvar   = el("btnsalvareditar");
+
+                const CAMPOS = ["nomelocal", "cep", "estado", "cidade", "bairro", "rua", "numero", "complemento"];
+                const soNumeros = (v) => v.replace(/\D/g, "");
+
+                let idEditando = null;
+
+                // TODO (Ana): trocar este array pelo retorno do banco, por exemplo:
+                // fetch("/api/locais").then(r => r.json()).then(dados => { locais = dados; renderLista(); });
+                let locais = [
+                    { id: 1, nomelocal: "Casa", cep: "00000-000", estado: "RJ", cidade: "Cidade",
+                    bairro: "Bairro", rua: "Rua Exemplo", numero: "123", complemento: "Apto 4" },
+                    { id: 2, nomelocal: "Trabalho", cep: "00000-000", estado: "RJ", cidade: "Cidade",
+                    bairro: "Bairro", rua: "Avenida Exemplo", numero: "456", complemento: "" }
+                ];
+
+                /* ---------- Back-end (Ana) ---------- */
+                async function chamarServidor(acao, dados) {
+                    // TODO (Ana): trocar por fetch real. Ações usadas aqui:
+                    //   "local/adicionar" -> deve devolver { ok: true, id: <ID criado no banco> }
+                    //   "local/editar"    -> recebe o id do local junto com os campos
+                    // O servidor deve validar tudo de novo e conferir que o local pertence ao usuário logado.
+                    console.log("Enviar ao servidor:", acao, dados);
+                    return { ok: true, id: dados.id ?? "novo-" + Date.now() };
+                }
+
+                /* ---------- Utilidades ---------- */
+                function mostrarErro(paragrafo, msg) {
+                    paragrafo.textContent = msg;
+                    paragrafo.hidden = !msg;
+                }
+
+                // Tira espaços sobrando e padroniza a sigla do estado
+                function limparDados(bruto) {
+                    const dados = Object.fromEntries(
+                        CAMPOS.map((c) => [c, (bruto[c] || "").replace(/\s+/g, " ").trim()])
+                    );
+                    dados.estado = dados.estado.toUpperCase();
+                    return dados;
+                }
+
+                function validarLocal(d) {
+                    if (!d.nomelocal) return "Informe o nome do local.";
+                    if (d.nomelocal.length > 30) return "O nome do local pode ter no máximo 30 caracteres.";
+                    if (soNumeros(d.cep).length !== 8) return "Informe um CEP válido (00000-000).";
+                    if (!/^[A-Z]{2}$/.test(d.estado)) return "Informe a sigla do estado com 2 letras (ex.: RJ).";
+                    if (!d.cidade) return "Informe a cidade.";
+                    if (!d.bairro) return "Informe o bairro.";
+                    if (!d.rua) return "Informe a rua ou avenida.";
+                    if (!d.numero) return "Informe o número (ou S/N).";
+                    if (d.complemento.length > 60) return "O complemento pode ter no máximo 60 caracteres.";
+                    return "";
+                }
+
+                /* ---------- Lista de locais salvos ---------- */
+                function criarItem(local) {
+                    const item = document.createElement("div");
+                    item.className = "localconfig";
+                    item.dataset.id = local.id;
+
+                    const info = document.createElement("div");
+                    info.className = "localconfig-info";
+
+                    const nome = document.createElement("span");
+                    nome.className = "opclocal-nome";
+                    nome.textContent = local.nomelocal.toUpperCase();
+
+                    const endereco = document.createElement("span");
+                    endereco.className = "opclocal-end";
+                    endereco.textContent = local.rua + ", " + local.numero +
+                        (local.complemento ? " - " + local.complemento : "");
+
+                    const cidade = document.createElement("span");
+                    cidade.className = "opclocal-cidade";
+                    cidade.textContent = local.bairro + " · " + local.cidade + " - " +
+                        local.estado.toUpperCase() + " · " + local.cep;
+
+                    info.append(nome, endereco, cidade);
+
+                    const botao = document.createElement("button");
+                    botao.type = "button";
+                    botao.className = "editarperfil";
+                    botao.setAttribute("aria-label", "Editar local " + local.nomelocal);
+
+                    const icone = document.createElement("img");
+                    icone.src = "../static/images/icones_menu/editar.png";
+                    icone.alt = "";
+                    botao.append(icone);
+
+                    item.append(info, botao);
+                    return item;
+                }
+
+                function renderLista() {
+                    lista.replaceChildren(...locais.map(criarItem));
+                    semLocais.hidden = locais.length > 0;
+                }
+
+                /* ---------- Editar (abre o modal já preenchido) ---------- */
+                lista.addEventListener("click", (evento) => {
+                    const botao = evento.target.closest(".editarperfil");
+                    if (!botao) return;
+
+                    const id = botao.closest(".localconfig").dataset.id;
+                    const local = locais.find((l) => String(l.id) === id);
+                    if (!local) return;
+
+                    idEditando = local.id;
+                    CAMPOS.forEach((c) => {
+                        el("edit-" + c).value = local[c] || "";
+                    });
+                    mostrarErro(erroEdit, "");
+                    modal.showModal();
+                });
+
+                formEdit.addEventListener("submit", async (evento) => {
+                    evento.preventDefault();
+                    mostrarErro(erroEdit, "");
+
+                    const dados = limparDados(Object.fromEntries(new FormData(formEdit)));
+                    const msg = validarLocal(dados);
+                    if (msg) return mostrarErro(erroEdit, msg);
+
+                    btnSalvar.disabled = true;
+                    try {
+                        const r = await chamarServidor("local/editar", { id: idEditando, ...dados });
+                        if (!r.ok) return mostrarErro(erroEdit, r.mensagem || "Não foi possível salvar.");
+
+                        const indice = locais.findIndex((l) => l.id === idEditando);
+                        if (indice >= 0) locais[indice] = { id: idEditando, ...dados };
+
+                        renderLista();
+                        modal.close();
+                    } catch (err) {
+                        mostrarErro(erroEdit, "Erro de conexão. Tente novamente.");
+                    } finally {
+                        btnSalvar.disabled = false;
+                    }
+                });
+
+                el("fecharmodallocalconfig").addEventListener("click", () => modal.close());
+                el("cancelareditarlocal").addEventListener("click", () => modal.close());
+                modal.addEventListener("click", (evento) => {
+                    if (evento.target === modal) modal.close();
+                });
+                modal.addEventListener("close", () => {
+                    idEditando = null;
+                    mostrarErro(erroEdit, "");
+                });
+
+                /* ---------- Adicionar ---------- */
+                formNovo.addEventListener("submit", async (evento) => {
+                    evento.preventDefault();
+                    mostrarErro(erroNovo, "");
+
+                    const dados = limparDados(Object.fromEntries(new FormData(formNovo)));
+                    const msg = validarLocal(dados);
+                    if (msg) return mostrarErro(erroNovo, msg);
+
+                    btnAdd.disabled = true;
+                    try {
+                        const r = await chamarServidor("local/adicionar", dados);
+                        if (!r.ok) return mostrarErro(erroNovo, r.mensagem || "Não foi possível adicionar o local.");
+
+                        locais.push({ id: r.id, ...dados });
+                        renderLista();
+                        formNovo.reset();
+
+                        // Leva a lista até o local novo e avisa no próprio botão
+                        lista.lastElementChild.scrollIntoView({ block: "nearest", behavior: "smooth" });
+                        btnAdd.textContent = "LOCAL ADICIONADO!";
+                        setTimeout(() => (btnAdd.textContent = "ADICIONAR LOCAL"), 2000);
+                    } catch (err) {
+                        mostrarErro(erroNovo, "Erro de conexão. Tente novamente.");
+                    } finally {
+                        btnAdd.disabled = false;
+                    }
+                });
+
+                /* ---------- Máscara do CEP (nos dois formulários) ---------- */
+                document.addEventListener("input", (evento) => {
+                    const campo = evento.target;
+                    if (!campo.classList.contains("campocep")) return;
+
+                    const numeros = soNumeros(campo.value).slice(0, 8);
+                    campo.value = numeros.length > 5
+                        ? `${numeros.slice(0, 5)}-${numeros.slice(5)}`
+                        : numeros;
+                });
+
+                renderLista();
+            })();
+            </script>
+</body>
+</html>

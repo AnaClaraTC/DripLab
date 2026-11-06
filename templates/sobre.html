@@ -13,6 +13,8 @@
 
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/autenticacao.js" defer></script>
+
     
 </head>
 
@@ -33,49 +35,74 @@
     </script>
     <!--Fim do código-->
 
-    <!--Menu do Site-->
-    <nav id="menugeral">
-        <h1><a href="index.html">DRIP LAB</a></h1>
-        <ul id="base">
-            <li><a href="index.html">Início</a></li>
-            <li><a href="jogar.html">Jogar</a></li>
-            <li><a href="loja.html">Loja</a></li>
-            <li><a href="sobre.html">Sobre Nós</a></li>
-        </ul>
+    <div class="contmenugeral">
+        <!--Menu do Site-->
+        <nav id="menugeral">
+            <h1><a href="index.html">DRIP LAB</a></h1>
+            <ul id="base">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="jogar.html">Jogar</a></li>
+                <li><a href="loja.html">Loja</a></li>
+                <li><a href="sobre.html">Sobre Nós</a></li>
+            </ul>
 
-        <ul id="conta">
-            <li class="perfil">
-                <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
-                    <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
-                </button>
+            <ul id="conta">
+                <li class="perfil">
+                    <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                        <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                    </button>
 
-                <div id="menuextra" class="menuextra">
-                    <ul id="loginfo">
-                        <li><a href="login.html">CADASTRAR/LOGAR</a></li>
-                        <li><button type="button">DESCONECTAR</button></li>
-                    </ul>
-                </div>
-            </li>
+                    <div id="menuextra" class="menuextra">
+                        <ul id="loginfo">
+                            <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                            <li><button type="button">DESCONECTAR</button></li>
+                        </ul>
+                    </div>
+                </li>
 
-            <li>
-                <a href="carrinho.html">
-                    <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
-                </a>
-            </li>
+                <li>
+                    <a href="carrinho.html">
+                        <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                    </a>
+                </li>
 
-            <li>
-                <a href="configuracoes.html">
-                    <img src="../static/images/icones_menu/configuracoes.png" alt="Configuracoes">
-                </a>
-            </li>
-        </ul>
-    </nav>
+                <li>
+                    <a href="configuracoes.html">
+                        <img src="../static/images/icones_menu/configuracoes.png" alt="Configuracoes">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="sobrecont">
+
+        <div class="sobrecontainer">
+
+            <div id="divbanner">
+                <img src="../static/images/promocional/banner_sobre.png">
+            </div>
+
+            <div id="divbannertexto">
+                <p>A DRIP LAB nasceu da conexão entre streetwear, cultura urbana e universo digital. 
+                    Acreditamos que estilo vai muito além do que você veste: está na música que escuta, 
+                    nos jogos que joga, nas ideias que compartilha e na maneira como ocupa o mundo. 
+                    Por isso, criamos <span id="textolaranja">uma experiência</span> que une moda, tecnologia e comunidade. 
+                    Aqui, cada drop tem <span id="textoroxo">uma identidade</span>, cada coleção conta uma história e cada pessoa tem 
+                    espaço para expressar a sua. Não queremos ditar tendências. <b>Queremos abrir espaço para 
+                    quem cria as próprias regras.</b></p>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
 
     <footer id="rodape">
         <h1>DRIP LAB</h1>
         <p>© 2026 DripLab. Todos os direitos reservados.</p>
     </footer>
-
-    <script src="../static/js/paginacao.js" defer></script>
 </body>
 </html>

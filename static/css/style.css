@@ -1082,7 +1082,8 @@ body {
 
 #contforms{
     width: 100%;
-    height: auto;
+    height: 100%;
+    min-height: 700px;
     background-color: #fff;
     padding-bottom: 40px;}
 
@@ -2006,3 +2007,584 @@ dialog {margin: auto;}
 .btnsalvar:hover {
     box-shadow: 0 8px 20px rgba(123, 44, 191, 0.35);}
 
+#selecionartodos span{
+    font-family: 'Montserrat',sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+}
+
+/* =====================================================
+   11.PÁGINA DE CONFIGURAÇÕES
+   ===================================================== */
+
+#contconfig{
+    width: 100%;
+    height: 100%;
+    min-height: 800px;    
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding-bottom: 40px;}
+
+#imgconfig{
+    width: 1000px;
+    margin: 0 auto;}
+    
+#divperfil, #divdelete, #divlocais{
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #181818;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;}
+#divdelete{margin-top: 20px;}
+.tituloconfig{
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    font-family: 'Montserrat',sans-serif;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    border-bottom: 2px solid #fff;}
+
+#gradeinfoperfil{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;}
+
+.infoperfil{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    margin:0 auto;
+    border: 2px dotted #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    font-family: 'Montserrat',sans-serif;
+    transition: transform 0.3s ease, border-color 0.3s ease;}
+.infoperfil:hover{
+    transform: translateY(-5px);
+    border-color: rgb(123, 44, 191);}
+
+.infoperfil label{
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;}
+
+.valorperfil{
+    width: 100%;
+    min-height: 35px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.valorperfil > span:first-child{
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+}
+
+#valorcpf{
+    display: flex;
+    flex-direction: column;
+}
+.editarperfil{
+    position: absolute;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+    border: none;
+    box-shadow: none;
+    padding: 5px;
+
+    background-color: rgb(123, 44, 191);
+    border-radius: 5px;
+    cursor: pointer;
+
+    transition: transform 0.3s ease;
+}
+
+.editarperfil:hover{
+    transform: scale(1.05);
+}
+
+.editarperfil img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ---------- Modal de edição do perfil ---------- */
+
+#modalperfil {
+    width: 90%;
+    max-width: 480px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    color: #181818;
+}
+#modalperfil::backdrop {background-color: rgba(24, 24, 24, 0.7);}
+
+#fecharmodalperfil {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: #181818;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+#fecharmodalperfil:hover {color: #FF5A1F;}
+
+#tituloperfilmodal {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+#textoperfilmodal {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.6;
+}
+
+#formperfil,
+#camposperfil {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#formperfil label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#formperfil input {
+    width: 100%;
+    height: 44px;
+    margin-bottom: 8px;
+    padding: 0 14px;
+    background-color: transparent;
+    border: 2px solid #181818;
+    border-radius: 10px;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #181818;
+    transition: border-color 0.4s, box-shadow 0.4s;
+}
+#formperfil input:focus {
+    border-color: rgb(123, 44, 191);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);
+}
+
+#erromodalperfil {
+    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #FF5A1F;
+}
+
+.acoesmodalperfil {
+    display: flex;
+    gap: 12px;
+}
+.acoesmodalperfil .btnmodal {flex: 1;}
+
+.btncancelar {
+    background-color: transparent;
+    border: 2px solid #181818;
+    color: #181818;
+}
+
+#btnenviarperfil:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Aviso do CPF (a classe já estava no HTML, mas sem estilo) */
+.dicaconfig {
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.6;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .acoesmodalperfil {flex-direction: column;}
+}
+
+.infodelete{
+    width: 100%;
+    max-width: 700px;
+    padding: 8px;
+    margin:0 auto;
+    border: 2px dotted #fff;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+    font-family: 'Montserrat',sans-serif;
+    transition: transform 0.3s ease, border-color 0.3s ease;}
+
+.infodelete:hover{
+    transform: translateY(-5px);
+    border-color: rgb(123, 44, 191);}
+
+.infodelete label{
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;}
+
+.inputdelete{
+    width: 100%; 
+    max-width: 600px;
+    height: 20px;
+    border: 2px solid #181818;
+    background-color: #fff;
+    font-family: 'Montserrat',sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #181818;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 10px;
+    padding: 14px;
+    transition: border-color 0.4s, box-shadow 0.4s;
+    margin-bottom: 20px !important;}
+
+.inputdelete:focus {
+    border: 2px solid rgb(123, 44, 191);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);}
+
+#btndelete{
+    width: 300px;
+    height: 34px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 20px;
+    border: none;
+    box-shadow: none;
+    border-radius: 10px;
+    font-family: 'Montserrat',sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background-color: rgb(123, 44, 191);}
+#btndelete:hover{transform: scale(1.05);}
+
+/* ---------- Locais (configurações) ---------- */
+
+#divlocais {margin-top: 30px;}
+
+#titulolocais h2 {font-weight: 700;}
+
+.subtitulolocais {
+    margin: 20px 0 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+}
+
+#semlocaisconfig {
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    opacity: 0.6;
+    text-align: center;
+}
+
+/* Lista rolável, sem barra (igual à do carrinho) */
+#listalocaisconfig {
+    width: 100%;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 4px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#listalocaisconfig::-webkit-scrollbar {display: none;}
+
+.localconfig {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 2px dotted #D9D9D9;
+    border-radius: 10px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.localconfig:hover {
+    transform: translateY(-2px);
+    border-color: rgb(123, 44, 191);
+}
+
+.localconfig-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-family: 'Montserrat', sans-serif;
+    overflow-wrap: anywhere;
+}
+
+/* O lápis é o mesmo do perfil, só que fora do "absolute" */
+.localconfig .editarperfil {
+    position: static;
+    flex-shrink: 0;
+}
+
+/* Formulário de novo local */
+#formnovolocal {
+    display: flex;
+    flex-direction: column;
+}
+
+#gradenovolocal {
+    width: 100%;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.inputlocalconfig {
+    width: 100%;
+    height: 35px;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: #181818;
+    text-align: center;
+    border-radius: 10px;
+    transition: border-color 0.4s, box-shadow 0.4s;}
+
+.inputlocalconfig:focus {
+    border: 2px solid rgb(123, 44, 191);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);}
+
+.inputlocalconfig::placeholder {
+    color: #181818;
+    opacity: 0.4;}
+
+/* A caixa acende quando o campo dentro dela está em foco */
+.infoperfil:focus-within {border-color: rgb(123, 44, 191);}
+
+#btnaddlocal {background-color: rgb(123, 44, 191);}
+
+.erroform {
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #FF5A1F;
+    text-align: center;
+}
+
+.linkcepconfig {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.6;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+.linkcepconfig:hover {
+    color: rgb(123, 44, 191);
+    opacity: 1;
+}
+#formnovolocal .linkcepconfig {
+    color: #fff;
+    text-align: center;
+}
+#formnovolocal .linkcepconfig:hover {color: rgb(123, 44, 191);}
+
+/* ---------- Modal de edição de local ---------- */
+
+#modallocalconfig {
+    width: 90%;
+    max-width: 480px;
+    max-height: 90vh;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    color: #181818;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#modallocalconfig::-webkit-scrollbar {display: none;}
+#modallocalconfig::backdrop {background-color: rgba(24, 24, 24, 0.7);}
+
+#fecharmodallocalconfig {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: #181818;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+#fecharmodallocalconfig:hover {color: #FF5A1F;}
+
+#titulomodallocalconfig {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+#textomodallocalconfig {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.6;
+}
+
+#formeditarlocal {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#formeditarlocal label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#formeditarlocal input {
+    width: 100%;
+    height: 44px;
+    margin-bottom: 8px;
+    padding: 0 14px;
+    background-color: transparent;
+    border: 2px solid #181818;
+    border-radius: 10px;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #181818;
+    transition: border-color 0.4s, box-shadow 0.4s;
+}
+#formeditarlocal input:focus {
+    border-color: rgb(123, 44, 191);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);
+}
+
+#formeditarlocal .linkcepconfig {
+    align-self: flex-start;
+    margin-top: -4px;
+    margin-bottom: 10px;
+    color: #181818;
+}
+
+#btnsalvareditar:disabled,
+#btnaddlocal:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+@media (max-width: 600px) {
+    #gradenovolocal {grid-template-columns: 1fr;}
+    #modallocalconfig .linhalocal {grid-template-columns: 1fr;}
+}
+
+/* =====================================================
+   12.PÁGINA DE SOBRE NÓS
+   ===================================================== */
+
+#sobrecont{
+    width: 100%;
+    height: 100%;
+    min-height: 800px;    
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding-bottom: 40px;}
+
+.sobrecontainer{
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;}
+
+#divbanner {
+    background-color: #181818;
+    width: 45%;
+    aspect-ratio: 232 / 265;
+    flex-shrink: 0;
+    overflow: hidden;
+
+    clip-path: polygon(
+        0% 0%,       /* topo esquerdo */
+        97% 0%,      /* topo direito */
+        89% 32%,     /* inclinação para dentro */
+        100% 28%,    /* ponta que avança para a direita */
+        82% 93%,     /* diagonal até a base direita */
+        0% 100%      /* base esquerda */
+    );
+}
+
+#divbanner img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;}   /* a imagem cobre todo o polígono */
+
+#divbannertexto{
+    width: 40%;
+    margin-right: 80px;
+    text-align: justify;
+    font-family: 'Montserrat',sans-serif;
+    font-size: 30px;
+    font-weight: 700;}
+#textolaranja{color:#FF5A1F}
+#textoroxo{color:rgba(123, 44, 191)}

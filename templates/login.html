@@ -197,7 +197,7 @@
     </footer>
 
     <script>
-        document.getElementById('cpf').addEventListener('input', function(e) {
+        document.getElementById('cpfCadastro').addEventListener('input', function(e) {
         var value = e.target.value;
         var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
                                 .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
@@ -221,6 +221,14 @@
 
             this.value = formatted;
             this.setCustomValidity(digits.length === 13 ? '' : 'Informe o telefone no formato +XX (XX) XXXXX-XXXX.');
+        });
+    </script>
+
+    <script>
+        window.addEventListener("load", () => {
+            if (window.location.hash === "#recuperar-senha") {
+                document.getElementById("abrirRecuperacao").click();
+            }
         });
     </script>
 </body>
