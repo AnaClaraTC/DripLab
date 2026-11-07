@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Controle - DripLab</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/autenticacao.js" defer></script>
+</head>
+
+<body>
+
+    <!--Código do Áudio do Site-->
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    const music = document.getElementById("bg-music");
+
+    document.addEventListener("click", () => {
+        music.volume = 0.2; // bem baixo
+        music.play();
+    }, { once: true });
+    </script>
+    <!--Fim do código-->
+
+    <!--Menu do Site-->
+    <nav id="menugeral">
+        <h1><a href="index.html">DRIP LAB</a></h1>
+        <ul id="base">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="jogar.html">Jogar</a></li>
+            <li><a href="loja.html">Loja</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+        </ul>
+
+        <ul id="conta">
+            <li class="perfil">
+                <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                    <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                </button>
+
+                <div id="menuextra" class="menuextra">
+                    <ul id="loginfo">
+                        <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                        <li><a href="perfil.html">ACESSAR PERFIL</a></li>
+                        <li><button type="button">DESCONECTAR</button></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a href="carrinho.html">
+                    <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="dbx-raiz">
+
+        <div class="dbx-menu">
+
+            <div class="dbx-menu-conteudo">
+
+                <p class="dbx-menu-titulo">CONTROLE</p>
+
+                <ul>
+                    <li>
+                        <button type="button" class="dbx-opc dbx-ativo" data-pagina="dbx-pg-drops">
+                            DROPS
+                        </button>
+                    </li>
+
+                    <li>
+                        <button type="button" class="dbx-opc" data-pagina="dbx-pg-contas">
+                            CONTAS
+                        </button>
+                    </li>
+
+                    <li>
+                        <button type="button" class="dbx-opc" data-pagina="dbx-pg-usuarios">
+                            USUÁRIOS
+                        </button>
+                    </li>
+
+                    <li>
+                        <a class="dbx-opc" href="index.html">DESCONECTAR</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="dbx-conteudo">
+
+            <input type="search" id="dbx-pesquisa" class="dbx-campo" placeholder="Pesquisar nesta página..." aria-label="Pesquisar">
+
+            <!-- DROPS -->
+            <div class="dbx-pagina" id="dbx-pg-drops">
+                <h2 class="dbx-titulo">[DROPS]</h2>
+                <p class="dbx-vazio" hidden>Nenhum drop encontrado.</p>
+                <div id="dbx-grade-drops" class="dbx-grade dbx-rolavel"></div>
+
+                <h2 class="dbx-titulo">[CRIAR DROP]</h2>
+                <form id="dbx-form-drop" class="dbx-form" novalidate>
+                    <label class="dbx-rotulo" for="dbx-drop-nome">Nome do drop</label>
+                    <input class="dbx-campo" type="text" id="dbx-drop-nome" name="nome" maxlength="40">
+
+                    <label class="dbx-rotulo" for="dbx-drop-slogan">Slogan</label>
+                    <input class="dbx-campo" type="text" id="dbx-drop-slogan" name="slogan" maxlength="80">
+
+                    <label class="dbx-rotulo" for="dbx-drop-desc">Descrição</label>
+                    <textarea class="dbx-campo" id="dbx-drop-desc" name="descricao" rows="4" maxlength="500"></textarea>
+
+                    <label class="dbx-rotulo" for="dbx-drop-img">Imagem do drop atual (1448 × 1086 px)</label>
+                    <input class="dbx-arquivo" type="file" id="dbx-drop-img" name="imagem" accept="image/png,image/jpeg,image/webp">
+
+                    <label class="dbx-rotulo" for="dbx-drop-banner">Banner de anúncio / Banner do carrinho (1696 × 624 px)</label>
+                    <input class="dbx-arquivo" type="file" id="dbx-drop-banner" name="banner" accept="image/png,image/jpeg,image/webp">
+
+                    <h3 class="dbx-subtitulo">PRODUTOS <small>(pelo menos 1 de cada tipo)</small></h3>
+                    <div id="dbx-botoes-tipos" class="dbx-botoes-tipos"></div>
+                    <div id="dbx-blocos" class="dbx-blocos"></div>
+
+                    <p class="dbx-erro" role="alert" hidden></p>
+                    <button type="submit" class="dbx-btn dbx-roxo" id="dbx-btn-criar-drop">CRIAR DROP</button>
+                </form>
+            </div>
+
+            <!-- CONTAS -->
+            <div class="dbx-pagina" id="dbx-pg-contas" hidden>
+                <h2 class="dbx-titulo">[FUNCIONÁRIOS]</h2>
+                <p class="dbx-vazio" hidden>Nenhum funcionário encontrado.</p>
+                <div id="dbx-lista-contas" class="dbx-rolavel"></div>
+
+                <div class="dbx-modo" id="dbx-modo">
+                    <button type="button" class="dbx-btn dbx-roxo" data-modo="adicionar">ADICIONAR</button>
+                    <button type="button" class="dbx-btn dbx-laranja" data-modo="deletar">DELETAR</button>
+                </div>
+
+                <form id="dbx-form-add" class="dbx-form" novalidate>
+                    <label class="dbx-rotulo" for="dbx-add-nome">Nome</label>
+                    <input class="dbx-campo" type="text" id="dbx-add-nome" name="nome" maxlength="60">
+                    <label class="dbx-rotulo" for="dbx-add-email">E-mail</label>
+                    <input class="dbx-campo" type="email" id="dbx-add-email" name="email">
+                    <label class="dbx-rotulo" for="dbx-add-cpf">CPF</label>
+                    <input class="dbx-campo dbx-cpf" type="text" id="dbx-add-cpf" name="cpf" maxlength="14" inputmode="numeric">
+                    <label class="dbx-rotulo" for="dbx-add-senha">Senha do novo funcionário</label>
+                    <input class="dbx-campo" type="password" id="dbx-add-senha" name="senha" autocomplete="new-password">
+                    <label class="dbx-rotulo" for="dbx-add-nivel">Nível</label>
+                    <select class="dbx-campo" id="dbx-add-nivel" name="nivel">
+                        <option value="Operador">Operador</option>
+                        <option value="Gerente">Gerente</option>
+                    </select>
+                    <label class="dbx-rotulo" for="dbx-add-senhager">Sua senha (gerente)</label>
+                    <input class="dbx-campo" type="password" id="dbx-add-senhager" name="senhagerente" autocomplete="current-password">
+                    <p class="dbx-erro" role="alert" hidden></p>
+                    <button type="submit" class="dbx-btn dbx-roxo">ADICIONAR FUNCIONÁRIO</button>
+                </form>
+
+                <form id="dbx-form-del" class="dbx-form" novalidate hidden>
+                    <label class="dbx-rotulo" for="dbx-del-cpf">CPF do funcionário</label>
+                    <input class="dbx-campo dbx-cpf" type="text" id="dbx-del-cpf" name="cpf" maxlength="14" inputmode="numeric">
+                    <label class="dbx-rotulo" for="dbx-del-senhager">Sua senha (gerente)</label>
+                    <input class="dbx-campo" type="password" id="dbx-del-senhager" name="senhagerente" autocomplete="current-password">
+                    <p class="dbx-erro" role="alert" hidden></p>
+                    <button type="submit" class="dbx-btn dbx-laranja">DELETAR FUNCIONÁRIO</button>
+                </form>
+            </div>
+
+            <!-- USUÁRIOS -->
+            <div class="dbx-pagina" id="dbx-pg-usuarios" hidden>
+                <h2 class="dbx-titulo">[USUÁRIOS]</h2>
+                <p class="dbx-vazio" hidden>Nenhum usuário encontrado.</p>
+                <div id="dbx-grade-usuarios" class="dbx-grade dbx-rolavel"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal do drop -->
+    <dialog id="dbx-modal-drop" class="dbx-modal">
+        <div class="dbx-modal-caixa">
+            <button type="button" class="dbx-fechar" aria-label="Fechar">&times;</button>
+
+            <div id="dbx-visao">
+                <h2 class="dbx-titulo" id="dbx-md-nome"></h2>
+                <p class="dbx-slogan" id="dbx-md-slogan"></p>
+                <p id="dbx-md-desc"></p>
+                <hr class="dbx-linha">
+                <div id="dbx-md-produtos" class="dbx-lista-prod"></div>
+                <div class="dbx-acoes">
+                    <button type="button" class="dbx-btn dbx-roxo" id="dbx-btn-editar">EDITAR</button>
+                    <button type="button" class="dbx-btn dbx-laranja" id="dbx-btn-deletar">DELETAR</button>
+                </div>
+            </div>
+
+            <form id="dbx-form-edicao" class="dbx-form" novalidate hidden>
+                <h2 class="dbx-titulo">EDITAR DROP</h2>
+                <label class="dbx-rotulo" for="dbx-ed-nome">Nome</label>
+                <input class="dbx-campo" type="text" id="dbx-ed-nome" name="nome" maxlength="40">
+                <label class="dbx-rotulo" for="dbx-ed-slogan">Slogan</label>
+                <input class="dbx-campo" type="text" id="dbx-ed-slogan" name="slogan" maxlength="80">
+                <label class="dbx-rotulo" for="dbx-ed-desc">Descrição</label>
+                <textarea class="dbx-campo" id="dbx-ed-desc" name="descricao" rows="4" maxlength="500"></textarea>
+                <label class="dbx-rotulo" for="dbx-ed-img">Imagem do drop atual (1448 × 1086 px)</label>
+                <div class="dbx-previa"><img id="dbx-ed-img-previa" alt="Imagem atual do drop"></div>
+                <input class="dbx-arquivo" type="file" id="dbx-ed-img" name="imagem" accept="image/png,image/jpeg,image/webp">
+
+                <label class="dbx-rotulo" for="dbx-ed-banner">Banner de anúncio / Banner do carrinho (1696 × 624 px)</label>
+                <div class="dbx-previa"><img id="dbx-ed-banner-previa" alt="Banner atual do drop"></div>
+                <input class="dbx-arquivo" type="file" id="dbx-ed-banner" name="banner" accept="image/png,image/jpeg,image/webp">
+                <span class="dbx-dica">Sem enviar outra imagem, a atual é mantida.</span>
+
+                <h3 class="dbx-subtitulo">PRODUTOS</h3>
+                <div id="dbx-ed-botoes" class="dbx-botoes-tipos"></div>
+                <div id="dbx-ed-blocos" class="dbx-blocos"></div>
+
+                <p class="dbx-erro" role="alert" hidden></p>
+                <div class="dbx-acoes">
+                    <button type="button" class="dbx-btn dbx-cinza" id="dbx-btn-cancelar-edicao">CANCELAR</button>
+                    <button type="submit" class="dbx-btn dbx-roxo">SALVAR</button>
+                </div>
+            </form>
+
+            <div id="dbx-confirma" hidden>
+                <h2 class="dbx-titulo">EXCLUIR DROP</h2>
+                <p>Tem certeza? Essa ação não pode ser desfeita.</p>
+                <p class="dbx-erro" role="alert" hidden></p>
+                <div class="dbx-acoes">
+                    <button type="button" class="dbx-btn dbx-cinza" id="dbx-btn-cancelar-excluir">CANCELAR</button>
+                    <button type="button" class="dbx-btn dbx-laranja" id="dbx-btn-confirmar-excluir">EXCLUIR</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Modal do usuário -->
+    <dialog id="dbx-modal-usuario" class="dbx-modal">
+        <div class="dbx-modal-caixa">
+            <button type="button" class="dbx-fechar" aria-label="Fechar">&times;</button>
+            <div id="dbx-mu-conteudo"></div>
+        </div>
+    </dialog>
+
+    <footer id="rodape">
+        <h1>DRIP LAB</h1>
+        <p>© 2026 DripLab. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../static/js/dashboard.js"></script>
+</body>
+</html>
