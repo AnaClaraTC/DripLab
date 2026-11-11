@@ -1,34 +1,55 @@
 /* =====================================================
-   DRIP LAB - style.css
+   DRIP LAB - style.css  (versão responsiva)
 
    ORDEM DO ARQUIVO
 
    PARTE A - MEDIA QUERIES (vêm primeiro)
+     A0. Geral (menu, rodapé, base)
      A1. Página inicial
      A2. Página da loja
-     A3. Página de compra (carrinho)
-     A4. Página de perfil
+     A3. Página de login
+     A4. Página de produto
+     A5. Página de compra (carrinho)
+     A6. Página de perfil
+     A7. Página sobre nós
+     A8. Dashboard (controle)
 
    PARTE B - CÓDIGO NORMAL
      B1.  Base (reset, links, body, atributo hidden, dialog)
      B2.  Menu
      B3.  Componentes compartilhados
-          (contador, cards de produto, botão de formulário,
-           base dos modais, rodapé)
      B4.  Página inicial
      B5.  Página da loja
      B6.  Página de login
      B7.  Página de produto
      B8.  Página de compra (carrinho)
-     B9.  Página de perfil (perfil, favoritos e configurações)
+     B9.  Página de perfil
      B10. Página sobre nós
+     B11. Dashboard
 
-   OBSERVAÇÃO IMPORTANTE:
-   Como os media queries vêm ANTES do código normal, os
-   seletores deles são mais específicos (ex.: #destaques
-   #grade-destaques) para não serem sobrescritos pelas
-   regras que vêm depois. Ao criar um novo media query,
-   mantenha esse padrão (use um ID a mais no seletor).
+   BREAKPOINTS USADOS
+     1280px  notebooks pequenos
+     1100px  tablets na horizontal
+     1024px  tablets
+      900px  tablets na vertical
+      820px  carrinho (item em grade)
+      760px  menu em duas linhas
+      700px  celulares grandes
+      600px  celulares
+      480px  celulares pequenos
+      380px  celulares muito pequenos
+
+   COMO OS MEDIA QUERIES VENCEM O CÓDIGO NORMAL
+   Como os media queries vêm ANTES do código normal, todos
+   eles usam o prefixo abaixo (aninhamento CSS):
+
+       html:not(#r):not(#r):not(#r) { & #seletor { ... } }
+
+   Esse prefixo aumenta a especificidade, então as regras
+   responsivas sempre vencem as regras normais, mesmo as que
+   usam vários IDs. Ao criar um novo media query, mantenha o
+   padrão: abra o bloco com o prefixo e escreva cada seletor
+   começando com "& ".
    ===================================================== */
 
 
@@ -41,24 +62,426 @@
 
 
 /* =====================================================
-   A1. PÁGINA INICIAL
+   A0. GERAL (MENU, RODAPÉ, BASE)
    ===================================================== */
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
+    html:not(#r):not(#r):not(#r) {
 
-    #destaques #grade-destaques {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        & body {
+            overflow-x: hidden;
+        }
+
+        & #menugeral h1 {
+            width: 25%;
+            padding: 16px 20px;
+            font-size: 28px;
+        }
+
+        & #base {
+            width: 50%;
+        }
+
+        & #base li {
+            padding: 14px 10px;
+            font-size: 16px;
+        }
+
+        & #conta {
+            width: 25%;
+            gap: 20px;
+            padding-right: 20px;
+        }
+
+        & #conta img {
+            width: 34px;
+        }
+
+        & #rodape h1 {
+            font-size: 30px;
+        }
     }
+}
 
+@media (max-width: 760px) {
+    html:not(#r):not(#r):not(#r) {
+
+        /* Menu em duas linhas: logo + ícones em cima, links embaixo */
+        & #menugeral {
+            height: auto;
+            flex-wrap: wrap;
+            padding: 8px 0;
+        }
+
+        & #menugeral h1 {
+            width: auto;
+            flex: 1;
+            padding: 8px 16px;
+            font-size: 24px;
+        }
+
+        & #conta {
+            width: auto;
+            gap: 16px;
+            padding-right: 16px;
+        }
+
+        & #conta img {
+            width: 30px;
+        }
+
+        & #base {
+            order: 3;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        & #base li {
+            padding: 8px 12px;
+            font-size: 15px;
+        }
+
+        & #menuextra {
+            width: 180px;
+        }
+
+        /* Rodapé */
+        & #rodape {
+            height: auto;
+            min-height: 140px;
+            padding: 28px 16px;
+            text-align: center;
+        }
+
+        & #rodape h1 {
+            font-size: 26px;
+        }
+
+        & #rodape p {
+            font-size: 14px;
+        }
+    }
 }
 
 @media (max-width: 600px) {
+    html:not(#r):not(#r):not(#r) {
 
-    #destaques #grade-destaques {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 20px 12px;
+        /* Evita o zoom automático do iPhone ao tocar nos campos */
+        & input,
+        & select,
+        & textarea {
+            font-size: 16px;
+        }
     }
+}
 
+@media (max-width: 380px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #base li {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        & #menugeral h1 {
+            font-size: 22px;
+        }
+    }
+}
+
+
+/* =====================================================
+   A1. PÁGINA INICIAL
+   ===================================================== */
+
+@media (max-width: 1024px) {
+    html:not(#r):not(#r):not(#r) {
+
+        /* Destaque */
+        & #destaque {
+            min-height: 640px;
+            padding: 24px;
+            background-size: cover;
+        }
+
+        & #btnjogo {
+            width: 240px;
+            font-size: 22px;
+        }
+
+        & #btnloja {
+            width: 180px;
+            font-size: 16px;
+        }
+
+        & #droptime {
+            width: 340px;
+            height: 150px;
+            margin-right: 0;
+        }
+
+        & #drop {
+            width: 310px;
+            height: 125px;
+        }
+
+        & #drop h2 {
+            font-size: 18px;
+            padding: 12px;
+        }
+
+        & #tempo {
+            font-size: 26px;
+        }
+
+        & #legendas {
+            font-size: 15px;
+        }
+
+        /* Drop atual */
+        & #textodropatual h2 {
+            font-size: 26px;
+        }
+
+        & #textodropatual p {
+            font-size: 18px;
+        }
+
+        & #divdrop {
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        & .dropitem {
+            flex: 0 0 200px;
+        }
+
+        /* Os sliders aceitam o arrasto com o dedo */
+        & .dropslider,
+        & .slider {
+            touch-action: pan-x pan-y;
+        }
+
+        /* Trapézios */
+        & #trapeziodrops {
+            height: 200px;
+        }
+
+        & .trapezio {
+            height: 170px;
+        }
+
+        & .trapezio h2 {
+            font-size: 22px;
+        }
+
+        & .trapezio p {
+            font-size: 40px;
+        }
+
+        & #cima {
+            padding: 20px 60px 20px 6%;
+        }
+
+        & #baixo {
+            padding: 20px 6% 20px 20px;
+        }
+
+        /* Destaques */
+        & #destaques {
+            width: 92%;
+            padding: 30px 20px;
+            border-radius: 30px;
+        }
+
+        & #textodestaque h2 {
+            font-size: 26px;
+        }
+
+        & #textodestaque a {
+            font-size: 16px;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    html:not(#r):not(#r):not(#r) {
+
+        /* Destaque: tudo empilhado */
+        & #destaque {
+            min-height: 560px;
+            padding: 20px;
+            flex-wrap: wrap;
+            align-content: flex-end;
+            gap: 14px;
+        }
+
+        & #droptime {
+            order: -1;
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 10px;
+        }
+
+        & #drop {
+            width: 100%;
+            height: auto;
+            padding-bottom: 10px;
+        }
+
+        & #btnjogo {
+            width: 100%;
+            height: 54px;
+            font-size: 20px;
+        }
+
+        & #btnloja {
+            width: 100%;
+            height: 46px;
+            margin-left: 0;
+        }
+
+        /* Drop atual: imagem em cima, sliders embaixo */
+        & #divdrop {
+            flex-direction: column;
+        }
+
+        & #dropimg,
+        & #dropslides {
+            width: 100%;
+        }
+
+        & #dropimg img {
+            height: auto;
+        }
+
+        /* Grade de destaques */
+        & #destaques #grade-destaques {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #destaque {
+            min-height: 480px;
+            padding: 16px;
+        }
+
+        & #drop h2 {
+            font-size: 15px;
+            padding: 8px;
+        }
+
+        & #tempo {
+            font-size: 22px;
+        }
+
+        & #legendas {
+            gap: 16px;
+            font-size: 12px;
+        }
+
+        & #textodropatual {
+            margin-left: 16px;
+        }
+
+        & #textodropatual h2 {
+            font-size: 20px;
+        }
+
+        & #textodropatual p {
+            font-size: 15px;
+        }
+
+        & #divdrop {
+            padding: 0 16px;
+            margin: 14px 0;
+        }
+
+        & .dropitem {
+            flex: 0 0 160px;
+        }
+
+        & .droptrilho {
+            gap: 12px;
+        }
+
+        /* Trapézios */
+        & #trapeziodrops {
+            height: 150px;
+        }
+
+        & .trapezio {
+            height: 130px;
+            margin-top: 10px;
+        }
+
+        & .trapezio h2 {
+            font-size: 13px;
+        }
+
+        & .trapezio p {
+            font-size: 22px;
+        }
+
+        & #cima {
+            padding: 10px 30px 10px 12px;
+        }
+
+        & #baixo {
+            padding: 10px 12px 10px 10px;
+        }
+
+        & #baixo h2,
+        & #baixo p {
+            margin-left: 18%;
+        }
+
+        /* Destaques */
+        & #destaques {
+            width: 94%;
+            margin: 24px auto;
+            padding: 24px 14px;
+            border-radius: 24px;
+        }
+
+        & #textodestaque {
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        & #textodestaque h2 {
+            font-size: 18px;
+        }
+
+        & #textodestaque a {
+            font-size: 14px;
+        }
+
+        & #destaques #grade-destaques {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px 12px;
+        }
+
+        & #grade-destaques .item-tag {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            display: inline-block;
+            padding: 2px 10px;
+            font-size: 10px;
+        }
+
+        & #paginacao-destaques button {
+            width: 36px;
+            height: 36px;
+        }
+    }
 }
 
 
@@ -66,114 +489,1128 @@
    A2. PÁGINA DA LOJA
    ===================================================== */
 
+@media (max-width: 1280px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #graderoupas {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        & #graderoupas .item {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #bannerloja {
+            height: auto;
+        }
+
+        /* Caixa do próximo drop */
+        & #boxtimeloja {
+            width: 94%;
+        }
+
+        & #textodroptimeloja h2 {
+            font-size: 34px;
+        }
+
+        & #textodroptimeloja p {
+            font-size: 26px;
+        }
+
+        & #conttempodrop #tempo {
+            font-size: 40px;
+        }
+
+        & #conttempodrop #legendas {
+            font-size: 14px;
+        }
+    }
+}
+
 @media (max-width: 900px) {
+    html:not(#r):not(#r):not(#r) {
 
-    #pesquisaloja .linhafiltros {
-        flex-direction: column;
-        gap: 20px;
+        /* Caixa do próximo drop empilhada */
+        & #boxtimeloja {
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        & #textodroptimeloja {
+            width: 100%;
+            margin-right: 0;
+        }
+
+        & #conttempodrop {
+            width: 100%;
+        }
+
+        & #conttempodrop #tempo {
+            font-size: 44px;
+        }
+
+        & #imgdroptimeloja {
+            width: 100%;
+            margin-left: 0;
+        }
+
+        /* Filtros */
+        & #pesquisaloja {
+            width: 92%;
+        }
+
+        & #pesquisaloja .linhafiltros {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        & #pesquisaloja #grupotiporoupa,
+        & #pesquisaloja #grupotamroupa,
+        & #pesquisaloja #grupoordena {
+            width: 100%;
+        }
+
+        & #pesquisaloja #opcroupatipo {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        & #pesquisaloja .opcroupa {
+            width: 100%;
+        }
+
+        & #pesquisaloja #opctamanhoroupa {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        & #pesquisaloja .opctamanho {
+            width: 100%;
+            margin-left: 0;
+        }
+
+        & .acoesfiltro {
+            width: 92%;
+        }
+
+        /* Grade */
+        & #graderoupas {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
     }
+}
 
-    #pesquisaloja #grupotiporoupa,
-    #pesquisaloja #grupotamroupa,
-    #pesquisaloja #grupoordena {
-        width: 100%;
+@media (max-width: 600px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #textodroptimeloja h2 {
+            font-size: 26px;
+        }
+
+        & #textodroptimeloja p {
+            font-size: 20px;
+        }
+
+        & #conttempodrop #tempo {
+            font-size: 34px;
+        }
+
+        & #conttempodrop #legendas {
+            gap: 18px;
+            font-size: 12px;
+        }
+
+        & #pesquisaloja #opcroupatipo {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        & #pesquisaloja .opcroupa span {
+            font-size: 13px;
+        }
+
+        & .acoesfiltro {
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        & #graderoupas {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 10px;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
     }
-
-    #pesquisaloja #opcroupatipo {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    #pesquisaloja #opctamanhoroupa {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
 }
 
 
 /* =====================================================
-   A3. PÁGINA DE COMPRA (CARRINHO)
+   A3. PÁGINA DE LOGIN
    ===================================================== */
 
 @media (max-width: 900px) {
+    html:not(#r):not(#r):not(#r) {
 
-    #contcarrinho #carrinhobox {
-        flex-direction: column;
-        gap: 20px;
+        & .imglogin {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+        }
+
+        & #login,
+        & #cadastro,
+        & #recuperacao,
+        & #etapaemail,
+        & #etapacodigo,
+        & #etapanovasenha {
+            width: 94%;
+        }
+
+        & #recuperacao h1 {
+            font-size: 26px;
+        }
+
+        & #recuperacao p {
+            font-size: 17px;
+        }
     }
-
-    #contcarrinho #carrinholista,
-    #contcarrinho #resumocarrinho {
-        flex: none;
-        width: 100%;
-    }
-
-    #contcarrinho #resumocarrinho {
-        position: static;
-    }
-
 }
 
 @media (max-width: 600px) {
+    html:not(#r):not(#r):not(#r) {
 
-    /* Lista do carrinho */
-    #contcarrinho #titulocarrinho {
-        font-size: 26px;
+        & #contforms {
+            padding-bottom: 24px;
+        }
+
+        & .form-label {
+            font-size: 15px;
+        }
+
+        & .inputform {
+            max-width: 100%;
+            padding: 14px 10px;
+        }
+
+        & .btnform {
+            width: 100%;
+            max-width: 300px;
+            height: 40px;
+        }
+
+        & #recuperacao h1 {
+            font-size: 22px;
+        }
+
+        & #recuperacao p {
+            font-size: 15px;
+        }
+
+        & #contforms a {
+            font-size: 13px;
+        }
     }
-
-    #contcarrinho .itemcarrinho {
-        grid-template-columns: 80px 1fr auto;
-        grid-template-areas:
-            "img info remover"
-            "img qtd  preco";
-        gap: 10px 14px;
-    }
-
-    #contcarrinho .itemcarrinho-img     { grid-area: img; }
-    #contcarrinho .itemcarrinho-info    { grid-area: info; }
-    #contcarrinho .itemcarrinho-remover { grid-area: remover; }
-    #contcarrinho .itemcarrinho-qtd     { grid-area: qtd; }
-
-    #contcarrinho .itemcarrinho-preco {
-        grid-area: preco;
-        width: auto;
-    }
-
-    /* Modal de pagamento */
-    #modalpagamento .conteudomodal {
-        padding: 28px 18px;
-    }
-
-    #modalpagamento .linhacartao {
-        grid-template-columns: 1fr;
-    }
-
-    /* Modal de novo local */
-    #modallocal .linhalocal {
-        grid-template-columns: 1fr;
-    }
-
 }
 
 
 /* =====================================================
-   A4. PÁGINA DE PERFIL
+   A4. PÁGINA DE PRODUTO
    ===================================================== */
 
+@media (max-width: 900px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #produto-container {
+            padding: 24px 0;
+        }
+
+        & #produtobox {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        & #produtoimg {
+            min-height: 400px;
+            height: 450px;
+        }
+
+        & #produtoinfo {
+            width: 100%;
+        }
+
+        & #produtodescricao {
+            max-height: 180px;
+        }
+
+        & #adicionar-carrinho {
+            width: 92%;
+            margin: 24px auto 50px;
+        }
+
+        & .secao-produtos {
+            width: 92%;
+            margin: 30px auto;
+        }
+
+        & .secao-produtos h2 {
+            font-size: 20px;
+        }
+    }
+}
+
 @media (max-width: 600px) {
+    html:not(#r):not(#r):not(#r) {
 
-    .acoesmodalperfil {
-        flex-direction: column;
+        & #produtoimg {
+            min-height: 320px;
+            height: 360px;
+        }
+
+        & #produtonome {
+            font-size: 22px;
+        }
+
+        & #produtovalor {
+            font-size: 18px;
+        }
+
+        & #produtoinfo #opctamanhoroupa .opctamanho {
+            width: 48px;
+            height: 40px;
+        }
+
+        & .secao-produtos h2 {
+            font-size: 17px;
+        }
+
+        & .secao-produtos .item {
+            width: 160px;
+        }
+
+        & .trilho {
+            gap: 14px;
+        }
     }
+}
 
-    /* #divlocais na frente para vencer o "#gradenovolocal" normal */
-    #divlocais #gradenovolocal {
-        grid-template-columns: 1fr;
+@media (max-width: 500px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #produtoimg {
+            min-height: 300px;
+            height: 350px;
+        }
+
+        & #produtonome {
+            font-size: 20px;
+        }
     }
+}
 
-    #modallocalconfig .linhalocal {
-        grid-template-columns: 1fr;
+
+/* =====================================================
+   A5. PÁGINA DE COMPRA (CARRINHO)
+   ===================================================== */
+
+@media (max-width: 1100px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & .imgcompra {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+        }
+
+        & #compra {
+            width: 100%;
+        }
+
+        /* Lista em cima, resumo embaixo */
+        & #carrinho-layout {
+            width: 94%;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 24px;
+        }
+
+        & #esqcompra,
+        & #recibo {
+            width: 100%;
+        }
+
+        & #recibo {
+            height: auto;
+            position: static;
+            padding-bottom: 10px;
+        }
+
+        & #listaprodutos {
+            height: auto;
+            max-height: 640px;
+        }
     }
+}
 
+@media (max-width: 820px) {
+    html:not(#r):not(#r):not(#r) {
+
+        /* Item do carrinho em grade */
+        & .itemcarrinho {
+            height: auto;
+            display: grid;
+            grid-template-columns: auto 84px minmax(0, 1fr) auto;
+            grid-template-areas:
+                "check img info remover"
+                "check img qtd  preco";
+            gap: 8px 12px;
+            padding: 10px 6px;
+            align-items: center;
+        }
+
+        & .checkproduto {
+            grid-area: check;
+            width: 18px;
+            height: 18px;
+        }
+
+        & .itemcarrinho-img {
+            grid-area: img;
+            width: 84px;
+            height: 84px;
+            padding: 6px;
+        }
+
+        & .itemcarrinho-info {
+            grid-area: info;
+            width: auto;
+            height: auto;
+            margin-right: 0;
+        }
+
+        & .itemcarrinho-info h2 {
+            font-size: 14px;
+            text-align: left;
+        }
+
+        & .itemcarrinho-info span {
+            text-align: left;
+        }
+
+        & .itemcarrinho-qtd {
+            grid-area: qtd;
+            justify-self: start;
+        }
+
+        & .itemcarrinho-qtd button {
+            width: 36px;
+            height: 30px;
+        }
+
+        & .itemcarrinho-qtd .qtd {
+            min-width: 30px;
+        }
+
+        & .preco {
+            grid-area: preco;
+            margin-left: 0;
+            font-size: 16px;
+            text-align: right;
+        }
+
+        & .remover {
+            grid-area: remover;
+            width: 34px;
+            height: 34px;
+            font-size: 24px;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #titulocarrinho {
+            font-size: 24px;
+        }
+
+        & #titulocarrinho span {
+            font-size: 14px;
+        }
+
+        & #listaprodutos {
+            padding: 12px 8px;
+            max-height: 560px;
+        }
+
+        & #recibotitulo {
+            font-size: 22px;
+            text-align: center;
+        }
+
+        & #entrega,
+        & #resumovalores {
+            width: 92%;
+        }
+
+        & #confirmarcompra {
+            width: 90%;
+            max-width: 300px;
+            height: 42px;
+        }
+
+        /* Modal de pagamento */
+        & #modalpagamento {
+            max-height: 92vh;
+            overflow-y: auto;
+        }
+
+        & #modalpagamento .conteudomodal {
+            padding: 28px 18px;
+        }
+
+        & #modalpagamento .linhacartao {
+            grid-template-columns: 1fr;
+        }
+
+        & #titulomodal,
+        & #titulomodallocal {
+            font-size: 22px;
+        }
+
+        /* Modal de novo local */
+        & #modallocal {
+            max-height: 92vh;
+        }
+
+        & #modallocal .conteudomodal {
+            padding: 28px 18px;
+        }
+
+        & #modallocal .linhalocal {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #qrpix {
+            width: 160px;
+            height: 160px;
+        }
+
+        & .itemcarrinho {
+            grid-template-columns: auto 70px minmax(0, 1fr) auto;
+        }
+
+        & .itemcarrinho-img {
+            width: 70px;
+            height: 70px;
+        }
+    }
+}
+
+
+/* =====================================================
+   A6. PÁGINA DE PERFIL
+   ===================================================== */
+
+@media (max-width: 1100px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #gradefavoritos {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        & #gradefavoritos .item {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    html:not(#r):not(#r):not(#r) {
+
+        /* Menu do perfil vira uma grade no topo */
+        & #contperfil {
+            flex-direction: column;
+        }
+
+        & #divmenuperfil {
+            width: 100%;
+        }
+
+        & #menuperfil {
+            width: 94%;
+            margin: 14px auto 0;
+            position: static;
+        }
+
+        & #menuperfil ul {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 6px;
+        }
+
+        & #menuperfil li {
+            line-height: 2;
+        }
+
+        & .opcmenuperfil {
+            font-size: 16px;
+        }
+
+        & #contpaginas {
+            width: 100%;
+            padding: 20px 16px;
+        }
+
+        & #pagfav img {
+            width: 100%;
+        }
+
+        /* Configurações */
+        & #divperfil,
+        & #divdelete,
+        & #divlocais {
+            width: 100%;
+            padding: 24px 20px;
+        }
+
+        & #imgconfig {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    html:not(#r):not(#r):not(#r) {
+
+        /* Cabeçalho do perfil */
+        & #blocoperfil {
+            flex-direction: column;
+            gap: 16px;
+            padding: 20px 14px;
+            text-align: center;
+        }
+
+        & #imgperfil {
+            width: 140px;
+            height: 140px;
+        }
+
+        & #infoperfil {
+            width: 100%;
+            align-items: center;
+        }
+
+        & #nomeuser {
+            font-size: 22px;
+            overflow-wrap: anywhere;
+        }
+
+        & #emailuser {
+            font-size: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        & #divdrip {
+            width: 100%;
+            max-width: 350px;
+            justify-content: center;
+        }
+
+        & #divdrip p {
+            margin-left: 8px;
+            font-size: 18px;
+        }
+
+        & #qtdpoints {
+            font-size: 28px;
+        }
+
+        & #blococompras h2 {
+            font-size: 28px;
+        }
+
+        /* Pedidos */
+        & .pedido {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        & .pedido-valor {
+            margin-left: 0;
+        }
+
+        & .pedido-status,
+        & .verpedido {
+            align-self: center;
+            justify-content: center;
+        }
+
+        /* Configurações */
+        & #gradeinfoperfil {
+            grid-template-columns: 1fr;
+        }
+
+        & .valorperfil > span:first-child {
+            padding: 0 40px;
+            overflow-wrap: anywhere;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #gradefavoritos {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 10px;
+        }
+
+        & #blococompras h2 {
+            font-size: 24px;
+        }
+
+        & .tituloconfig h2 {
+            font-size: 18px;
+        }
+
+        & #divperfil,
+        & #divdelete,
+        & #divlocais {
+            padding: 20px 14px;
+        }
+
+        & .infoperfil label {
+            font-size: 15px;
+        }
+
+        & #gradenovolocal {
+            grid-template-columns: 1fr;
+        }
+
+        & .localconfig {
+            padding: 12px;
+        }
+
+        & #btndelete {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        & .acoesmodalperfil {
+            flex-direction: column;
+        }
+
+        & #modallocalconfig .linhalocal {
+            grid-template-columns: 1fr;
+        }
+
+        & #modallocalconfig,
+        & #modalperfil,
+        & #modalexcluirlocal {
+            max-height: 92vh;
+            overflow-y: auto;
+        }
+
+        /* Modal do pedido */
+        & #modalpedido .conteudomodal {
+            padding: 22px 16px;
+        }
+
+        & #modalpedido h2 {
+            font-size: 20px;
+        }
+
+        & .pedidoitem {
+            gap: 10px;
+        }
+
+        & .pedidoitem-img {
+            width: 64px;
+            height: 64px;
+        }
+
+        & .pedido-img {
+            width: 120px;
+            height: 120px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & .opcmenuperfil {
+            padding: 8px 4px;
+            font-size: 14px;
+        }
+
+        & #resumopedido div {
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        & #resumopedido dd {
+            text-align: left;
+        }
+    }
+}
+
+
+/* =====================================================
+   A7. PÁGINA SOBRE NÓS
+   ===================================================== */
+
+@media (max-width: 1100px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #sobretitulo {
+            margin-left: 24px;
+        }
+
+        & #sobretitulo h2 {
+            font-size: 68px;
+        }
+
+        & #sobretitulo h3 {
+            font-size: 40px;
+        }
+
+        & #divbannertexto {
+            margin-right: 40px;
+            font-size: 22px;
+        }
+
+        /* Cartas */
+        & #divtopicos {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            padding: 30px 12px;
+        }
+
+        & .cartasobre {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            aspect-ratio: 5 / 6;
+        }
+
+        & .cartatexto {
+            font-size: 18px;
+            padding: 16px;
+        }
+
+        /* Seção do jogo */
+        & #jogosobre h2 {
+            font-size: 64px;
+        }
+
+        & #btnsobre {
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        & #btnsobrejogo {
+            width: 90%;
+            max-width: 500px;
+            height: 100px;
+            font-size: 32px;
+        }
+
+        & #btnsobreloja {
+            width: 90%;
+            max-width: 500px;
+            height: 70px;
+            margin-left: 0;
+            font-size: 24px;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & .sobrecontainer {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        & #sobretitulo {
+            width: 100%;
+            margin-left: 0;
+            padding: 0 20px;
+        }
+
+        & #sobretitulo h2 {
+            font-size: clamp(40px, 11vw, 70px);
+        }
+
+        & #sobretitulo h3 {
+            font-size: clamp(22px, 6vw, 36px);
+        }
+
+        & #sobremascote {
+            width: 70%;
+            justify-content: center;
+        }
+
+        & #sobremascote img {
+            transform: none;
+        }
+
+        & #divbanner {
+            width: 85%;
+        }
+
+        & #divbannertexto {
+            width: 90%;
+            margin: 0 auto;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        /* Cartas em duas colunas */
+        & #divtopicos {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            justify-items: center;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & #divbannertexto {
+            font-size: 16px;
+        }
+
+        & #divtopicos {
+            grid-template-columns: 1fr;
+        }
+
+        & .cartasobre {
+            max-width: 340px;
+        }
+
+        & #jogosobre {
+            min-height: 0;
+            padding: 30px 16px;
+        }
+
+        & #jogosobre h2 {
+            font-size: clamp(28px, 9vw, 40px);
+            margin-bottom: 24px;
+        }
+
+        & #btnsobrejogo {
+            height: 80px;
+            font-size: 24px;
+        }
+
+        & #btnsobreloja {
+            height: 58px;
+            font-size: 18px;
+        }
+    }
+}
+
+/* Telas de toque: o texto das cartas fica sempre visível (não depende do hover) */
+@media (hover: none) and (pointer: coarse) {
+    html:not(#r):not(#r):not(#r) {
+
+        & .cartasobre {
+            height: auto;
+            aspect-ratio: auto;
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(24, 24, 24);
+        }
+
+        & .cartaimg {
+            height: auto;
+            aspect-ratio: 1 / 1;
+        }
+
+        & .cartatexto {
+            position: static;
+            opacity: 1;
+            height: auto;
+            font-size: 16px;
+            background-color: transparent;
+        }
+    }
+}
+
+
+/* =====================================================
+   A8. DASHBOARD (CONTROLE)
+   ===================================================== */
+
+@media (max-width: 900px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & .dbx-menu {
+            width: 22%;
+            padding: 24px 12px;
+        }
+
+        & .dbx-conteudo {
+            padding: 20px;
+        }
+
+        & .dbx-titulo {
+            font-size: 24px;
+        }
+
+        & .dbx-grade {
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 14px;
+        }
+
+        & .dbx-card-img {
+            height: 170px;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    html:not(#r):not(#r):not(#r) {
+
+        /* Dashboard em coluna */
+        & .dbx-raiz {
+            flex-direction: column;
+        }
+
+        /* Menu ocupa a largura inteira */
+        & .dbx-menu {
+            width: 100%;
+            max-width: none;
+            min-height: auto;
+            padding: 16px;
+        }
+
+        /* Em telas pequenas, o menu deixa de ser sticky */
+        & .dbx-menu-conteudo {
+            position: static;
+        }
+
+        & .dbx-menu-titulo {
+            margin-bottom: 12px;
+        }
+
+        & .dbx-menu ul {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        & .dbx-menu li {
+            width: auto;
+            flex: 1 1 45%;
+        }
+
+        & .dbx-opc {
+            text-align: center;
+        }
+
+        & .dbx-conteudo {
+            width: 100%;
+            padding: 20px 16px;
+        }
+
+        & .dbx-form {
+            max-width: 100%;
+        }
+
+        & .dbx-conta {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        /* Produtos do modal */
+        & .dbx-prod {
+            flex-direction: column;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & .dbx-titulo {
+            font-size: 20px;
+        }
+
+        & .dbx-grade {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        & .dbx-card-img {
+            height: 130px;
+            padding: 10px;
+        }
+
+        & .dbx-card-info {
+            padding: 10px;
+        }
+
+        & .dbx-card-info h3 {
+            font-size: 14px;
+        }
+
+        & .dbx-card-img img.dbx-foto {
+            width: 80px;
+            height: 80px;
+        }
+
+        & .dbx-modal {
+            width: 94%;
+        }
+
+        & .dbx-modal-caixa {
+            padding: 24px 16px;
+        }
+
+        & .dbx-acoes,
+        & .dbx-modo {
+            flex-wrap: wrap;
+        }
+
+        & .dbx-acoes .dbx-btn {
+            flex: 1 1 120px;
+        }
+
+        & .dbx-dados div {
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        & .dbx-prod-img {
+            width: 100%;
+            height: 160px;
+        }
+    }
+}
+
+@media (max-width: 420px) {
+    html:not(#r):not(#r):not(#r) {
+
+        & .dbx-grade {
+            grid-template-columns: 1fr;
+        }
+    }
 }
 
 
@@ -193,6 +1630,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+img {
+    max-width: 100%;
 }
 
 a {
@@ -1421,36 +2867,45 @@ dialog {
 
 #produto-container {
     width: 100%;
-    height: auto;
     min-height: 400px;
+    height: auto;
+    padding: 40px 0;
     background-color: #fff;
-    padding-bottom: 40px;
-    padding-top: 40px;
+    box-sizing: border-box;
 }
 
 #produtobox {
     width: 90%;
-    height: 100%;
-    display: flex;
     margin: 0 auto;
-    justify-content: space-between;
-    align-items: flex-start !important;
+
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+    align-items: stretch;
+    gap: 35px;
 }
 
+/* ---------- Imagem do produto ---------- */
+
 #produtoimg {
-    width: 40%;
-    max-width: 500px;
+    width: 100%;
+    min-width: 0;
+    min-height: 500px;
     height: 100%;
+
     background-color: #D9D9D9;
-    display: flex;
     border-radius: 10px;
-    margin-right: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
 }
 
 #produtoimg img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
     transition: transform 0.3s ease;
 }
@@ -1459,17 +2914,20 @@ dialog {
     transform: scale(1.05);
 }
 
+/* ---------- Informações do produto ---------- */
+
 #produtoinfo {
-    width: 60%;
-    height: 100%;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+
     display: flex;
     flex-direction: column;
-    margin: 0 auto !important;
-    justify-content: flex-start !important;
+    justify-content: flex-start;
     align-items: stretch;
-    position: relative;
-    top: -49px;
 }
+
+/* Banner */
 
 #produtobanner {
     width: 100%;
@@ -1477,16 +2935,21 @@ dialog {
     display: block;
     object-fit: cover;
     border-radius: 10px;
-    margin-top: 0;
+    margin: 0;
 }
+
+/* Nome */
 
 #produtonome {
     font-family: 'Montserrat', sans-serif;
-    font-size: 36px;
+    font-size: clamp(24px, 2.2vw, 36px);
     font-weight: 700;
     color: #181818;
-    margin-top: -20px;
+    margin-top: 20px;
+    margin-bottom: 0;
 }
+
+/* Valor */
 
 #produtovalor {
     font-family: 'Montserrat', sans-serif;
@@ -1496,16 +2959,22 @@ dialog {
     margin-bottom: 10px;
 }
 
+/* Descrição */
+
 #produtodescricao {
     width: 100%;
     max-height: 130px;
     overflow-y: auto;
+
     background-color: #D9D9D9;
     border-radius: 10px;
+
     padding: 15px 20px;
     margin-top: 15px;
     margin-bottom: 20px;
+
     box-sizing: border-box;
+
     font-family: 'Montserrat', sans-serif;
     font-size: 13px;
     line-height: 1.6;
@@ -1516,21 +2985,26 @@ dialog {
     display: none;
 }
 
+/* ---------- Botão de compra ---------- */
+
 #adicionar-carrinho {
     width: 90%;
     max-width: 700px;
     height: 45px;
+
     display: block;
-    margin: 0 auto;
-    margin-bottom: 80px;
-    margin-top: -30px;
+    margin: 30px auto 80px;
+
     border: none;
     border-radius: 8px;
+
     background-color: #181818;
     color: #fff;
+
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     font-weight: 700;
+
     cursor: pointer;
     transition: 0.3s ease;
 }
@@ -1540,11 +3014,10 @@ dialog {
     transform: translateY(-3px);
 }
 
-
-/* ---------- Seleção de tamanho (usa .opctamanho da loja) ---------- */
+/* ---------- Seleção de tamanho ---------- */
 
 #produtoinfo #grupotamroupa {
-    width: 100%; /* anula o width: 20% da loja */
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -1558,22 +3031,20 @@ dialog {
     color: #181818;
 }
 
-/* Todas as opções em uma única linha */
 #produtoinfo #opctamanhoroupa {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: center;
     gap: 8px;
 }
 
-/* Só o que muda em relação ao .opctamanho da loja */
 #produtoinfo #opctamanhoroupa .opctamanho {
     position: relative;
     width: 55px;
     height: 40px;
     flex-shrink: 0;
-    margin-left: 0; /* anula o margin-left: 20px da loja */
+    margin-left: 0;
 }
 
 #produtoinfo #opctamanhoroupa .opctamanho span {
@@ -1869,7 +3340,7 @@ dialog {
 
 #entrega h2,
 #formapagamento h2 {
-    font-family: 'Montsserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 20px;
     font-weight: 700;
     color: #fff;
@@ -1877,7 +3348,7 @@ dialog {
 }
 
 #entrega label {
-    font-family: 'Montsserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     font-weight: 600;
     color: #fff;
@@ -1891,13 +3362,13 @@ dialog {
     box-shadow: none;
     border-radius: 10px;
     margin-bottom: 10px;
-    font-family: 'Montsserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     text-align: center;
 }
 
 #entrega a {
-    font-family: 'Montsserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     font-weight: 600;
     color: #fff;
@@ -1918,7 +3389,7 @@ dialog {
 }
 
 #resumovalores h2 {
-    font-family: 'Montsserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 20px;
     font-weight: 700;
     color: #fff;
@@ -1926,7 +3397,7 @@ dialog {
 }
 
 #resumovalores span {
-    font-family: 'Montsserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     font-weight: 600;
     color: #fff;
@@ -1936,7 +3407,7 @@ dialog {
     display: flex;
     gap: 10px;
     margin-top: 20px;
-    font-family: 'Montsserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 20px;
     font-weight: 600;
     color: #fff;
@@ -2485,8 +3956,9 @@ dialog {
     display: none;
 }
 
-/* ---------- Perfil    ---------- */
-#blocoperfil{
+/* ---------- Perfil ---------- */
+
+#blocoperfil {
     width: 100%;
     min-height: 220px;
     padding: 10px;
@@ -2500,8 +3972,8 @@ dialog {
     gap: 30px;
 }
 
-/* ÁREA DA FOTO */
-#imgperfil{
+/* Área da foto */
+#imgperfil {
     width: 200px;
     height: 200px;
     flex-shrink: 0;
@@ -2511,7 +3983,7 @@ dialog {
     align-items: center;
 }
 
-#imgperfil img{
+#imgperfil img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -2520,25 +3992,28 @@ dialog {
     border: 3px solid #7B2CBF;
 }
 
-#infoperfil{
+#infoperfil {
     width: 70%;
     margin: 0 auto;
-    display:flex;
-    flex-direction: column;}
+    display: flex;
+    flex-direction: column;
+}
 
-#nomeuser{
-    font-family: 'Montserrat',sans-serif;
+#nomeuser {
+    font-family: 'Montserrat', sans-serif;
     font-size: 35px;
     font-weight: 800;
-    color: #fff;}
+    color: #fff;
+}
 
-#emailuser{
-    font-family: 'Montserrat',sans-serif;
+#emailuser {
+    font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     font-weight: 500;
-    color: #fff;}
+    color: #fff;
+}
 
-#divdrip{
+#divdrip {
     width: 350px;
     padding: 10px;
     border: 2px dotted #fff;
@@ -2546,30 +4021,35 @@ dialog {
     display: flex;
     align-items: center;
     margin-top: 20px;
-    gap:5px
+    gap: 5px;
 }
 
-#divdrip img{
+#divdrip img {
     width: 40px;
-    height: 40px;}
+    height: 40px;
+}
 
-#divdrip p{
-    font-family: 'Montserrat',sans-serif;
+#divdrip p {
+    font-family: 'Montserrat', sans-serif;
     font-size: 26px;
     font-weight: 700;
-    color:#fff;
-    margin-left: 20px;}
+    color: #fff;
+    margin-left: 20px;
+}
 
-#qtdpoints{font-size: 40px;}
+#qtdpoints {
+    font-size: 40px;
+}
 
-#blococompras{
+#blococompras {
     width: 100%;
     margin-top: 40px;
-    display:flex;
-    flex-direction: column;}
+    display: flex;
+    flex-direction: column;
+}
 
-#blococompras h2{
-    font-family: 'Montserrat',sans-serif;
+#blococompras h2 {
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 40px;
 }
@@ -2822,23 +4302,6 @@ dialog {
     white-space: nowrap;
 }
 
-@media (max-width: 700px) {
-    .pedido {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .pedido-valor {
-        margin-left: 0;
-    }
-
-    .pedido-status,
-    .verpedido {
-        align-self: center;
-        justify-content: center;
-    }
-}
-
 /* ---------- Caixa e fundo do modal do pedido ---------- */
 
 #modalpedido {
@@ -2895,6 +4358,7 @@ dialog {
     font-family: 'Montserrat', sans-serif;
     color: #e74c3c;
 }
+
 /* ---------- Favoritos ---------- */
 
 #pagfav img {
@@ -3820,14 +5284,11 @@ dialog {
 }
 
 
-
 /* =====================================================
-   DASHBOARD DRIPLAB
+   B11. DASHBOARD DRIPLAB
    ===================================================== */
 
-/* =====================================================
-   1. CONFIGURAÇÕES GERAIS
-   ===================================================== */
+/* ---------- 1. Configurações gerais ---------- */
 
 .dbx-raiz,
 .dbx-raiz *,
@@ -3853,9 +5314,7 @@ dialog {
 }
 
 
-/* =====================================================
-   2. MENU LATERAL
-   ===================================================== */
+/* ---------- 2. Menu lateral ---------- */
 
 .dbx-menu {
     width: 25%;
@@ -3933,9 +5392,7 @@ dialog {
 }
 
 
-/* =====================================================
-   3. ÁREA DE CONTEÚDO
-   ===================================================== */
+/* ---------- 3. Área de conteúdo ---------- */
 
 .dbx-conteudo {
     flex: 1;
@@ -3975,9 +5432,7 @@ dialog {
 }
 
 
-/* =====================================================
-   4. CAMPOS E FORMULÁRIOS
-   ===================================================== */
+/* ---------- 4. Campos e formulários ---------- */
 
 .dbx-form {
     max-width: 640px;
@@ -4019,9 +5474,7 @@ dialog {
 }
 
 
-/* =====================================================
-   5. CAMPO DE ENVIO DE ARQUIVOS
-   ===================================================== */
+/* ---------- 5. Campo de envio de arquivos ---------- */
 
 .dbx-arquivo {
     width: 100%;
@@ -4075,9 +5528,7 @@ dialog {
 }
 
 
-/* =====================================================
-   6. BOTÕES
-   ===================================================== */
+/* ---------- 6. Botões ---------- */
 
 .dbx-btn {
     padding: 12px 24px;
@@ -4126,9 +5577,7 @@ dialog {
 }
 
 
-/* =====================================================
-   7. LISTAS COM ROLAGEM
-   ===================================================== */
+/* ---------- 7. Listas com rolagem ---------- */
 
 .dbx-rolavel {
     max-height: 520px;
@@ -4145,9 +5594,7 @@ dialog {
 }
 
 
-/* =====================================================
-   8. GRADES E CARDS
-   ===================================================== */
+/* ---------- 8. Grades e cards ---------- */
 
 .dbx-grade {
     display: grid;
@@ -4245,9 +5692,7 @@ dialog {
 }
 
 
-/* =====================================================
-   9. CONTAS DE FUNCIONÁRIOS
-   ===================================================== */
+/* ---------- 9. Contas de funcionários ---------- */
 
 .dbx-modo {
     display: flex;
@@ -4294,9 +5739,7 @@ dialog {
 }
 
 
-/* =====================================================
-   10. PRODUTOS NOS FORMULÁRIOS
-   ===================================================== */
+/* ---------- 10. Produtos nos formulários ---------- */
 
 .dbx-botoes-tipos {
     display: flex;
@@ -4386,9 +5829,8 @@ dialog {
     object-fit: contain;
 }
 
-/* =====================================================
-   11. MODAIS
-   ===================================================== */
+
+/* ---------- 11. Modais ---------- */
 
 .dbx-modal {
     width: 90%;
@@ -4471,9 +5913,7 @@ dialog {
 }
 
 
-/* =====================================================
-   12. PRODUTOS DENTRO DO MODAL
-   ===================================================== */
+/* ---------- 12. Produtos dentro do modal ---------- */
 
 .dbx-lista-prod {
     display: flex;
@@ -4531,9 +5971,7 @@ dialog {
 }
 
 
-/* =====================================================
-   13. DADOS DO MODAL
-   ===================================================== */
+/* ---------- 13. Dados do modal ---------- */
 
 .dbx-dados {
     display: flex;
@@ -4553,41 +5991,4 @@ dialog {
     border-bottom: 1px solid #D9D9D9;
 
     font-size: 14px;
-}
-
-
-/* =====================================================
-   14. RESPONSIVIDADE
-   ===================================================== */
-
-@media (max-width: 700px) {
-
-    /* Dashboard em coluna */
-    .dbx-raiz {
-        flex-direction: column;
-    }
-
-    /* Menu ocupa a largura inteira */
-    .dbx-menu {
-        width: 100%;
-        max-width: none;
-        min-height: auto;
-    }
-
-    /* Em telas pequenas, o menu deixa de ser sticky */
-    .dbx-menu-conteudo {
-        position: static;
-    }
-
-    /* Conteúdo principal */
-    .dbx-conteudo {
-        width: 100%;
-        padding: 20px;
-    }
-
-    /* Produtos do modal */
-    .dbx-prod {
-        flex-direction: column;
-    }
-
 }
