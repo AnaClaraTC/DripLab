@@ -1,14 +1,28 @@
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS usuario_recompensa, recompensas, usuario_badge, badges, votos, propostas_votacao, comentarios, item_pedido, pedidos, carrinho, produtos, categorias, drops, enderecos, usuarios;
+DROP TABLE IF EXISTS usuario_recompensa;
+DROP TABLE IF EXISTS recompensas;
+DROP TABLE IF EXISTS usuario_badge;
+DROP TABLE IF EXISTS badges;
+DROP TABLE IF EXISTS votos;
+DROP TABLE IF EXISTS propostas_votacao;
+DROP TABLE IF EXISTS comentarios;
+DROP TABLE IF EXISTS item_pedido;
+DROP TABLE IF EXISTS pedidos;
+DROP TABLE IF EXISTS carrinho;
+DROP TABLE IF EXISTS produtos;
+DROP TABLE IF EXISTS categorias;
+DROP TABLE IF EXISTS drops;
+DROP TABLE IF EXISTS enderecos;
+DROP TABLE IF EXISTS usuarios;
 SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    telefone VARCHAR(15) NOT NULL,
+    telefone VARCHAR(25) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    cpf VARCHAR(15) NOT NULL,
+    cpf VARCHAR(18) NOT NULL,
     pontos INT DEFAULT 0,
     nivel VARCHAR(50) DEFAULT 'Iniciante',
     tipo ENUM('cliente', 'operador', 'admin') DEFAULT 'cliente',
@@ -19,7 +33,7 @@ CREATE TABLE enderecos (
     id_endereco INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
     nomelocal VARCHAR(50) NOT NULL,
-    cep VARCHAR(10) NOT NULL,
+    cep VARCHAR(12) NOT NULL,
     estado VARCHAR(2) NOT NULL,
     cidade VARCHAR(100) NOT NULL,
     bairro VARCHAR(100) NOT NULL,
@@ -34,7 +48,9 @@ CREATE TABLE drops (
     nome VARCHAR(100) NOT NULL,
     data_inicio DATETIME NOT NULL,
     data_fim DATETIME NOT NULL,
-    limite_pecas INT NOT NULL
+    limite_pecas INT NOT NULL,
+    banner_index MEDIUMTEXT,
+    banner_produto MEDIUMTEXT
 );
 
 CREATE TABLE categorias (
@@ -52,6 +68,7 @@ CREATE TABLE produtos (
     categoria VARCHAR(50) NOT NULL,
     SKU VARCHAR(50) NOT NULL,
     tamanho ENUM('p', 'm', 'g', 'gg'),
+    imagem MEDIUMTEXT,
     id_drop INT,
     id_usuario INT NULL,
     FOREIGN KEY (id_drop) REFERENCES drops(id_drop) ON DELETE SET NULL,

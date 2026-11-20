@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/mascaras.js" defer></script>
 </head>
 
 <body>
@@ -159,13 +160,48 @@
 
             <div class="dbx-pagina" id="dbx-pg-drops" hidden>
                 <h2 class="dbx-titulo">[PRODUTOS & DROPS]</h2>
-                <p class="dbx-vazio" hidden>Nenhum drop encontrado.</p>
+                <p class="dbx-vazio" id="dbx-drops-vazio" hidden>Nenhum drop encontrado.</p>
                 <div id="dbx-grade-drops" class="dbx-grade dbx-rolavel"></div>
 
-                <h2 class="dbx-titulo">[CRIAR NOVO PRODUTO]</h2>
+                <h3 class="dbx-subtitulo" style="margin-top: 24px;">[CRIAR NOVO DROP]</h3>
+                <form id="dbx-form-drop" class="dbx-form" novalidate>
+                    <label class="dbx-rotulo" for="dbx-drop-nome">Nome do Drop</label>
+                    <input class="dbx-campo" type="text" id="dbx-drop-nome" name="nome" maxlength="100" placeholder="Ex: Polarização" required>
+
+                    <label class="dbx-rotulo" for="dbx-drop-inicio">Data de Início</label>
+                    <input class="dbx-campo" type="datetime-local" id="dbx-drop-inicio" name="data_inicio" required>
+
+                    <label class="dbx-rotulo" for="dbx-drop-fim">Data de Término</label>
+                    <input class="dbx-campo" type="datetime-local" id="dbx-drop-fim" name="data_fim" required>
+
+                    <label class="dbx-rotulo" for="dbx-drop-limite">Limite Máximo de Peças</label>
+                    <input class="dbx-campo" type="number" id="dbx-drop-limite" name="limite_pecas" placeholder="100" required>
+
+                    <label class="dbx-rotulo" for="dbx-drop-banner-index">Banner Início (index.html) <small style="color: #666; font-weight: normal;">(Proporção recomendada: 1448 x 1086)</small></label>
+                    <input class="dbx-arquivo" type="file" id="dbx-drop-banner-index" name="banner_index" accept="image/*">
+                    <img id="dbx-drop-banner-index-preview" alt="Pré-visualização do banner de início" hidden style="display: block; max-width: 100%; max-height: 180px; object-fit: contain; margin-top: 8px;">
+
+                    <label class="dbx-rotulo" for="dbx-drop-banner-prod">Banner Produto (produto.html) <small style="color: #666; font-weight: normal;">(Proporção recomendada: 2172 x 725)</small></label>
+                    <input class="dbx-arquivo" type="file" id="dbx-drop-banner-prod" name="banner_produto" accept="image/*">
+                    <img id="dbx-drop-banner-prod-preview" alt="Pré-visualização do banner de produto" hidden style="display: block; max-width: 100%; max-height: 180px; object-fit: contain; margin-top: 8px;">
+
+                    <p class="dbx-erro" id="dbx-erro-drop" role="alert" hidden></p>
+                    <button type="submit" class="dbx-btn dbx-roxo">CRIAR DROP</button>
+                </form>
+
+                <h2 class="dbx-titulo" style="margin-top: 36px;">[CRIAR NOVO PRODUTO]</h2>
                 <form id="dbx-form-prod-simples" class="dbx-form" novalidate>
                     <label class="dbx-rotulo" for="dbx-prod-nome">Nome do produto</label>
-                    <input class="dbx-campo" type="text" id="dbx-prod-nome" name="nome" placeholder="Ex: Moletom Oversized Drip" required>
+                    <input class="dbx-campo" type="text" id="dbx-prod-nome" name="nome" maxlength="100" placeholder="Ex: Moletom Oversized Drip" required>
+
+                    <label class="dbx-rotulo" for="dbx-prod-imagem">Imagem do produto</label>
+                    <input class="dbx-arquivo" type="file" id="dbx-prod-imagem" name="imagem" accept="image/*">
+                    <img id="dbx-prod-imagem-preview" alt="Pré-visualização da imagem do produto" hidden style="display: block; max-width: 100%; max-height: 180px; object-fit: contain; margin-top: 8px;">
+
+                    <label class="dbx-rotulo" for="dbx-prod-drop">Drop Vinculado (Opcional)</label>
+                    <select class="dbx-campo" id="dbx-prod-drop" name="id_drop">
+                        <option value="">Sem Drop vinculado</option>
+                    </select>
 
                     <label class="dbx-rotulo" for="dbx-prod-desc">Descrição</label>
                     <textarea class="dbx-campo" id="dbx-prod-desc" name="descricao" rows="3" placeholder="Detalhes do produto..."></textarea>
@@ -190,7 +226,7 @@
                     </select>
 
                     <label class="dbx-rotulo" for="dbx-prod-sku">SKU</label>
-                    <input class="dbx-campo" type="text" id="dbx-prod-sku" name="SKU" placeholder="DRIP-OVR-01" required>
+                    <input class="dbx-campo" type="text" id="dbx-prod-sku" name="SKU" maxlength="50" placeholder="DRIP-OVR-01" required>
 
                     <label class="dbx-rotulo" for="dbx-prod-tam">Tamanho padrão</label>
                     <select class="dbx-campo" id="dbx-prod-tam" name="tamanho">
@@ -213,13 +249,13 @@
                 <h3 class="dbx-subtitulo">[CRIAR NOVA PROPOSTA DE VOTAÇÃO]</h3>
                 <form id="dbx-form-proposta" class="dbx-form" novalidate>
                     <label class="dbx-rotulo" for="dbx-prop-titulo">Título da proposta</label>
-                    <input class="dbx-campo" type="text" id="dbx-prop-titulo" name="titulo" placeholder="Ex: Drop Cyberpunk 2026" required>
+                    <input class="dbx-campo" type="text" id="dbx-prop-titulo" name="titulo" maxlength="100" placeholder="Ex: Drop Cyberpunk 2026" required>
 
                     <label class="dbx-rotulo" for="dbx-prop-desc">Descrição da ideia / conceito</label>
                     <textarea class="dbx-campo" id="dbx-prop-desc" name="descricao" rows="3" placeholder="Explique a proposta para a comunidade..."></textarea>
 
                     <label class="dbx-rotulo" for="dbx-prop-cat">Categoria</label>
-                    <input class="dbx-campo" type="text" id="dbx-prop-cat" name="categoria" placeholder="Ex: Camisetas, Estilo Urbano" required>
+                    <input class="dbx-campo" type="text" id="dbx-prop-cat" name="categoria" maxlength="50" placeholder="Ex: Camisetas, Estilo Urbano" required>
 
                     <p class="dbx-erro" id="dbx-erro-prop" role="alert" hidden></p>
                     <button type="submit" class="dbx-btn dbx-roxo">PUBLICAR PROPOSTA</button>
@@ -263,10 +299,10 @@
                     <input class="dbx-campo" type="email" id="dbx-add-email" name="email" required>
 
                     <label class="dbx-rotulo" for="dbx-add-telefone">Telefone</label>
-                    <input class="dbx-campo" type="text" id="dbx-add-telefone" name="telefone" placeholder="+55 (21) 99999-9999">
+                    <input class="dbx-campo" type="tel" id="dbx-add-telefone" name="telefone" data-mask="telefone" maxlength="15" inputmode="numeric" autocomplete="tel-national" placeholder="(00) 00000-0000" required>
 
                     <label class="dbx-rotulo" for="dbx-add-cpf">CPF</label>
-                    <input class="dbx-campo dbx-cpf" type="text" id="dbx-add-cpf" name="cpf" maxlength="14" inputmode="numeric" required>
+                    <input class="dbx-campo dbx-cpf" type="text" id="dbx-add-cpf" name="cpf" data-mask="cpf" maxlength="14" inputmode="numeric" required>
 
                     <label class="dbx-rotulo" for="dbx-add-senha">Senha do novo operador</label>
                     <input class="dbx-campo" type="password" id="dbx-add-senha" name="senha" autocomplete="new-password" required>

@@ -1,51 +1,55 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Usuario, Endereco, Pedido } = require('../models');
+const {
+  normalizarCpf,
+  normalizarTelefone,
+  detalharErro
+} = require('../utils/normalizacaoDados');
 
 async function cadastrar(req, res) {
   try {
-    const { nome, telefone, email, senha, cpf, nomelocal, cep, estado, cidade, bairro, rua, numero, complemento } = req.body;
+    const { nome, telefone, email, senha, cpf } = req.body;
 
-    if (!nome || !telefone || !email || !senha || !cpf) {
+    if (![nome, telefone, email, senha, cpf].every((valor) => typeof valor === 'string' && valor.trim())) {
       return res.status(400).json({ mensagem: 'Preencha todos os campos obrigatórios.' });
     }
+    if (nome.trim().length > 100) {
+      return res.status(400).json({ mensagem: 'O nome deve ter no máximo 100 caracteres.' });
+    }
+    if (email.trim().length > 100) {
+      return res.status(400).json({ mensagem: 'O e-mail deve ter no máximo 100 caracteres.' });
+    }
 
-    const usuarioExistente = await Usuario.findOne({ where: { email } });
+    let telefoneFormatado;
+    let cpfFormatado;
+    try {
+      telefoneFormatado = normalizarTelefone(telefone);
+      cpfFormatado = normalizarCpf(cpf);
+    } catch (erro) {
+      return res.status(400).json({ mensagem: erro.message });
+    }
+
+    const emailNormalizado = email.trim().toLowerCase();
+    const usuarioExistente = await Usuario.findOne({ where: { email: emailNormalizado } });
     if (usuarioExistente) {
       return res.status(400).json({ mensagem: 'Este e-mail já está cadastrado.' });
     }
 
+    const totalUsuarios = await Usuario.count();
+    const tipo = totalUsuarios === 0 ? 'admin' : 'cliente';
     const senhaCriptografada = await bcrypt.hash(senha, 10);
-    
-//Cria só cliente
+
     const usuario = await Usuario.create({
-      nome,
-      telefone,
-      email,
+      nome: nome.trim(),
+      telefone: telefoneFormatado,
+      email: emailNormalizado,
       senha: senhaCriptografada,
-      cpf,
-      tipo: 'cliente',
+      cpf: cpfFormatado,
+      tipo,
       pontos: 0,
       nivel: 'Iniciante'
     });
-//endereço
-    if (nomelocal && cep && rua && numero && bairro && cidade && estado) {
-      try {
-        await Endereco.create({
-          id_usuario: usuario.id_usuario,
-          nomelocal,
-          cep,
-          estado: estado.toUpperCase(),
-          cidade,
-          bairro,
-          rua,
-          numero,
-          complemento: complemento || null
-        });
-      } catch (errEndereco) {
-        console.warn('Aviso ao salvar endereço no cadastro:', errEndereco.message);
-      }
-    }
 
     res.status(201).json({
       id_usuario: usuario.id_usuario,
@@ -57,7 +61,7 @@ async function cadastrar(req, res) {
       mensagem: 'Usuário cadastrado com sucesso!'
     });
   } catch (erro) {
-    res.status(400).json({ mensagem: 'Erro ao cadastrar usuário', erro: erro.message });
+    res.status(400).json({ mensagem: `Erro ao cadastrar usuário: ${detalharErro(erro)}` });
   }
 }
 
@@ -144,8 +148,22 @@ async function atualizarPerfil(req, res) {
       return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
     }
 
-    if (nome) usuario.nome = nome;
-    if (telefone) usuario.telefone = telefone;
+    if (nome !== undefined) {
+      if (typeof nome !== 'string' || !nome.trim()) {
+        return res.status(400).json({ mensagem: 'O nome não pode ficar vazio.' });
+      }
+      if (nome.trim().length > 100) {
+        return res.status(400).json({ mensagem: 'O nome deve ter no máximo 100 caracteres.' });
+      }
+      usuario.nome = nome.trim();
+    }
+    if (telefone !== undefined) {
+      try {
+        usuario.telefone = normalizarTelefone(telefone);
+      } catch (erro) {
+        return res.status(400).json({ mensagem: erro.message });
+      }
+    }
 
     if (novaSenha) {
       if (!senhaAtual) {
@@ -171,7 +189,7 @@ async function atualizarPerfil(req, res) {
       }
     });
   } catch (erro) {
-    res.status(400).json({ mensagem: 'Erro ao atualizar perfil', erro: erro.message });
+    res.status(400).json({ mensagem: `Erro ao atualizar perfil: ${detalharErro(erro)}` });
   }
 }
 

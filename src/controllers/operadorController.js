@@ -1,5 +1,10 @@
 const bcrypt = require('bcrypt');
 const { Usuario } = require('../models');
+const {
+  normalizarCpf,
+  normalizarTelefone,
+  detalharErro
+} = require('../utils/normalizacaoDados');
 
 async function listar(req, res) {
   try {
@@ -11,7 +16,7 @@ async function listar(req, res) {
 
     res.json(operadores);
   } catch (erro) {
-    res.status(500).json({ mensagem: 'Erro ao listar operadores', erro: erro.message });
+    res.status(500).json({ mensagem: `Erro ao listar operadores: ${detalharErro(erro)}` });
   }
 }
 
@@ -19,11 +24,25 @@ async function cadastrar(req, res) {
   try {
     const { nome, email, telefone, cpf, senha, nivel = 'Operador' } = req.body;
 
-    if (!nome || !email || !cpf || !senha) {
-      return res.status(400).json({ mensagem: 'Nome, e-mail, CPF e senha são obrigatórios.' });
+    if (![nome, email, telefone, cpf, senha].every((valor) => typeof valor === 'string' && valor.trim())) {
+      return res.status(400).json({ mensagem: 'Nome, e-mail, telefone, CPF e senha são obrigatórios.' });
+    }
+    if (nome.trim().length > 100 || email.trim().length > 100 ||
+        typeof nivel !== 'string' || nivel.length > 50) {
+      return res.status(400).json({ mensagem: 'Nome e e-mail devem ter até 100 caracteres; nível deve ter até 50.' });
     }
 
-    const usuarioExistente = await Usuario.findOne({ where: { email } });
+    let telefoneFormatado;
+    let cpfFormatado;
+    try {
+      telefoneFormatado = normalizarTelefone(telefone);
+      cpfFormatado = normalizarCpf(cpf);
+    } catch (erro) {
+      return res.status(400).json({ mensagem: erro.message });
+    }
+
+    const emailNormalizado = email.trim().toLowerCase();
+    const usuarioExistente = await Usuario.findOne({ where: { email: emailNormalizado } });
     if (usuarioExistente) {
       return res.status(400).json({ mensagem: 'Este e-mail já está em uso.' });
     }
@@ -31,10 +50,10 @@ async function cadastrar(req, res) {
     const senhaCriptografada = await bcrypt.hash(senha, 10);
 
     const operador = await Usuario.create({
-      nome,
-      email,
-      telefone: telefone || '+55 (00) 00000-0000',
-      cpf,
+      nome: nome.trim(),
+      email: emailNormalizado,
+      telefone: telefoneFormatado,
+      cpf: cpfFormatado,
       senha: senhaCriptografada,
       tipo: 'operador',
       nivel,
@@ -54,7 +73,7 @@ async function cadastrar(req, res) {
       }
     });
   } catch (erro) {
-    res.status(400).json({ mensagem: 'Erro ao cadastrar operador', erro: erro.message });
+    res.status(400).json({ mensagem: `Erro ao cadastrar operador: ${detalharErro(erro)}` });
   }
 }
 
@@ -71,11 +90,38 @@ async function atualizar(req, res) {
       return res.status(404).json({ mensagem: 'Operador não encontrado.' });
     }
 
-    if (nome) operador.nome = nome;
-    if (email) operador.email = email;
-    if (telefone) operador.telefone = telefone;
-    if (cpf) operador.cpf = cpf;
-    if (nivel) operador.nivel = nivel;
+    if (nome !== undefined) {
+      if (typeof nome !== 'string' || !nome.trim() || nome.trim().length > 100) {
+        return res.status(400).json({ mensagem: 'O nome deve conter de 1 a 100 caracteres.' });
+      }
+      operador.nome = nome.trim();
+    }
+    if (email !== undefined) {
+      if (typeof email !== 'string' || !email.trim() || email.trim().length > 100) {
+        return res.status(400).json({ mensagem: 'O e-mail deve conter de 1 a 100 caracteres.' });
+      }
+      operador.email = email.trim().toLowerCase();
+    }
+    if (telefone !== undefined) {
+      try {
+        operador.telefone = normalizarTelefone(telefone);
+      } catch (erro) {
+        return res.status(400).json({ mensagem: erro.message });
+      }
+    }
+    if (cpf !== undefined) {
+      try {
+        operador.cpf = normalizarCpf(cpf);
+      } catch (erro) {
+        return res.status(400).json({ mensagem: erro.message });
+      }
+    }
+    if (nivel !== undefined) {
+      if (typeof nivel !== 'string' || nivel.length > 50) {
+        return res.status(400).json({ mensagem: 'O nível deve ter no máximo 50 caracteres.' });
+      }
+      operador.nivel = nivel;
+    }
 
     if (novaSenha && novaSenha.trim() !== '') {
       operador.senha = await bcrypt.hash(novaSenha, 10);
@@ -96,7 +142,7 @@ async function atualizar(req, res) {
       }
     });
   } catch (erro) {
-    res.status(400).json({ mensagem: 'Erro ao atualizar operador', erro: erro.message });
+    res.status(400).json({ mensagem: `Erro ao atualizar operador: ${detalharErro(erro)}` });
   }
 }
 
@@ -116,7 +162,7 @@ async function deletar(req, res) {
 
     res.json({ mensagem: 'Operador removido com sucesso!' });
   } catch (erro) {
-    res.status(400).json({ mensagem: 'Erro ao remover operador', erro: erro.message });
+    res.status(400).json({ mensagem: `Erro ao remover operador: ${detalharErro(erro)}` });
   }
 }
 

@@ -1,52 +1,55 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Pedido = sequelize.define('Pedido', {
-  id_pedido: 
-  { 
-    type: DataTypes.INTEGER, 
-    primaryKey: true, 
-    autoIncrement: true },
-  data_pedido: 
-  { 
-    type: DataTypes.DATE, 
-    defaultValue: DataTypes.NOW },
-  valor_total: 
-  { 
-    type: DataTypes.DECIMAL(10, 2), 
-    allowNull: false },
-  valor_frete: 
-  { 
-    type: DataTypes.DECIMAL(10, 2), 
-    defaultValue: 0.00 },
-  metodo_pagamento: 
-  { 
-    type: DataTypes.ENUM('Cartao', 'Pix', 'Boleto'),
+const Produto = sequelize.define('Produto', {
+  id_produto: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  nome: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  descricao: {
+    type: DataTypes.TEXT,
     allowNull: true
   },
-  status_atual: 
-  { 
-    type: DataTypes.ENUM(
-      'Aguardando pagamento', 
-      'Pago', 
-      'Em separação', 
-      'Embalado', 
-      'Enviado/Em transito', 
-      'Entregue', 
-      'Cancelado', 
-      'Devolvido/Em troca'
-    ),
-    defaultValue: 'Aguardando pagamento'
+  preco: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false
   },
-  id_usuario: 
-  { 
-    type: DataTypes.INTEGER, 
-    allowNull: false },
-  id_endereco: 
-  { 
-    type: DataTypes.INTEGER, 
-    allowNull: true }
-}, 
-{ tableName: 'pedidos' });
+  estoque: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  categoria: {
+    type: DataTypes.STRING(50),
+    allowNull: false
+  },
+  SKU: {
+    type: DataTypes.STRING(50),
+    allowNull: false
+  },
+  tamanho: {
+    type: DataTypes.ENUM('p', 'm', 'g', 'gg'),
+    defaultValue: 'p'
+  },
+  imagem: {
+    type: DataTypes.TEXT('medium'),
+    allowNull: true
+  },
+  id_drop: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
+  id_usuario: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  }
+}, {
+  tableName: 'produtos',
+  timestamps: false
+});
 
-module.exports = Pedido;
+module.exports = Produto;

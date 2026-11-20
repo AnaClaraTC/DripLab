@@ -1,19 +1,18 @@
 const grade = document.getElementById('grade-destaques');
 const paginacao = document.getElementById('paginacao-destaques');
-
 const produtosPorPagina = 8;
 
-if (grade && paginacao) {
+window.reconfigurarPaginacao = function() {
+    if (!grade || !paginacao) return;
 
     const produtos = Array.from(grade.querySelectorAll('.item'));
     const botoesPagina = Array.from(paginacao.querySelectorAll('[data-pagina]'));
     const botaoAvancar = paginacao.querySelector('[data-avancar]');
 
-    const totalPaginas = botoesPagina.length;
+    const totalPaginas = Math.max(1, Math.ceil(produtos.length / produtosPorPagina));
     let paginaAtual = 1;
 
     function mostrarPagina(numeroPagina) {
-
         paginaAtual = numeroPagina;
 
         const inicio = (paginaAtual - 1) * produtosPorPagina;
@@ -34,17 +33,22 @@ if (grade && paginacao) {
     }
 
     botoesPagina.forEach((botao) => {
-        botao.addEventListener('click', () => {
+        botao.onclick = () => {
             mostrarPagina(Number(botao.dataset.pagina));
-        });
+        };
     });
 
     if (botaoAvancar) {
-        botaoAvancar.addEventListener('click', () => {
+        botaoAvancar.onclick = () => {
             if (paginaAtual < totalPaginas) {
                 mostrarPagina(paginaAtual + 1);
             }
-        });
+        };
     }
+
     mostrarPagina(1);
+};
+
+if (grade && paginacao) {
+    window.reconfigurarPaginacao();
 }

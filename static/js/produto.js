@@ -35,6 +35,36 @@
             if (el("produtovalor")) el("produtovalor").textContent = moeda(p.preco);
             if (el("produtodescricao") && p.descricao) el("produtodescricao").textContent = p.descricao;
 
+            // Imagem do produto
+            const produtoImg = el("produtoimg");
+            if (produtoImg) {
+                const imgTag = produtoImg.querySelector("img");
+                if (imgTag && p.imagem) {
+                    imgTag.src = p.imagem;
+                    imgTag.alt = p.nome;
+                }
+            }
+
+            // Banner do Drop no produto.html
+            const bannerDropEl = el("produtobanner");
+            if (bannerDropEl) {
+                if (p.drop && p.drop.banner_produto) {
+                    bannerDropEl.src = p.drop.banner_produto;
+                    bannerDropEl.alt = `Banner do drop ${p.drop.nome}`;
+                } else {
+                    // Busca banner do drop ativo
+                    fetch('/api/drops/ativo')
+                        .then(r => r.json())
+                        .then(dAtivo => {
+                            if (dAtivo && dAtivo.banner_produto) {
+                                bannerDropEl.src = dAtivo.banner_produto;
+                                bannerDropEl.alt = `Banner do drop ${dAtivo.nome}`;
+                            }
+                        })
+                        .catch(() => {});
+                }
+            }
+
             const criadorNome = p.criador ? p.criador.nome : 'DripLab';
             const criadorTipo = p.criador ? (p.criador.tipo || 'admin').toUpperCase() : 'ADMIN';
 
@@ -55,8 +85,103 @@
             }
 
             carregarComentarios();
+            carregarSecoesRelacionadas(p);
         } catch (e) {
             console.error('Erro ao carregar dados do produto:', e);
+        }
+    }
+
+    async function carregarSecoesRelacionadas(produtoAtual) {
+        // 1. Destaques / Mais Vendidos
+        const secoes = document.querySelectorAll('.secao-produtos');
+        let secaoDestaques = null;
+        let secaoDrop = null;
+
+        secoes.forEach(s => {
+            const h2 = s.querySelector('h2');
+            if (h2 && h2.textContent.includes('DESTAQUE')) {
+                secaoDestaques = s;
+            } else if (h2 && h2.textContent.includes('DROP')) {
+                secaoDrop = s;
+            }
+        });
+
+        // Carrega Mais Vendidos
+        if (secaoDestaques) {
+            try {
+                const resp = await fetch('/api/produtos/mais-vendidos');
+                const maisVendidos = resp.ok ? await resp.json() : [];
+
+                const trilhoDestaques = secaoDestaques.querySelector('.trilho');
+                if (trilhoDestaques) {
+                    trilhoDestaques.innerHTML = '';
+                    if (!maisVendidos || maisVendidos.length === 0) {
+                        secaoDestaques.style.display = 'none';
+                    } else {
+                        secaoDestaques.style.display = '';
+                        maisVendidos.forEach(p => {
+                            const item = document.createElement('div');
+                            item.className = 'item';
+                            item.innerHTML = `
+                                <a href="produto.html?id=${p.id_produto}">
+                                    <div class="item-img">
+                                        <img src="${p.imagem || '../static/images/loja/moletom-oversized.png'}" alt="${p.nome}">
+                                    </div>
+                                    <div class="item-content">
+                                        <h3>${p.nome.toUpperCase()}</h3>
+                                        <p>${moeda(p.preco)}</p>
+                                    </div>
+                                </a>
+                            `;
+                            trilhoDestaques.appendChild(item);
+                        });
+                    }
+                }
+            } catch (e) {
+                secaoDestaques.style.display = 'none';
+            }
+        }
+
+        // Carrega Mais do Drop
+        if (secaoDrop) {
+            const h2Drop = secaoDrop.querySelector('h2');
+            const nomeDrop = (produtoAtual.drop && produtoAtual.drop.nome) ? produtoAtual.drop.nome : 'COLEÇÃO';
+            if (h2Drop) h2Drop.textContent = `[MAIS DO DROP: ${nomeDrop.toUpperCase()}]`;
+
+            try {
+                const query = produtoAtual.id_drop ? `id_drop=${produtoAtual.id_drop}` : `categoria=${encodeURIComponent(produtoAtual.categoria)}`;
+                const resp = await fetch(`/api/produtos?${query}`);
+                const produtosRelacionados = resp.ok ? await resp.json() : [];
+
+                const outros = (produtosRelacionados || []).filter(item => item.id_produto !== produtoAtual.id_produto);
+                const trilhoDrop = secaoDrop.querySelector('.trilho');
+                if (trilhoDrop) {
+                    trilhoDrop.innerHTML = '';
+                    if (outros.length === 0) {
+                        secaoDrop.style.display = 'none';
+                    } else {
+                        secaoDrop.style.display = '';
+                        outros.forEach(p => {
+                            const item = document.createElement('div');
+                            item.className = 'item';
+                            item.innerHTML = `
+                                <a href="produto.html?id=${p.id_produto}">
+                                    <div class="item-img">
+                                        <img src="${p.imagem || '../static/images/loja/moletom-oversized.png'}" alt="${p.nome}">
+                                    </div>
+                                    <div class="item-content">
+                                        <h3>${p.nome.toUpperCase()}</h3>
+                                        <p>${moeda(p.preco)}</p>
+                                    </div>
+                                </a>
+                            `;
+                            trilhoDrop.appendChild(item);
+                        });
+                    }
+                }
+            } catch (e) {
+                secaoDrop.style.display = 'none';
+            }
         }
     }
 
@@ -114,15 +239,6 @@
     const inputCep = el("calc-frete-cep");
     const resultadoFrete = el("calc-frete-resultado");
 
-    if (inputCep) {
-        inputCep.addEventListener("input", () => {
-            const numeros = inputCep.value.replace(/\D/g, "").slice(0, 8);
-            inputCep.value = numeros.length > 5
-                ? `${numeros.slice(0, 5)}-${numeros.slice(5)}`
-                : numeros;
-        });
-    }
-
     if (btnCalcFrete && inputCep && resultadoFrete) {
         btnCalcFrete.addEventListener("click", async () => {
             const cep = inputCep.value.trim();
@@ -149,8 +265,7 @@
 
                 resultadoFrete.hidden = false;
                 resultadoFrete.innerHTML = `
--                     <strong>Destino: ${dados.localidade || ''}
-${dados.uf || ''}</strong>
+                    <strong>Destino: ${dados.localidade || ''} / ${dados.uf || ''}</strong>
                     ${(dados.opcoes || []).map(o => `
                         <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #eee;">
                             <span>${o.nome} (${o.prazo}):</span>
@@ -198,48 +313,40 @@ ${dados.uf || ''}</strong>
 
                 const div = document.createElement("div");
                 div.style.padding = "12px";
+                div.style.background = "#fafafa";
                 div.style.border = "1px solid #e0e0e0";
-                div.style.borderRadius = "8px";
-                div.style.backgroundColor = "#fff";
-                div.style.display = "flex";
-                div.style.justifyContent = "space-between";
-                div.style.alignItems = "center";
+                div.style.borderRadius = "6px";
 
                 div.innerHTML = `
-                    <div>
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <strong style="font-size: 14px;">${autorNome}</strong>
-                            <span class="dbx-nivel dbx-nivel-${autorTipo}" style="font-size: 10px; padding: 2px 8px;">${autorTipo.toUpperCase()}</span>
-                        </div>
-                        <p style="margin: 6px 0 0; font-size: 13px; color: #444;">${c.texto}</p>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                        <strong>${autorNome} <small style="color: #888;">(${autorTipo.toUpperCase()})</small></strong>
+                        ${podeExcluir ? `<button type="button" class="btn-excluir-comentario" data-id="${c.id_comentario}" style="background: none; border: none; color: #d62828; cursor: pointer; font-size: 12px; font-weight: 700;">EXCLUIR</button>` : ''}
                     </div>
-                    ${podeExcluir ? `
-                        <button type="button" class="dbx-btn dbx-laranja dbx-mini btn-del-coment" data-id="${c.id_comentario}">REMOVER</button>
-                    ` : ''}
+                    <p style="font-size: 14px; color: #333; margin: 0;">${c.texto}</p>
                 `;
 
                 listaComentarios.appendChild(div);
             });
 
-            listaComentarios.querySelectorAll(".btn-del-coment").forEach(btn => {
-                btn.addEventListener("click", async () => {
+            listaComentarios.querySelectorAll('.btn-excluir-comentario').forEach(btn => {
+                btn.addEventListener('click', async () => {
                     const idComentario = btn.dataset.id;
                     const token = getToken();
-                    if (!confirm("Tem certeza de que deseja remover este comentário?")) return;
+                    if (!confirm("Remover este comentário?")) return;
 
                     try {
-                        const respDel = await fetch(`/api/comentarios/${idComentario}`, {
+                        const r = await fetch(`/api/comentarios/${idComentario}`, {
                             method: 'DELETE',
                             headers: { 'Authorization': 'Bearer ' + token }
                         });
-                        const resJson = await respDel.json();
-                        if (respDel.ok) {
+                        if (r.ok) {
                             carregarComentarios();
                         } else {
-                            alert(resJson.mensagem || "Erro ao excluir comentário.");
+                            const err = await r.json();
+                            alert(err.mensagem || "Erro ao remover comentário.");
                         }
                     } catch (e) {
-                        alert("Erro de conexão ao remover comentário.");
+                        alert("Erro de conexão ao excluir comentário.");
                     }
                 });
             });
@@ -253,18 +360,14 @@ ${dados.uf || ''}</strong>
             e.preventDefault();
             const token = getToken();
             if (!token) {
-                alert("Faça login para deixar seu comentário.");
+                alert("Faça login para comentar sobre este produto.");
                 window.location.href = "login.html";
                 return;
             }
 
             const inputTexto = el("texto-comentario");
-            const texto = inputTexto ? inputTexto.value.trim() : "";
-
-            if (!texto) {
-                alert("Escreva uma mensagem no comentário.");
-                return;
-            }
+            const texto = inputTexto ? inputTexto.value.trim() : '';
+            if (!texto) return;
 
             try {
                 const resp = await fetch(`/api/produtos/${produtoId}/comentarios`, {
@@ -278,13 +381,13 @@ ${dados.uf || ''}</strong>
 
                 const resJson = await resp.json();
                 if (!resp.ok) {
-                    alert(resJson.mensagem || "Erro ao publicar comentário.");
+                    alert(resJson.mensagem || "Erro ao enviar comentário.");
                 } else {
-                    if (inputTexto) inputTexto.value = "";
+                    inputTexto.value = '';
                     carregarComentarios();
                 }
             } catch (err) {
-                alert("Erro de conexão ao publicar comentário.");
+                alert("Erro de conexão ao enviar comentário.");
             }
         });
     }

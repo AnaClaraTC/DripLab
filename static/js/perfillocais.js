@@ -148,7 +148,11 @@
 
     async function carregarLocaisDoBanco() {
         const token = getToken();
-        if (!token) return;
+        if (!token) {
+            lista.innerHTML = '';
+            atualizarListaVazia();
+            return;
+        }
 
         try {
             const resp = await fetch('/api/enderecos', {
@@ -283,10 +287,14 @@
                 lista.append(item);
                 atualizarListaVazia();
                 formNovo.reset();
+                if (r.id) localStorage.setItem('ultimo_endereco_id', r.id);
 
                 item.scrollIntoView({ block: "nearest", behavior: "smooth" });
                 btnAdd.textContent = "LOCAL ADICIONADO!";
                 setTimeout(() => (btnAdd.textContent = "ADICIONAR LOCAL"), 2000);
+                if (new URLSearchParams(window.location.search).get('origem') === 'carrinho') {
+                    window.location.href = 'carrinho.html';
+                }
             } catch (err) {
                 mostrarErro(erroNovo, "Erro de conexão. Tente novamente.");
             } finally {

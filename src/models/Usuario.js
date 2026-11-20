@@ -13,7 +13,7 @@ const Usuario = sequelize.define('Usuario', {
     allowNull: false },
   telefone: 
   { 
-    type: DataTypes.STRING(15), 
+    type: DataTypes.STRING(25),
     allowNull: false },
   email: 
   { 
@@ -26,7 +26,7 @@ const Usuario = sequelize.define('Usuario', {
     allowNull: false },
   cpf: 
   { 
-    type: DataTypes.STRING(15), 
+    type: DataTypes.STRING(18), 
     allowNull: false },
   pontos: 
   { 

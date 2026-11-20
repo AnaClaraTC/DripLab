@@ -18,6 +18,22 @@ async function criar(req, res) {
     const id_usuario = req.usuario.id_usuario;
     let { itens, id_endereco, metodo_pagamento = 'Pix', valor_frete = 0.00 } = req.body;
 
+    // Validacao obrigatoria de endereco
+    if (!id_endereco) {
+      await t.rollback();
+      return res.status(400).json({ mensagem: 'É obrigatório selecionar um endereço de entrega cadastrado.' });
+    }
+
+    const enderecoExiste = await Endereco.findOne({
+      where: { id_endereco, id_usuario },
+      transaction: t
+    });
+
+    if (!enderecoExiste) {
+      await t.rollback();
+      return res.status(400).json({ mensagem: 'Endereço de entrega selecionado não pertence ao seu usuário ou não existe.' });
+    }
+
     if (!itens || !Array.isArray(itens) || itens.length === 0) {
       const itensCarrinho = await Carrinho.findAll({
         where: { id_usuario },
@@ -76,17 +92,17 @@ async function criar(req, res) {
 
     const totalFinal = Number((valorTotalItens + Number(valor_frete || 0)).toFixed(2));
 
-    //Criacao pedido
+    // Criacao pedido
     const pedido = await Pedido.create({
       id_usuario,
-      id_endereco: id_endereco || null,
+      id_endereco,
       valor_total: totalFinal,
       valor_frete: Number(valor_frete) || 0.00,
       metodo_pagamento,
       status_atual: 'Aguardando pagamento'
     }, { transaction: t });
 
-    //Criacao itens pedido
+    // Criacao itens pedido e baixa no estoque
     for (const item of itensValidados) {
       await ItemPedido.create({
         id_pedido: pedido.id_pedido,
@@ -96,12 +112,11 @@ async function criar(req, res) {
         tamanho: item.tamanho
       }, { transaction: t });
 
-      //Update estoque produto
       item.produto.estoque -= item.quantidade;
       await item.produto.save({ transaction: t });
     }
 
-    //Limpa carrinho
+    // Limpa carrinho do usuario
     await Carrinho.destroy({
       where: { id_usuario },
       transaction: t
@@ -147,7 +162,7 @@ async function meusPedidos(req, res) {
             {
               model: Produto,
               as: 'produto',
-              attributes: ['id_produto', 'nome', 'preco', 'categoria']
+              attributes: ['id_produto', 'nome', 'preco', 'categoria', 'imagem']
             }
           ]
         },
@@ -175,7 +190,13 @@ async function obterPorId(req, res) {
         {
           model: ItemPedido,
           as: 'itens',
-          include: [{ model: Produto, as: 'produto' }]
+          include: [
+            {
+              model: Produto,
+              as: 'produto',
+              attributes: ['id_produto', 'nome', 'preco', 'categoria', 'imagem', 'descricao']
+            }
+          ]
         },
         {
           model: Endereco,
@@ -220,7 +241,13 @@ async function listarTodos(req, res) {
         {
           model: ItemPedido,
           as: 'itens',
-          include: [{ model: Produto, as: 'produto' }]
+          include: [
+            {
+              model: Produto,
+              as: 'produto',
+              attributes: ['id_produto', 'nome', 'preco', 'categoria', 'imagem']
+            }
+          ]
         },
         {
           model: Endereco,

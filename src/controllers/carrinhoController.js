@@ -10,7 +10,7 @@ async function listar(req, res) {
         {
           model: Produto,
           as: 'produto',
-          attributes: ['id_produto', 'nome', 'descricao', 'preco', 'estoque', 'categoria', 'SKU', 'tamanho']
+          attributes: ['id_produto', 'nome', 'descricao', 'preco', 'estoque', 'categoria', 'SKU', 'tamanho', 'imagem']
         }
       ],
       order: [['id_carrinho', 'ASC']]

@@ -171,14 +171,6 @@ if (btnCadastro) {
         const cpf = (document.getElementById('cpfCadastro') || {}).value || '';
         const email = (document.getElementById('emailCadastro') || {}).value || '';
         const telefone = (document.getElementById('telefoneCadastro') || {}).value || '';
-        const nomelocal = (document.getElementById('nomelocal') || {}).value || '';
-        const cep = (document.getElementById('cep') || {}).value || '';
-        const estado = (document.getElementById('estado') || {}).value || '';
-        const cidade = (document.getElementById('cidade') || {}).value || '';
-        const bairro = (document.getElementById('bairro') || {}).value || '';
-        const rua = (document.getElementById('rua') || {}).value || '';
-        const numero = (document.getElementById('numero') || {}).value || '';
-        const complemento = (document.getElementById('complemento') || {}).value || '';
         const senha = (document.getElementById('senhaCadastro') || {}).value || '';
         const confirmarSenha = (document.getElementById('confirmar-senha') || {}).value || '';
 
@@ -201,15 +193,7 @@ if (btnCadastro) {
                 cpf: cpf.trim(),
                 email: email.trim(),
                 telefone: telefone.trim(),
-                senha,
-                nomelocal: nomelocal.trim(),
-                cep: cep.trim(),
-                estado: estado.trim(),
-                cidade: cidade.trim(),
-                bairro: bairro.trim(),
-                rua: rua.trim(),
-                numero: numero.trim(),
-                complemento: complemento.trim()
+                senha
             };
 
             const resposta = await fetch('/api/usuarios', {
@@ -223,7 +207,9 @@ if (btnCadastro) {
                 throw new Error(dados.mensagem || 'Erro ao realizar cadastro.');
             }
 
-            alert('Cadastro de cliente realizado com sucesso! Faça login para continuar.');
+            alert(dados.tipo === 'admin'
+                ? 'Primeiro usuário cadastrado como administrador. Faça login para continuar.'
+                : 'Cadastro de cliente realizado com sucesso! Faça login para continuar.');
             if (document.getElementById('emailLogin')) {
                 document.getElementById('emailLogin').value = email;
             }

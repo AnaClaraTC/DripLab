@@ -11,10 +11,26 @@
     formCompra.addEventListener("submit", (evento) => {
         evento.preventDefault();
 
+        // 1. Validacao de login obrigatoria
         const token = getToken();
         if (!token) {
-            alert("Faça login para fechar seu pedido.");
+            alert("Atenção: Faça login para prosseguir com o pagamento.");
             window.location.href = "login.html";
+            return;
+        }
+
+        // 2. Validacao de itens no carrinho
+        const checks = [...document.querySelectorAll(".checkproduto:checked")];
+        if (checks.length === 0) {
+            alert("Seu carrinho está vazio ou nenhum produto foi selecionado.");
+            return;
+        }
+
+        // 3. Validacao de endereco selecionado
+        const radioLocal = document.querySelector('input[name="local"]:checked');
+        if (!radioLocal) {
+            alert("Atenção: É obrigatório cadastrar ou selecionar um local de entrega antes de ir para o pagamento.");
+            window.location.href = "perfil.html?origem=carrinho#pagconfig";
             return;
         }
 
@@ -74,7 +90,13 @@
         }
 
         const radioLocal = document.querySelector('input[name="local"]:checked');
-        const id_endereco = radioLocal ? radioLocal.value : null;
+        const id_endereco = radioLocal ? Number(radioLocal.value) : null;
+
+        if (!id_endereco) {
+            alert("Selecione um endereço de entrega.");
+            return;
+        }
+
         const valor_frete = window.valorFreteAtual || 0;
 
         try {

@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/mascaras.js" defer></script>
     <script src="../static/js/autenticacao.js" defer></script>
 
     
@@ -131,46 +132,17 @@
                 <img src="../static/images/promocional/banner_cadastro.png" class="imglogin">
 
                 <label class="form-label" for="nomeCadastro" >NOME</label>
-                <input class="inputform" type="text" name="nome" id="nomeCadastro" required placeholder="Insira seu Nome">
+                <input class="inputform" type="text" name="nome" id="nomeCadastro" maxlength="100" required placeholder="Insira seu Nome">
 
                 <label class="form-label" for="cpfCadastro" >CPF</label>
-                <input class="inputform" type="text" name="cpf" id="cpfCadastro" required placeholder="Insira seu CPF">
+                <input class="inputform" type="text" name="cpf" id="cpfCadastro" data-mask="cpf" maxlength="14" inputmode="numeric" required placeholder="Insira seu CPF">
 
                 <label class="form-label" for="emailCadastro" >E-MAIL</label>
-                <input class="inputform" type="email" name="email" id="emailCadastro" required placeholder="Insira seu E-mail">
+                <input class="inputform" type="email" name="email" id="emailCadastro" maxlength="100" required placeholder="Insira seu E-mail">
 
-                <label class="form-label" for="telefoneCadastro" >TELEFONE</label>
-                <input class="inputform" type="tel" name="telefone" id="telefoneCadastro" required placeholder="+XX (XX) XXXXX-XXXX">
+                <label class="form-label" for="telefoneCadastro">TELEFONE</label>
+                <input class="inputform" type="tel" name="telefone" id="telefoneCadastro" data-mask="telefone" maxlength="15" inputmode="numeric" autocomplete="tel-national" required placeholder="(00) 00000-0000">
 
-                <label class="form-label" for="nomelocal">NOME DO LOCAL</label>
-                <input class="inputform" type="text" id="nomelocal" name="nomelocal" placeholder="Escolha o local padrão de entrega (ex.: Casa, Trabalho)" maxlength="30" required>
-
-                <label class="form-label" for="cep">CEP</label>
-                <input class="inputform" type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" inputmode="numeric" autocomplete="postal-code" required>
-                <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank" rel="noopener" class="linkcep">Não sei meu CEP</a>
-
-                <label class="form-label" for="estado">ESTADO</label>
-                <input class="inputform" type="text" id="estado" name="estado" placeholder="Ex.: RJ" autocomplete="address-level1" required>
-                       
-                <label class="form-label" for="cidade">CIDADE</label>
-                <input class="inputform" type="text" id="cidade" name="cidade" placeholder="Digite sua cidade" autocomplete="address-level2" required>
-                     
-
-                <label class="form-label" for="bairro">BAIRRO</label>
-                <input class="inputform" type="text" id="bairro" name="bairro" placeholder="Digite seu bairro" required>
-
-                <label class="form-label" for="rua">RUA / AVENIDA</label>
-                <input class="inputform" type="text" id="rua" name="rua" placeholder="Digite o nome da rua" autocomplete="address-line1" required>
-
-                <label class="form-label" for="numero">NÚMERO</label>
-                <input class="inputform" type="text" id="numero" name="numero" placeholder="Nº" required>
-                     
-                <label class="form-label" for="complemento">COMPLEMENTO (OPCIONAL)</label>
-                <input class="inputform" type="text" id="complemento" name="complemento" placeholder="Apartamento, bloco, casa..." autocomplete="address-line2">
-
-                <label class="form-label" for="nascimentoCadastro">DATA DE NASCIMENTO</label>
-                <input class="inputform" type="date" id="nascimentoCadastro" name="nascimento" min="1900-01-01" max="2026-12-31" required>
-                
                 <label class="form-label" for="senhaCadastro">SENHA</label>
                 <input class="inputform" type="password" name="senha" id="senhaCadastro" required placeholder="Insira sua Senha">
 
@@ -187,34 +159,6 @@
         <h1>DRIP LAB</h1>
         <p>© 2026 DripLab. Todos os direitos reservados.</p>
     </footer>
-
-    <script>
-        document.getElementById('cpfCadastro').addEventListener('input', function(e) {
-        var value = e.target.value;
-        var cpfPattern = value.replace(/\D/g, '')
-                                .replace(/(\d{3})(\d)/, '$1.$2')
-                                .replace(/(\d{3})(\d)/, '$1.$2') 
-                                .replace(/(\d{3})(\d)/, '$1-$2')
-                                .replace(/(-\d{2})\d+?$/, '$1');
-        e.target.value = cpfPattern;
-        });
-    </script>
-    <script>
-        const telefoneCadastro = document.getElementById('telefoneCadastro');
-
-        telefoneCadastro.addEventListener('input', function () {
-            const digits = this.value.replace(/\D/g, '').slice(0, 13);
-            let formatted = '';
-
-            if (digits.length > 0) formatted = '+' + digits.slice(0, 2);
-            if (digits.length > 2) formatted += ' (' + digits.slice(2, 4);
-            if (digits.length > 4) formatted += ') ' + digits.slice(4, 9);
-            if (digits.length > 9) formatted += '-' + digits.slice(9, 13);
-
-            this.value = formatted;
-            this.setCustomValidity(digits.length === 13 ? '' : 'Informe o telefone no formato +XX (XX) XXXXX-XXXX.');
-        });
-    </script>
 
     <script>
         window.addEventListener("load", () => {

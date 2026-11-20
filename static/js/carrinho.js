@@ -51,7 +51,16 @@
 
     async function carregarCarrinho() {
         const token = getToken();
-        if (!token) return;
+        if (!token) {
+            if (listaProdutos) {
+                listaProdutos.innerHTML = '<p style="text-align: center; color: #888; padding: 40px 10px; font-size: 15px;">Faça login para ver e sincronizar os itens do seu carrinho.</p>';
+            }
+            if (tituloCarrinho) tituloCarrinho.innerHTML = `[CARRINHO] <span>(0 ITENS)</span>`;
+            if (subtotalEl) subtotalEl.textContent = moeda(0);
+            if (totalCompraEl) totalCompraEl.textContent = moeda(0);
+            if (valorFreteEl) valorFreteEl.textContent = moeda(0);
+            return;
+        }
 
         try {
             const resp = await fetch('/api/carrinho', {
@@ -64,8 +73,20 @@
             const itens = dados.itens || [];
             window.itensCarrinhoCache = itens;
 
-            if (listaProdutos && itens.length > 0) {
+            if (listaProdutos) {
                 listaProdutos.innerHTML = '';
+
+                if (itens.length === 0) {
+                    listaProdutos.innerHTML = '<p style="text-align: center; color: #888; padding: 40px 10px; font-size: 15px;">Seu carrinho está vazio.</p>';
+                    if (tituloCarrinho) {
+                        tituloCarrinho.innerHTML = `[CARRINHO] <span>(0 ITENS)</span>`;
+                    }
+                    if (subtotalEl) subtotalEl.textContent = moeda(0);
+                    if (totalCompraEl) totalCompraEl.textContent = moeda(0);
+                    if (valorFreteEl) valorFreteEl.textContent = moeda(0);
+                    return;
+                }
+
                 if (tituloCarrinho) {
                     tituloCarrinho.innerHTML = `[CARRINHO] <span>(${itens.length} ITENS)</span>`;
                 }
@@ -73,6 +94,8 @@
                 itens.forEach(item => {
                     const prod = item.produto || {};
                     const preco = item.preco_unitario || Number(prod.preco || 0);
+                    const imgSrc = prod.imagem || "../static/images/loja/camiseta-grafitti-404.png";
+
                     const section = document.createElement("section");
                     section.className = "itemcarrinho";
                     section.dataset.id = item.id_carrinho;
@@ -82,7 +105,7 @@
                     section.innerHTML = `
                         <input type="checkbox" class="checkproduto" aria-label="Selecionar produto" checked>
                         <div class="itemcarrinho-img">
-                            <img src="../static/images/loja/camiseta-grafitti-404.png" alt="${prod.nome}">
+                            <img src="${imgSrc}" alt="${prod.nome || 'Produto'}">
                         </div>
 
                         <div class="itemcarrinho-info">
@@ -96,7 +119,7 @@
                             <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
                         </div>
 
-                      <p class="preco">${moeda(preco * item.quantidade)}</p>
+                        <p class="preco">${moeda(preco * item.quantidade)}</p>
                         <button type="button" class="remover" aria-label="Remover item">×</button>
                     `;
 
@@ -200,15 +223,12 @@
                             alert('Erro ao remover item.');
                             return;
                         }
+                        section.remove();
+                        carregarCarrinho();
                     } catch (err) {
-                        alert('Erro de conexão.');
-                        return;
+                        alert('Erro de conexão ao remover item.');
                     }
                 }
-
-                section.remove();
-                atualizarCheckTodos();
-                window.recalcularTotais();
             }
         });
 

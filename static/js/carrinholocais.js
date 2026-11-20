@@ -1,20 +1,8 @@
 (() => {
-    const modalLocal = document.getElementById("modallocal");
-    const formLocal = document.getElementById("formlocal");
     const listaLocais = document.getElementById("listalocais");
     const semLocais = document.getElementById("semlocais");
-    const campoCep = document.getElementById("cep");
 
     const getToken = () => localStorage.getItem('token') || localStorage.getItem('driplab_token');
-
-    if (campoCep) {
-        campoCep.addEventListener("input", () => {
-            const numeros = campoCep.value.replace(/\D/g, "").slice(0, 8);
-            campoCep.value = numeros.length > 5
-                ? `${numeros.slice(0, 5)}-${numeros.slice(5)}`
-                : numeros;
-        });
-    }
 
     const atualizarListaVazia = () => {
         if (semLocais && listaLocais) {
@@ -74,7 +62,11 @@
 
     async function carregarLocaisDoBanco() {
         const token = getToken();
-        if (!token) return;
+        if (!token) {
+            if (listaLocais) listaLocais.innerHTML = '';
+            atualizarListaVazia();
+            return;
+        }
 
         try {
             const resp = await fetch('/api/enderecos', {
@@ -84,15 +76,31 @@
             if (!resp.ok) return;
 
             const enderecos = await resp.json();
-            if (listaLocais && enderecos.length > 0) {
+            if (listaLocais) {
                 listaLocais.innerHTML = '';
-                enderecos.forEach((end, idx) => {
-                    const opc = criarOpcaoLocal(end.id_endereco, end, idx === 0);
-                    listaLocais.append(opc);
-                });
-                atualizarListaVazia();
 
-                calcularFretePorCep(enderecos[0].cep);
+                if (enderecos.length > 0) {
+                    const ultimoId = localStorage.getItem('ultimo_endereco_id');
+                    let idxParaSelecionar = enderecos.length - 1;
+                    if (ultimoId) {
+                        const achouIdx = enderecos.findIndex(e => String(e.id_endereco) === String(ultimoId));
+                        if (achouIdx !== -1) {
+                            idxParaSelecionar = achouIdx;
+                        }
+                        localStorage.removeItem('ultimo_endereco_id');
+                    }
+
+                    enderecos.forEach((end, idx) => {
+                        const opc = criarOpcaoLocal(end.id_endereco, end, idx === idxParaSelecionar);
+                        listaLocais.append(opc);
+                    });
+                    calcularFretePorCep(enderecos[idxParaSelecionar].cep);
+                } else {
+                    window.location.href = 'perfil.html?origem=carrinho#pagconfig';
+                    return;
+                }
+
+                atualizarListaVazia();
             }
         } catch (e) {
             console.error('Erro ao carregar locais:', e);
@@ -112,62 +120,15 @@
     }
 
     const btnAbrirModal = document.getElementById("abrirmodallocal");
-    if (btnAbrirModal && modalLocal) {
+    if (btnAbrirModal) {
         btnAbrirModal.addEventListener("click", () => {
-            if (formLocal) formLocal.reset();
-            modalLocal.showModal();
-        });
-    }
-
-    const btnFecharModal = document.getElementById("fecharmodallocal");
-    if (btnFecharModal && modalLocal) {
-        btnFecharModal.addEventListener("click", () => modalLocal.close());
-    }
-    if (modalLocal) {
-        modalLocal.addEventListener("click", (evento) => {
-            if (evento.target === modalLocal) modalLocal.close();
-        });
-    }
-
-    if (formLocal) {
-        formLocal.addEventListener("submit", async (evento) => {
-            evento.preventDefault();
             const token = getToken();
-            const dados = Object.fromEntries(new FormData(formLocal));
-
             if (!token) {
-                alert('Faça login para cadastrar um novo local.');
+                alert("Faça login para cadastrar um novo endereço.");
+                window.location.href = "login.html";
                 return;
             }
-
-            try {
-                const resp = await fetch('/api/enderecos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    body: JSON.stringify(dados)
-                });
-
-                const resJson = await resp.json();
-                if (!resp.ok) {
-                    alert(resJson.mensagem || 'Erro ao cadastrar local.');
-                    return;
-                }
-
-                const id = resJson.id || (resJson.endereco ? resJson.endereco.id_endereco : Date.now());
-                const opcao = criarOpcaoLocal(id, dados, true);
-                listaLocais.append(opcao);
-                opcao.querySelector("input").checked = true;
-
-                atualizarListaVazia();
-                modalLocal.close();
-
-                calcularFretePorCep(dados.cep);
-            } catch (err) {
-                alert('Erro de conexão ao salvar endereço.');
-            }
+            window.location.href = "perfil.html?origem=carrinho#pagconfig";
         });
     }
 

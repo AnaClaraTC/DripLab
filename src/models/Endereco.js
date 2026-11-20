@@ -17,7 +17,7 @@ const Endereco = sequelize.define('Endereco', {
     allowNull: false },
   cep: 
   { 
-    type: DataTypes.STRING(10), 
+    type: DataTypes.STRING(12),
     allowNull: false },
   estado: 
   { 

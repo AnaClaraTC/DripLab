@@ -1,37 +1,121 @@
 const { Op } = require('sequelize');
-const { Produto, Usuario, Drop, Comentario, Categoria } = require('../models');
+const sequelize = require('../config/database');
+const { Produto, Usuario, Drop, Comentario, Categoria, ItemPedido } = require('../models');
 
 async function listar(req, res) {
   try {
-    const { pagina = 1, limite = 50, nome, categoria, tamanho } = req.query;
-    const filtro = {};
+    const { pagina = 1, limite = 50, nome, busca, categoria, tamanho, id_drop, ordenar } = req.query;
+    const termo = (busca || nome || '').trim();
 
-    if (nome) filtro.nome = { [Op.like]: `%${nome}%` };
-    if (categoria && categoria !== 'todos') filtro.categoria = categoria;
-    if (tamanho) filtro.tamanho = tamanho.toLowerCase();
+    let whereClause = {};
+
+    if (categoria && categoria.toLowerCase() !== 'todos') {
+      whereClause.categoria = { [Op.like]: `%${categoria.trim()}%` };
+    }
+
+    if (tamanho) {
+      whereClause.tamanho = tamanho.toLowerCase();
+    }
+
+    if (id_drop) {
+      whereClause.id_drop = id_drop;
+    }
+
+    const includeList = [
+      {
+        model: Usuario,
+        as: 'criador',
+        attributes: ['id_usuario', 'nome', 'email', 'tipo']
+      },
+      {
+        model: Drop,
+        as: 'drop',
+        attributes: ['id_drop', 'nome', 'banner_index', 'banner_produto']
+      }
+    ];
+
+    if (termo) {
+      whereClause = {
+        ...whereClause,
+        [Op.or]: [
+          { nome: { [Op.like]: `%${termo}%` } },
+          { categoria: { [Op.like]: `%${termo}%` } },
+          { '$drop.nome$': { [Op.like]: `%${termo}%` } }
+        ]
+      };
+    }
+
+    let orderClause = [['id_produto', 'DESC']];
+    if (ordenar === 'antigo') {
+      orderClause = [['id_produto', 'ASC']];
+    } else if (ordenar === 'recente') {
+      orderClause = [['id_produto', 'DESC']];
+    } else if (ordenar === 'comprado') {
+      // Order by sales or fallback to recent
+      orderClause = [['id_produto', 'DESC']];
+    }
 
     const produtos = await Produto.findAll({
-      where: filtro,
-      include: [
-        {
-          model: Usuario,
-          as: 'criador',
-          attributes: ['id_usuario', 'nome', 'email', 'tipo']
-        },
-        {
-          model: Drop,
-          as: 'drop',
-          attributes: ['id_drop', 'nome']
-        }
-      ],
+      where: whereClause,
+      include: includeList,
+      subQuery: false,
       limit: Number(limite),
       offset: (Number(pagina) - 1) * Number(limite),
-      order: [['id_produto', 'DESC']]
+      order: orderClause
     });
 
     res.json(produtos);
   } catch (erro) {
     res.status(400).json({ mensagem: 'Erro ao listar produtos', erro: erro.message });
+  }
+}
+
+async function maisVendidos(req, res) {
+  try {
+    const itensVendidos = await ItemPedido.findAll({
+      attributes: [
+        'id_produto',
+        [sequelize.fn('SUM', sequelize.col('ItemPedido.quantidade')), 'total_vendido']
+      ],
+      include: [
+        {
+          model: Produto,
+          as: 'produto',
+          include: [
+            {
+              model: Drop,
+              as: 'drop',
+              attributes: ['id_drop', 'nome']
+            },
+            {
+              model: Usuario,
+              as: 'criador',
+              attributes: ['id_usuario', 'nome', 'tipo']
+            }
+          ]
+        }
+      ],
+      group: [
+        'ItemPedido.id_produto',
+        'produto.id_produto',
+        'produto->drop.id_drop',
+        'produto->criador.id_usuario'
+      ],
+      order: [[sequelize.literal('total_vendido'), 'DESC']],
+      limit: 16
+    });
+
+    const produtos = itensVendidos
+      .filter(item => item.produto)
+      .map(item => {
+        const prod = item.produto.toJSON();
+        prod.total_vendido = Number(item.getDataValue('total_vendido') || 0);
+        return prod;
+      });
+
+    res.json(produtos);
+  } catch (erro) {
+    res.status(500).json({ mensagem: 'Erro ao listar produtos mais vendidos', erro: erro.message });
   }
 }
 
@@ -47,7 +131,8 @@ async function obterPorId(req, res) {
         },
         {
           model: Drop,
-          as: 'drop'
+          as: 'drop',
+          attributes: ['id_drop', 'nome', 'banner_index', 'banner_produto']
         },
         {
           model: Comentario,
@@ -81,15 +166,23 @@ async function cadastrar(req, res) {
     }
 
     if (!dados.nome || !dados.preco || dados.estoque === undefined || !dados.categoria || !dados.SKU) {
-      return res.status(400).json({ mensagem: 'Preencha os campos obrigatórios do produto.' });
+      return res.status(400).json({ mensagem: 'Preencha os campos obrigatórios do produto (nome, preço, estoque, categoria, SKU).' });
+    }
+
+    if (dados.imagem) {
+      dados.imagem = dados.imagem.trim();
+    }
+
+    if (dados.id_drop) {
+      dados.id_drop = Number(dados.id_drop) || null;
     }
 
     const produto = await Produto.create(dados);
 
     if (dados.categoria) {
       await Categoria.findOrCreate({
-        where: { nome: dados.categoria },
-        defaults: { nome: dados.categoria }
+        where: { nome: dados.categoria.trim() },
+        defaults: { nome: dados.categoria.trim() }
       }).catch(() => {});
     }
 
@@ -99,6 +192,11 @@ async function cadastrar(req, res) {
           model: Usuario,
           as: 'criador',
           attributes: ['id_usuario', 'nome', 'email', 'tipo']
+        },
+        {
+          model: Drop,
+          as: 'drop',
+          attributes: ['id_drop', 'nome', 'banner_index', 'banner_produto']
         }
       ]
     });
@@ -131,7 +229,7 @@ async function listarCategorias(req, res) {
 
     if (categorias.length === 0) {
       const categoriasProdutos = await Produto.findAll({
-        attributes: [[Produto.sequelize.fn('DISTINCT', Produto.sequelize.col('categoria')), 'nome']],
+        attributes: [[sequelize.fn('DISTINCT', sequelize.col('categoria')), 'nome']],
         raw: true
       });
 
@@ -144,4 +242,11 @@ async function listarCategorias(req, res) {
   }
 }
 
-module.exports = { listar, obterPorId, cadastrar, deletar, listarCategorias };
+module.exports = {
+  listar,
+  maisVendidos,
+  obterPorId,
+  cadastrar,
+  deletar,
+  listarCategorias
+};

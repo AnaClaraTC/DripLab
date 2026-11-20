@@ -65,29 +65,6 @@
             }
         },
 
-        data: {
-            titulo: "ALTERAR DATA DE NASCIMENTO",
-            texto: "Selecione sua nova data de nascimento.",
-            botao: "SALVAR ALTERAÇÃO",
-            verificacao: false,
-            alvo: "dataperfil",
-            campos: [{
-                id: "novaData", label: "Data de nascimento", type: "date",
-                atual: () => el("dataperfil") ? el("dataperfil").textContent.trim().split(".").reverse().join("-") : ""
-            }],
-            validar(v) {
-                if (!v.novaData) return "Selecione uma data.";
-                const [a, m, d] = v.novaData.split("-").map(Number);
-                const dt = new Date(a, m - 1, d);
-                if (dt.getFullYear() !== a || dt.getMonth() !== m - 1 || dt.getDate() !== d)
-                    return "Essa data não existe.";
-                if (a < 1900) return "Data anterior ao limite permitido.";
-                if (dt > new Date()) return "A data não pode estar no futuro.";
-                return "";
-            },
-            exibir: (v) => (v.novaData || "").split("-").reverse().join(".")
-        },
-
         email: {
             titulo: "ALTERAR E-MAIL",
             texto: "Informe o novo endereço de e-mail que deseja utilizar.",
@@ -118,21 +95,24 @@
 
         telefone: {
             titulo: "ALTERAR TELEFONE",
-            texto: "Informe seu novo número de telefone com o DDD.",
+            texto: "Informe seu novo número de telefone com DDD, sem código do país.",
             botao: "SALVAR ALTERAÇÃO",
             verificacao: false,
             alvo: "telefoneperfil",
             campos: [{
                 id: "novoTelefone", label: "Novo telefone", type: "tel",
-                placeholder: "+55 (21) 99999-9999", maxlength: 19, autocomplete: "tel",
+                placeholder: "(00) 00000-0000", maxlength: 15, inputmode: "numeric",
+                mask: "telefone", autocomplete: "tel-national",
                 atual: () => el("telefoneperfil") ? el("telefoneperfil").textContent.trim() : ""
             }],
             validar(v) {
                 const digitos = soNumeros(v.novoTelefone || "");
-                if (digitos.length !== 13) return "Informe o telefone no formato +XX (XX) XXXXX-XXXX.";
+                if (digitos.length !== 10 && digitos.length !== 11) {
+                    return "Informe um telefone com DDD: 10 dígitos para fixo ou 11 para celular.";
+                }
                 return "";
             },
-            exibir: (v) => v.novoTelefone
+            exibir: (v) => window.DripMasks.telefone(v.novoTelefone)
         }
     };
 
@@ -162,35 +142,19 @@
     }
 
     async function carregarPerfil() {
-        const token = getToken();
-        if (!token) {
-            window.location.href = "login.html";
-            return;
-        }
-
         try {
-            const resp = await fetch("/api/usuarios/perfil", {
-                headers: { "Authorization": "Bearer " + token }
-            });
-
-            if (!resp.ok) {
-                if (resp.status === 401) {
-                    localStorage.removeItem("token");
-                    window.location.href = "login.html";
-                }
-                return;
-            }
-
-            const usuario = await resp.json();
+            const usuario = await window.DripLabPerfilPromise;
+            if (!usuario) return;
 
             if (el("nomeuser")) el("nomeuser").textContent = usuario.nome.toUpperCase();
             if (el("emailuser")) el("emailuser").textContent = usuario.email;
             if (el("qtdpoints")) el("qtdpoints").textContent = usuario.pontos || 0;
 
             if (el("nomeperfil")) el("nomeperfil").textContent = usuario.nome;
-            if (el("cpfperfil")) el("cpfperfil").textContent = usuario.cpf;
+            if (el("cpfperfil")) el("cpfperfil").textContent = window.DripMasks.cpf(usuario.cpf);
             if (el("emailperfil")) el("emailperfil").textContent = usuario.email;
-            if (el("telefoneperfil")) el("telefoneperfil").textContent = usuario.telefone;
+            if (el("telefoneperfil")) el("telefoneperfil").textContent = window.DripMasks.telefone(usuario.telefone);
+            if (el("nivelperfil")) el("nivelperfil").textContent = usuario.nivel || "Iniciante";
 
             const tipo = usuario.tipo || 'cliente';
             let badge = document.getElementById("badge-tipo-usuario");
@@ -204,7 +168,7 @@
                 if (el("nomeuser")) el("nomeuser").appendChild(badge);
             }
             if (badge) {
-                badge.textContent = tipo.toUpperCase();
+                badge.textContent = (usuario.nivel || "Iniciante").toUpperCase();
                 badge.className = `dbx-nivel dbx-nivel-${tipo}`;
             }
 
@@ -243,8 +207,12 @@
             if (c.maxlength) input.maxLength = c.maxlength;
             if (c.accept) input.accept = c.accept;
             if (c.inputmode) input.inputMode = c.inputmode;
+            if (c.mask) input.dataset.mask = c.mask;
             if (c.autocomplete) input.autocomplete = c.autocomplete;
-            if (c.atual) input.value = c.atual();
+            if (c.atual) {
+                input.value = c.atual();
+                if (c.mask) input.value = window.DripMasks[c.mask](input.value);
+            }
 
             grupo.append(label, input);
             area.append(grupo);
@@ -277,19 +245,6 @@
     if (el("cancelarperfil")) el("cancelarperfil").addEventListener("click", () => modal.close());
     modal.addEventListener("click", (evento) => {
         if (evento.target === modal) modal.close();
-    });
-
-    area.addEventListener("input", (evento) => {
-        const campo = evento.target;
-        if (campo.id === "novoTelefone") {
-            const d = soNumeros(campo.value).slice(0, 13);
-            let f = "";
-            if (d.length > 0) f = "+" + d.slice(0, 2);
-            if (d.length > 2) f += " (" + d.slice(2, 4);
-            if (d.length > 4) f += ") " + d.slice(4, 9);
-            if (d.length > 9) f += "-" + d.slice(9, 13);
-            campo.value = f;
-        }
     });
 
     form.addEventListener("submit", async (evento) => {

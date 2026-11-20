@@ -44,7 +44,6 @@
 
     if (tipoUsuario === 'operador') {
         if (itemMetricas) itemMetricas.hidden = true;
-        if (itemDrops) itemDrops.hidden = true;
         if (itemPropostas) itemPropostas.hidden = true;
         if (itemContas) itemContas.hidden = true;
 
@@ -470,6 +469,247 @@
         }
     }
 
+    async function carregarDrops() {
+        const container = el('dbx-grade-drops');
+        const avisoVazio = el('dbx-drops-vazio');
+        const selectDropProd = el('dbx-prod-drop');
+        if (!container) return;
+
+        try {
+            const resp = await fetch('/api/drops', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!resp.ok) return;
+
+            const drops = await resp.json();
+            container.innerHTML = '';
+
+            if (selectDropProd) {
+                selectDropProd.innerHTML = '<option value="">Sem Drop vinculado</option>';
+            }
+
+            if (!drops || drops.length === 0) {
+                if (avisoVazio) avisoVazio.hidden = false;
+                return;
+            }
+
+            if (avisoVazio) avisoVazio.hidden = true;
+
+            drops.forEach(d => {
+                const totalProds = d.produtos ? d.produtos.length : 0;
+                if (selectDropProd) {
+                    const opt = document.createElement('option');
+                    opt.value = d.id_drop;
+                    opt.textContent = `${d.nome} (${totalProds} produtos)`;
+                    selectDropProd.appendChild(opt);
+                }
+
+                const card = document.createElement('div');
+                card.className = 'dbx-card';
+                card.dataset.busca = `${d.nome}`.toLowerCase();
+                card.style.padding = '16px';
+                card.style.display = 'flex';
+                card.style.flexDirection = 'column';
+                card.style.justifyContent = 'space-between';
+
+                card.innerHTML = `
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <strong style="font-size: 16px;">${d.nome}</strong>
+                            <span class="dbx-nivel dbx-nivel-operador">Limite: ${d.limite_pecas} pçs</span>
+                        </div>
+                        <p style="font-size: 12px; color: #555; margin: 4px 0;"><strong>Período:</strong> ${dataBR(d.data_inicio)} até ${dataBR(d.data_fim)}</p>
+                        <p style="font-size: 12px; color: #555; margin: 4px 0;"><strong>Produtos no Drop:</strong> ${totalProds}</p>
+                        ${d.banner_index ? `<div style="font-size: 11px; color: #666; margin-top: 6px;"><strong>Banner Início:</strong><br><img src="${d.banner_index}" alt="Banner de início" style="max-width: 100%; max-height: 80px; object-fit: contain;"></div>` : ''}
+                        ${d.banner_produto ? `<div style="font-size: 11px; color: #666; margin-top: 2px;"><strong>Banner Produto:</strong><br><img src="${d.banner_produto}" alt="Banner de produto" style="max-width: 100%; max-height: 80px; object-fit: contain;"></div>` : ''}
+                    </div>
+
+                    <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
+                        <button type="button" class="dbx-btn dbx-laranja dbx-mini btn-del-drop" data-id="${d.id_drop}">EXCLUIR DROP</button>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            container.querySelectorAll('.btn-del-drop').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    if (!confirm('Deseja realmente remover este Drop?')) return;
+                    try {
+                        const r = await fetch(`/api/drops/${btn.dataset.id}`, {
+                            method: 'DELETE',
+                            headers: { 'Authorization': 'Bearer ' + token }
+                        });
+                        if (r.ok) {
+                            carregarDrops();
+                        } else {
+                            const err = await r.json();
+                            alert(err.mensagem || 'Erro ao remover drop.');
+                        }
+                    } catch (e) {
+                        alert('Erro de conexão ao remover drop.');
+                    }
+                });
+            });
+        } catch (e) {
+            console.error('Erro ao carregar drops:', e);
+        }
+    }
+
+    const formNovoDrop = el('dbx-form-drop');
+    const imagemDropIndex = el('dbx-drop-banner-index');
+    const imagemDropProduto = el('dbx-drop-banner-prod');
+    const imagemProduto = el('dbx-prod-imagem');
+
+    function configurarPreviaImagem(input, preview) {
+        if (!input || !preview) return;
+        let urlPrevia = null;
+
+        function limparPrevia() {
+            if (urlPrevia) URL.revokeObjectURL(urlPrevia);
+            urlPrevia = null;
+            preview.removeAttribute('src');
+            preview.hidden = true;
+        }
+
+        input.addEventListener('change', () => {
+            const arquivo = input.files && input.files[0];
+            if (!arquivo) {
+                limparPrevia();
+                return;
+            }
+
+            if (!arquivo.type.startsWith('image/')) {
+                input.value = '';
+                limparPrevia();
+                return;
+            }
+
+            limparPrevia();
+            urlPrevia = URL.createObjectURL(arquivo);
+            preview.src = urlPrevia;
+            preview.hidden = false;
+        });
+
+        if (input.form) input.form.addEventListener('reset', limparPrevia);
+    }
+
+    configurarPreviaImagem(imagemDropIndex, el('dbx-drop-banner-index-preview'));
+    configurarPreviaImagem(imagemDropProduto, el('dbx-drop-banner-prod-preview'));
+    configurarPreviaImagem(imagemProduto, el('dbx-prod-imagem-preview'));
+
+    function imagemParaDataUrl(input, larguraMaxima) {
+        const arquivo = input.files && input.files[0];
+        if (!arquivo) return Promise.resolve(null);
+        if (!arquivo.type.startsWith('image/')) {
+            return Promise.reject(new Error('Selecione um arquivo de imagem válido.'));
+        }
+
+        return new Promise((resolve, reject) => {
+            const urlTemporaria = URL.createObjectURL(arquivo);
+            const imagem = new Image();
+
+            imagem.onload = () => {
+                URL.revokeObjectURL(urlTemporaria);
+                const escala = Math.min(1, larguraMaxima / imagem.naturalWidth);
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.max(1, Math.round(imagem.naturalWidth * escala));
+                canvas.height = Math.max(1, Math.round(imagem.naturalHeight * escala));
+
+                const contexto = canvas.getContext('2d');
+                if (!contexto) {
+                    reject(new Error('Não foi possível processar a imagem selecionada.'));
+                    return;
+                }
+
+                let dataUrl;
+                try {
+                    contexto.drawImage(imagem, 0, 0, canvas.width, canvas.height);
+                    dataUrl = canvas.toDataURL('image/webp', 0.8);
+                    if (!dataUrl.startsWith('data:image/webp;')) {
+                        dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                    }
+                } catch {
+                    reject(new Error('Não foi possível comprimir a imagem selecionada.'));
+                    return;
+                }
+
+                if (!dataUrl.startsWith('data:image/')) {
+                    reject(new Error('Não foi possível gerar uma imagem compatível para envio.'));
+                    return;
+                }
+                if (dataUrl.length > 15 * 1024 * 1024) {
+                    reject(new Error('A imagem processada excede o tamanho permitido. Escolha uma imagem menor.'));
+                    return;
+                }
+                resolve(dataUrl);
+            };
+
+            imagem.onerror = () => {
+                URL.revokeObjectURL(urlTemporaria);
+                reject(new Error('Não foi possível abrir a imagem selecionada.'));
+            };
+            imagem.src = urlTemporaria;
+        });
+    }
+
+    if (formNovoDrop) {
+        formNovoDrop.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const erroP = el('dbx-erro-drop');
+            if (erroP) erroP.hidden = true;
+
+            const nome = (formNovoDrop.elements['nome'] || {}).value;
+            const data_inicio = (formNovoDrop.elements['data_inicio'] || {}).value;
+            const data_fim = (formNovoDrop.elements['data_fim'] || {}).value;
+            const limite_pecas = (formNovoDrop.elements['limite_pecas'] || {}).value;
+            if (!nome || !data_inicio || !data_fim || !limite_pecas) {
+                if (erroP) {
+                    erroP.textContent = 'Preencha todos os campos obrigatórios do Drop.';
+                    erroP.hidden = false;
+                }
+                return;
+            }
+
+            try {
+                const banner_index = await imagemParaDataUrl(imagemDropIndex, 1448);
+                const banner_produto = await imagemParaDataUrl(imagemDropProduto, 1920);
+                const resp = await fetch('/api/drops', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({
+                        nome,
+                        data_inicio,
+                        data_fim,
+                        limite_pecas,
+                        banner_index,
+                        banner_produto
+                    })
+                });
+
+                const resJson = await resp.json();
+                if (!resp.ok) {
+                    if (erroP) {
+                        erroP.textContent = resJson.mensagem || 'Erro ao criar drop.';
+                        erroP.hidden = false;
+                    }
+                } else {
+                    alert(`Drop "${nome}" criado com sucesso!`);
+                    formNovoDrop.reset();
+                    carregarDrops();
+                }
+            } catch (err) {
+                if (erroP) {
+                    erroP.textContent = err.message || 'Erro de conexão ao criar drop.';
+                    erroP.hidden = false;
+                }
+            }
+        });
+    }
+
     const formNovoProd = el('dbx-form-prod-simples');
     if (formNovoProd) {
         formNovoProd.addEventListener('submit', async (e) => {
@@ -478,6 +718,7 @@
             if (erroP) erroP.hidden = true;
 
             const nome = (formNovoProd.elements['nome'] || {}).value;
+            const id_drop = (formNovoProd.elements['id_drop'] || {}).value;
             const descricao = (formNovoProd.elements['descricao'] || {}).value;
             const preco = (formNovoProd.elements['preco'] || {}).value;
             const estoque = (formNovoProd.elements['estoque'] || {}).value;
@@ -494,13 +735,24 @@
             }
 
             try {
+                const imagem = await imagemParaDataUrl(imagemProduto, 800);
                 const resp = await fetch('/api/produtos', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + token
                     },
-                    body: JSON.stringify({ nome, descricao, preco, estoque, categoria, SKU, tamanho })
+                    body: JSON.stringify({
+                        nome,
+                        imagem: imagem || null,
+                        id_drop: id_drop ? Number(id_drop) : null,
+                        descricao,
+                        preco,
+                        estoque,
+                        categoria,
+                        SKU,
+                        tamanho
+                    })
                 });
 
                 const resJson = await resp.json();
@@ -513,10 +765,11 @@
                     alert(`Produto "${nome}" cadastrado com sucesso com transparência de criador!`);
                     formNovoProd.reset();
                     carregarMetricas();
+                    carregarDrops();
                 }
             } catch (err) {
                 if (erroP) {
-                    erroP.textContent = 'Erro de conexão ao criar produto.';
+                    erroP.textContent = err.message || 'Erro de conexão ao criar produto.';
                     erroP.hidden = false;
                 }
             }
@@ -658,6 +911,7 @@
     }
 
     carregarMetricas();
+    carregarDrops();
     carregarPropostas();
     carregarPedidos();
     carregarOperadores();

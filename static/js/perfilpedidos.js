@@ -53,8 +53,8 @@
                 tamanho: item.tamanho || "P",
                 preco: Number(item.preco_unitario),
                 quantidade: item.quantidade,
-                imagem: "../static/images/loja/camiseta-grafitti-404.png",
-                link: "produto.html"
+                imagem: (item.produto && item.produto.imagem) ? item.produto.imagem : "../static/images/loja/camiseta-grafitti-404.png",
+                link: `produto.html?id=${item.id_produto}`
             }));
 
             return {
@@ -76,7 +76,11 @@
 
     async function carregarMeusPedidos() {
         const token = getToken();
-        if (!token) return;
+        if (!token) {
+            lista.innerHTML = "";
+            if (semPedidos) semPedidos.hidden = false;
+            return;
+        }
 
         try {
             const resp = await fetch("/api/pedidos/meus", {
@@ -101,10 +105,13 @@
                 article.dataset.id = p.id_pedido;
 
                 const cStatus = classeStatus(p.status_atual);
+                const primeiroItem = (p.itens && p.itens[0]) || {};
+                const prod = primeiroItem.produto || {};
+                const imgSrc = prod.imagem || "../static/images/loja/camiseta-grafitti-404.png";
 
                 article.innerHTML = `
-                    <a class="pedido-img" href="produto.html" aria-label="Ver produto do pedido #${p.id_pedido}">
-                        <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Produto do pedido">
+                    <a class="pedido-img" href="produto.html?id=${prod.id_produto || ''}" aria-label="Ver produto do pedido #${p.id_pedido}">
+                        <img src="${imgSrc}" alt="${prod.nome || 'Produto'}">
                     </a>
 
                     <div class="pedido-info">
@@ -198,21 +205,15 @@
                 preencherModal(r.pedido);
             }
             modal.showModal();
-        } catch (err) {
-            titulo.textContent = "PEDIDO";
-            mostrarErro("Erro de conexão. Tente novamente.");
-            modal.showModal();
         } finally {
             botao.disabled = false;
         }
     });
 
-    if (el("fecharmodalpedido")) el("fecharmodalpedido").addEventListener("click", () => modal.close());
+    const fechar = el("fecharmodalpedido");
+    if (fechar) fechar.addEventListener("click", () => modal.close());
+
     modal.addEventListener("click", (evento) => {
         if (evento.target === modal) modal.close();
-    });
-    modal.addEventListener("close", () => {
-        produtos.replaceChildren();
-        mostrarErro("");
     });
 })();
