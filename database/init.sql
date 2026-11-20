@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS driplab
-DEFAULT CHARACTER SET = 'utf8mb4';
-USE driplab;
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS usuario_recompensa, recompensas, usuario_badge, badges, votos, propostas_votacao, comentarios, item_pedido, pedidos, carrinho, produtos, categorias, drops, enderecos, usuarios;
+SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
@@ -166,5 +166,3 @@ INSERT IGNORE INTO categorias (nome, descricao) VALUES
 ('Acessórios', 'Bonés, gorros e acessórios diversos'),
 ('Bolsa', 'Shoulder bags e bolsas utilitárias'),
 ('Meias', 'Meias cano alto streetwear');
-
-INSERT IGNORE INTO usuarios (nome, telefone, email, senha, cpf, tipo) VALUES ('Admin Master', '21999999999', 'admin@driplab.com', '$2b$10$rKVHJzKv2rrxW.uw11yM..HbmEUoQ/UMCt2StOYCqaJivFoNZy8UG', '00000000000', 'admin');

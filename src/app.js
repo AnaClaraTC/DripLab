@@ -2,17 +2,18 @@ const express = require('express');
 const path = require('path');
 const sequelize = require('./config/database');
 const apiRoutes = require('./routes/apiRoutes');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/static', express.static(path.join(__dirname, '..', 'static')));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 app.use(express.static(path.join(__dirname, '..', 'templates')));
 
-//Rotas API
 app.use('/api', apiRoutes);
 
 sequelize.authenticate()
@@ -26,5 +27,4 @@ app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
 
-module.exports = app;
 module.exports = app;
