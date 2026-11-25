@@ -504,6 +504,24 @@
     }
 }
 
+@media (max-width: 1100px) {
+    html:not(#r):not(#r):not(#r) {
+
+        /* Filtros mais compactos para continuarem lado a lado */
+        & .linhafiltros {
+            gap: 30px;
+        }
+
+        & #opcroupatipo {
+            grid-template-columns: repeat(3, 130px);
+        }
+
+        & #grupoordena {
+            width: 200px;
+        }
+    }
+}
+
 @media (max-width: 1024px) {
     html:not(#r):not(#r):not(#r) {
 
@@ -2508,7 +2526,17 @@ dialog {
 }
 
 
-/* ---------- Busca e filtros ---------- */
+/* ---------- Busca e filtros ----------
+   Organização da área de pesquisa:
+     1. Campo de busca (no topo)
+     2. Linha de filtros: tipo de roupa | tamanho | ordenar por
+        - os três grupos ficam centralizados e próximos entre si
+        - todos os botões/campos têm a mesma altura (38px), então
+          as linhas de "tipo" e "tamanho" ficam alinhadas
+        - o espaço VERTICAL entre as opções é maior (16px), e o
+          espaço HORIZONTAL foi reduzido (14px)
+     3. Ações (limpar / aplicar)
+   ---------------------------------------- */
 
 #contbuscaloja {
     width: 100%;
@@ -2518,16 +2546,17 @@ dialog {
 }
 
 #pesquisaloja {
-    width: 95%;
+    width: 1100px;
     margin: 0 auto;
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Campo de busca */
 .pesquisaroupa {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 0;
+    padding: 10px 0 14px;
 }
 
 .pesquisaroupa button {
@@ -2557,45 +2586,60 @@ dialog {
     box-shadow: 0 0 0 4px rgba(124, 58, 237, .25);
 }
 
+/* Linha com os três grupos de filtro */
 .linhafiltros {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px 60px;          /* vertical | horizontal */
     margin: 10px auto 0;
 }
 
 .titulopesqform {
+    display: block;
     font-size: 16px;
     font-weight: 700;
+    line-height: 1.2;
 }
 
-#grupotiporoupa {
-    width: 50%;
-}
-
-#grupotamroupa {
-    width: 20%;
+/* Cada grupo: título em cima, opções embaixo */
+#grupotiporoupa,
+#grupotamroupa,
+#grupoordena {
     display: flex;
     flex-direction: column;
+    gap: 12px;               /* espaço entre o título e as opções */
+}
+
+#grupotiporoupa,
+#grupotamroupa {
+    width: auto;
+    flex: 0 0 auto;
 }
 
 #grupoordena {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
+    width: 240px;
+    min-width: 180px;
+    flex: 0 0 auto;
 }
 
+/* Tipo de roupa: 3 colunas juntas, com mais espaço vertical */
 #opcroupatipo {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
+    grid-template-columns: repeat(3, 150px);
+    column-gap: 14px;
+    row-gap: 16px;
 }
 
+/* Tamanho: 2 colunas, mesmas linhas do tipo de roupa */
 #opctamanhoroupa {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 5px;
+    grid-template-columns: repeat(2, 80px);
+    column-gap: 14px;
+    row-gap: 16px;
 }
 
 /* Botões de opção (tipo de roupa e tamanho) */
@@ -2620,7 +2664,13 @@ dialog {
 .opctamanho {
     width: 80px;
     padding: 2px;
-    margin-left: 20px;
+    margin-left: 0;
+}
+
+/* Mesma altura para tudo na área de pesquisa (alinha as linhas) */
+#pesquisaloja .opcroupa,
+#pesquisaloja .opctamanho {
+    height: 38px;
 }
 
 .opcroupa input,
@@ -2655,10 +2705,10 @@ dialog {
     color: #fff;
 }
 
-/* Ordenar por */
+/* Ordenar por (mesma altura dos botões) */
 #ordenar {
     width: 100%;
-    height: 35px;
+    height: 38px;
     background-color: #fff;
     border: 2px solid #333;
     border-radius: 5px;
@@ -2676,13 +2726,14 @@ dialog {
     color: #181818;
 }
 
-/* Ações dos filtros */
+/* Ações dos filtros (centralizadas, logo abaixo das opções) */
 .acoesfiltro {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
-    padding-top: 30px;
+    padding-top: 24px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
 }
 
@@ -5135,16 +5186,16 @@ dialog {
 #divtopicos {
     width: 100%;
     height: auto;
-    padding: 40px 0px 40px 0px;
+    padding: 40px 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
+    gap: 10px;
     align-items: center;
 }
 
 .cartasobre {
-    width: 400px;
-    height: 480px;
+    width: 300px;
+    height: 360px;
     position: relative;
     margin: 0 auto;
     overflow: hidden;
@@ -5179,7 +5230,7 @@ dialog {
     padding: 25px;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
-    font-size: 30px;
+    font-size: 26px;
     opacity: 0;
     transition: opacity 0.4s ease;
 }
@@ -5228,6 +5279,9 @@ dialog {
     background-color: #181818;
     display: flex;
     flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    gap: 20px;
 }
 
 #jogosobre h2 {
@@ -5239,19 +5293,20 @@ dialog {
 }
 
 #btnsobre {
-    width: 60%;
+    width: 100%;
     height: auto;
     display: flex;
+    margin: 0 auto;
     flex-direction: row;
     justify-content: center;
 }
 
 #btnsobrejogo {
-    width: 500px;
-    height: 150px;
+    width: 400px;
+    height: 80px;
     background: linear-gradient(-110deg, #4A148C, #8A2BE2);
     font-family: 'Montserrat', sans-serif;
-    font-size: 40px;
+    font-size: 30px;
     color: #FFFFFF;
     font-weight: 700;
     border: none;
@@ -5264,12 +5319,12 @@ dialog {
 }
 
 #btnsobreloja {
-    width: 500px;
-    height: 100px;
+    width: 400px;
+    height: 80px;
     margin-left: 20px;
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 700;
     border-radius: 5px;
     background-color: transparent;
@@ -5991,4 +6046,24 @@ dialog {
     border-bottom: 1px solid #D9D9D9;
 
     font-size: 14px;
+}
+
+/* ---------- Responsividade das cartas ---------- */
+
+@media (max-width: 1000px) {
+    #divtopicos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+    #divtopicos {
+        grid-template-columns: 1fr;
+    }
+
+    .cartasobre {
+        width: 90%;
+        max-width: 300px;
+        height: 360px;
+    }
 }
