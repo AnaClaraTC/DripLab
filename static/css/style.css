@@ -27,6 +27,8 @@
      B10. Página sobre nós
      B11. Dashboard
 
+    PARTE C - VARIÁVEIS DE MODO ESCURO E CLARO  
+
    BREAKPOINTS USADOS
      1280px  notebooks pequenos
      1100px  tablets na horizontal
@@ -1742,7 +1744,7 @@ dialog {
 }
 
 #conta img {
-    width: 40px;
+    width: 30px;
     display: block;
     transition: filter 0.3s ease;
 }
@@ -1751,10 +1753,17 @@ dialog {
     filter: drop-shadow(0 0 5px #FF5A1F);
 }
 
-#btnperfil {
+#btnperfil,
+#btntema {
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+#btntema:focus-visible {
+    outline: 2px solid rgb(123, 44, 191);
+    outline-offset: 4px;
+    border-radius: 6px;
 }
 
 /* Menu suspenso do perfil */
@@ -1858,7 +1867,7 @@ dialog {
 .dropitem-img {
     width: 100%;
     aspect-ratio: 1 / 1;
-    background-color: #D9D9D9;
+    background-color: #35323D;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -1910,11 +1919,11 @@ dialog {
 
 /* Tag "MAIS VENDIDO" */
 .item-tag {
-    width: 150px;
-    height: 15px;
+    width: 120px;
+    height: 13px;
     background-color: #FF5A1F;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 600;
     color: #fff;
     text-align: center;
@@ -2053,7 +2062,7 @@ dialog {
 
 #destaque {
     width: 100%;
-    min-height: 850px;
+    min-height: 1100px;
     padding: 40px;
     box-sizing: border-box;
     background-image: url("../images/promocional/banner_index.png");
@@ -2066,15 +2075,15 @@ dialog {
 }
 
 #btnjogo {
-    width: 300px;
-    height: 60px;
+    width: 250px;
+    height: 40px;
     background: linear-gradient(-110deg, #4A148C, #8A2BE2);
     font-family: 'Montserrat', sans-serif;
-    font-size: 26px;
+    font-size: 20px;
     color: #FFFFFF;
     font-weight: 700;
     border: none;
-    border-radius: 12px;
+    border-radius: 5px;
     transition: transform 0.3s ease;
 }
 
@@ -2159,14 +2168,14 @@ dialog {
 
 #textodropatual h2 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
     color: #181818;
 }
 
 #textodropatual p {
     font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     color: #181818;
 }
@@ -2303,15 +2312,15 @@ dialog {
 /* ---------- Destaques (grade paginada) ---------- */
 
 #destaques {
-    width: 85%;
+    width: 75%;
     margin: 40px auto;
-    padding: 40px 30px;
+    padding: 20px 30px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     font-family: 'Montserrat', sans-serif;
     background-color: #fff;
-    border-radius: 40px;
+    border-radius: 20px;
 }
 
 #textodestaque {
@@ -2323,7 +2332,7 @@ dialog {
 }
 
 #textodestaque h2 {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 700;
     color: #181818;
     transition: color 0.3s ease;
@@ -2335,7 +2344,7 @@ dialog {
 
 #textodestaque a {
     color: #181818;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     transition: color 0.3s ease;
 }
@@ -2346,18 +2355,30 @@ dialog {
 
 #grade-destaques {
     width: 100%;
+    margin: 0 auto !important;
+
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px 15px;
+
+    /* Produtos menores e colunas centralizadas */
+    grid-template-columns: repeat(4, minmax(0, 300px));
+
+    justify-content: center;
+    align-items: start;
+
+    /* Menor espaço entre os produtos */
+    column-gap: 25px;
+    row-gap: 30px;
 }
 
 #grade-destaques .item {
-    width: 100%;
+    width: 95%;
+    min-width: 0;
+    margin: 0;
 }
 
 #grade-destaques .item-img {
     border-radius: 7px;
-    background-color: #e9e9e9;
+    background-color: #35323D;
 }
 
 #grade-destaques .item-content {
@@ -2442,7 +2463,8 @@ dialog {
 
 #bannerloja img {
     display: block;
-    width: 100%;
+    width: 75%;
+    margin: 0 auto;
     height: auto;
     object-fit: cover;
 }
@@ -2459,8 +2481,9 @@ dialog {
 }
 
 #boxtimeloja {
-    width: 90%;
-    margin: 0 auto;
+    width: 75%;
+    margin: 0 auto; 
+    margin-bottom: 50px;
     padding: 15px;
     background-color: #181818;
     border-radius: 10px;
@@ -2543,6 +2566,7 @@ dialog {
     display: flex;
     background-color: #fff;
     padding: 5px 0 20px 0;
+    padding-bottom: 80px;
 }
 
 #pesquisaloja {
@@ -2781,18 +2805,19 @@ dialog {
 
 #graderoupas {
     width: 100%;
-    padding-top: 20px;
-    padding-bottom: 50px;
+    padding-top: 10px;
+    padding-bottom: 30px;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    justify-items: center;
-    gap: 5px;
-    background-color: #fff;
+    grid-template-columns: repeat(7, minmax(0, 220px));
+    justify-content: center;   /* centraliza as colunas */
+    gap: 8px 12px;             /* vertical | horizontal */
+    background-color: #fff;    /* mantém o fundo */
     font-family: 'Montserrat', sans-serif;
 }
 
 #graderoupas .item {
-    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 0;          /* o espaço vertical agora vem do gap */
 }
 
 
@@ -2932,18 +2957,17 @@ dialog {
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
     align-items: stretch;
-    gap: 35px;
+    gap: 5px;
 }
 
 /* ---------- Imagem do produto ---------- */
 
 #produtoimg {
-    width: 100%;
+    width: 80%;
     min-width: 0;
-    min-height: 500px;
-    height: 100%;
+    height: 515px;
 
-    background-color: #D9D9D9;
+    background-color: #35323D;
     border-radius: 10px;
 
     display: flex;
@@ -2955,8 +2979,8 @@ dialog {
 
 #produtoimg img {
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     object-fit: contain;
     transition: transform 0.3s ease;
 }
@@ -2998,6 +3022,22 @@ dialog {
     color: #181818;
     margin-top: 20px;
     margin-bottom: 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Drop */
+#produtodrop {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #181818;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+#produtodrop:hover{
+    color: #7B2CBF;
 }
 
 /* Valor */
@@ -3008,13 +3048,15 @@ dialog {
     font-weight: 600;
     color: #181818;
     margin-bottom: 10px;
+    cursor: pointer;
+    text-align: center;
 }
 
 /* Descrição */
 
 #produtodescricao {
     width: 100%;
-    max-height: 130px;
+    height: 210px;
     overflow-y: auto;
 
     background-color: #D9D9D9;
@@ -3022,12 +3064,11 @@ dialog {
 
     padding: 15px 20px;
     margin-top: 15px;
-    margin-bottom: 20px;
 
     box-sizing: border-box;
 
     font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.6;
     color: #333;
 }
@@ -3077,17 +3118,20 @@ dialog {
 
 #produtoinfo #grupotamroupa > label {
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
+    font-size: 24px !important;
     font-weight: 700;
     color: #181818;
+    text-align: center;
 }
 
 #produtoinfo #opctamanhoroupa {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center; /* Centraliza as opções */
     align-items: center;
     gap: 8px;
+    width: 100%;
 }
 
 #produtoinfo #opctamanhoroupa .opctamanho {
@@ -4413,7 +4457,7 @@ dialog {
 /* ---------- Favoritos ---------- */
 
 #pagfav img {
-    width: 80%;
+    width: 60%;
     height: auto;
     margin: 0 auto;
     border-radius: 20px;
@@ -5112,16 +5156,16 @@ dialog {
 }
 
 #sobretitulo h2 {
-    font-size: 100px;
+    font-size: 60px;
 }
 
 #sobretitulo h3 {
-    font-size: 60px;
+    font-size: 40px;
     color: rgb(123, 44, 191);
 }
 
 #sobremascote {
-    width: 40%;
+    width: 30%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -5142,7 +5186,7 @@ dialog {
 
 #divbanner {
     background-color: #181818;
-    width: 45%;
+    width: 35%;
     aspect-ratio: 232 / 265;
     flex-shrink: 0;
     overflow: hidden;
@@ -5164,9 +5208,9 @@ dialog {
 }
 
 #divbannertexto {
-    width: 40%;
+    width: 50%;
     margin-right: 80px;
-    text-align: justify;
+    text-align: center;
     font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     font-weight: 700;
@@ -5187,15 +5231,15 @@ dialog {
     width: 100%;
     height: auto;
     padding: 40px 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: row;
     gap: 10px;
     align-items: center;
 }
 
 .cartasobre {
-    width: 300px;
-    height: 360px;
+    width: 200px;
+    height: 260px;
     position: relative;
     margin: 0 auto;
     overflow: hidden;
@@ -5230,7 +5274,7 @@ dialog {
     padding: 25px;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
-    font-size: 26px;
+    font-size: 14px;
     opacity: 0;
     transition: opacity 0.4s ease;
 }
@@ -5275,18 +5319,16 @@ dialog {
     width: 100%;
     height: auto;
     min-height: 500px;
-    padding: 40px 0px 40px 0px;
     background-color: #181818;
     display: flex;
     flex-direction: column;
     justify-content: center; 
     align-items: center;
-    gap: 20px;
 }
 
 #jogosobre h2 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 100px;
+    font-size: 65px;
     color: #fff;
     text-align: center;
     margin-bottom: 40px;
@@ -5302,8 +5344,8 @@ dialog {
 }
 
 #btnsobrejogo {
-    width: 400px;
-    height: 80px;
+    width: 300px;
+    height: 65px;
     background: linear-gradient(-110deg, #4A148C, #8A2BE2);
     font-family: 'Montserrat', sans-serif;
     font-size: 30px;
@@ -5319,8 +5361,8 @@ dialog {
 }
 
 #btnsobreloja {
-    width: 400px;
-    height: 80px;
+    width: 300px;
+    height: 65px;
     margin-left: 20px;
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
@@ -6065,5 +6107,428 @@ dialog {
         width: 90%;
         max-width: 300px;
         height: 360px;
+    }
+}
+
+/* =====================================================
+   =====================================================
+   PARTE C - TEMA (CLARO / ESCURO)
+   =====================================================
+   Cole este bloco no FINAL do style.css.
+   (Adicione no índice do topo:  PARTE C - TEMA CLARO/ESCURO)
+
+   COMO FUNCIONA
+   - O tema.js coloca data-tema="claro" ou "escuro" no <html>.
+   - C1 define a paleta (variáveis) para os dois temas.
+   - C2 aplica a paleta, SOMENTE no modo escuro. O modo claro
+     continua usando as cores originais da Parte B.
+
+   POR QUE :where(...)
+   :where() zera a especificidade do prefixo. Assim cada regra
+   daqui empata com a regra original e vence só por vir depois.
+   Estados como :hover, :focus e :checked (mais específicos)
+   continuam funcionando normalmente.
+
+   PARA MUDAR UMA COR DO MODO ESCURO: altere só o valor em C1.
+   ===================================================== */
+
+
+/* =====================================================
+   C1. PALETA (VARIÁVEIS)
+   ===================================================== */
+
+:root {
+    color-scheme: light;
+
+    --fundo-pagina: #181818;       /* atrás de tudo (body) */
+    --fundo: #ffffff;              /* seções de largura total */
+    --superficie: #ffffff;         /* cards, caixas, modais */
+    --superficie-cinza: #D9D9D9;   /* caixas cinzas (descrição, carrinho) */
+    --texto: #181818;
+    --texto-suave: #555555;
+    --borda: #181818;              /* bordas fortes (inputs, filtros) */
+    --borda-suave: #D9D9D9;        /* bordas pontilhadas e divisórias */
+    --borda-fraca: rgba(24, 24, 24, 0.4);
+    --campo-fundo: #ffffff;        /* inputs e selects */
+    --painel: #181818;             /* blocos que já são escuros */
+    --painel-borda: transparent;
+    --botao-neutro: #eeeeee;       /* paginação */
+    --botao-neutro-hover: #d8d8d8;
+    --botao-escuro: #181818;       /* botões escuros (produto, senha) */
+    --trapezio: #000000;           /* trapézios da home */
+    --previa: #f2f2f2;             /* prévias de imagem no dashboard */
+    --arquivo-fundo: #fafafa;      /* campo de arquivo do dashboard */
+}
+
+html[data-tema="escuro"] {
+    color-scheme: dark;
+
+    --fundo-pagina: #0e0e10;
+    --fundo: #121212;
+    --superficie: #1e1e24;
+    --superficie-cinza: #2a2a31;
+    --texto: #f2f2f2;
+    --texto-suave: #b5b5b5;
+    --borda: #8a8a8a;
+    --borda-suave: #3a3a42;
+    --borda-fraca: rgba(242, 242, 242, 0.35);
+    --campo-fundo: #1e1e24;
+    --painel: #1b1b1f;
+    --painel-borda: #2e2e36;
+    --botao-neutro: #2e2e36;
+    --botao-neutro-hover: #3a3a44;
+    --botao-escuro: #2e2e36;
+    --trapezio: #2a2a31;
+    --previa: #2a2a31;
+    --arquivo-fundo: #1e1e24;
+}
+
+
+/* =====================================================
+   C2. APLICAÇÃO DO TEMA ESCURO
+   ===================================================== */
+
+/* Troca suave de cor (não sobrescreve transições dos elementos) */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+:where(html[data-tema="escuro"]) {
+
+    /* ---------- Base ---------- */
+
+    & body {
+        background-color: var(--fundo-pagina);
+        color: var(--texto);
+    }
+
+    /* Campos e selects nativos sem estilo próprio */
+    & #campopesquisa {
+        background-color: var(--campo-fundo);
+        border-color: var(--borda);
+        color: var(--texto);
+    }
+
+
+    /* ---------- B3. Componentes compartilhados ---------- */
+
+    /* O contador da home fica sobre a caixa clara translúcida */
+    & #droptime #tempo {
+        color: #181818;
+    }
+
+    & .item-content h3,
+    & .dropitem-content h3,
+    & .item-content p,
+    & .dropitem-content p {
+        color: var(--texto);
+    }
+
+    & .btncancelar {
+        border-color: var(--texto);
+        color: var(--texto);
+    }
+
+
+    /* ---------- B4. Página inicial ---------- */
+
+    & #dropatual,
+    & #trapeziodrops {
+        background-color: var(--fundo);
+    }
+
+    & #destaques {
+        background-color: var(--superficie);
+    }
+
+    & .trapezio {
+        background-color: var(--trapezio);
+    }
+
+    & #textodropatual h2,
+    & #textodropatual p,
+    & #textodestaque h2,
+    & #textodestaque a {
+        color: var(--texto);
+    }
+
+    & #paginacao-destaques button {
+        background-color: var(--botao-neutro);
+        color: var(--texto);
+    }
+
+    & #paginacao-destaques button:hover {
+        background-color: var(--botao-neutro-hover);
+    }
+
+
+    /* ---------- B5. Página da loja ---------- */
+
+    & #bannerloja,
+    & #droptimeloja,
+    & #contbuscaloja,
+    & #graderoupas {
+        background-color: var(--fundo);
+    }
+
+    & .opcroupa,
+    & .opctamanho {
+        border-color: var(--borda);
+    }
+
+    & .opcroupa span,
+    & .opctamanho span {
+        color: var(--texto);
+    }
+
+    /* Selecionado continua com texto branco */
+    & .opcroupa:has(input:checked) span,
+    & .opctamanho:has(input:checked) span {
+        color: #fff;
+    }
+
+    & #ordenar {
+        background-color: var(--campo-fundo);
+        border-color: var(--borda);
+        color: var(--texto);
+    }
+
+    & #ordenar option {
+        background-color: var(--campo-fundo);
+        color: var(--texto);
+    }
+
+    & .btn-limpar {
+        color: var(--texto);
+    }
+
+    & .btn-limpar::after {
+        background-color: var(--texto);
+    }
+
+    /* Caixa escura do próximo drop: ganha uma borda sutil */
+    & #boxtimeloja {
+        background-color: var(--painel);
+        border: 1px solid var(--painel-borda);
+    }
+
+
+    /* ---------- B6. Login ---------- */
+
+    & #contforms {
+        background-color: var(--fundo);
+    }
+
+    & #recuperacao h1,
+    & #recuperacao p,
+    & .form-label,
+    & #contforms a {
+        color: var(--texto);
+    }
+
+    & .inputform {
+        border-color: var(--borda);
+        color: var(--texto);
+    }
+
+    & #areasenha button {
+        background-color: var(--botao-escuro);
+    }
+
+
+    /* ---------- B7. Produto ---------- */
+
+    & #produto-container {
+        background-color: var(--fundo);
+    }
+
+    & #produtonome,
+    & #produtodrop,
+    & #produtovalor,
+    & #produtoinfo #grupotamroupa > label,
+    & .secao-produtos h2 {
+        color: var(--texto);
+    }
+
+    & #produtodescricao {
+        background-color: var(--superficie-cinza);
+        color: var(--texto-suave);
+    }
+
+    & #adicionar-carrinho {
+        background-color: var(--botao-escuro);
+    }
+
+
+    /* ---------- B8. Carrinho ---------- */
+
+    & #contcarrinho {
+        background-color: var(--fundo);
+    }
+
+    & #titulocarrinho,
+    & .itemcarrinho-info h2,
+    & .itemcarrinho-info span,
+    & .itemcarrinho-qtd button,
+    & .itemcarrinho-qtd .qtd,
+    & .preco {
+        color: var(--texto);
+    }
+
+    & #listaprodutos {
+        border-color: var(--borda-suave);
+    }
+
+    & .itemcarrinho {
+        border-bottom-color: var(--borda-suave);
+    }
+
+    & .itemcarrinho-img {
+        background-color: var(--superficie-cinza);
+    }
+
+    & .itemcarrinho-qtd {
+        border-color: var(--borda-fraca);
+    }
+
+    & #recibo {
+        background-color: var(--painel);
+        border: 1px solid var(--painel-borda);
+    }
+
+    /* Modais da compra e do perfil (caixa branca no claro) */
+    & #modalpagamento,
+    & #modallocal,
+    & #modalperfil,
+    & #modallocalconfig,
+    & #modalexcluirlocal {
+        background-color: var(--superficie);
+        color: var(--texto);
+    }
+
+    & #fecharmodal,
+    & #fecharmodallocal,
+    & #fecharmodalperfil,
+    & #fecharmodallocalconfig {
+        color: var(--texto);
+    }
+
+    & #modalpagamento input,
+    & #modalpagamento select,
+    & #formlocal input,
+    & #formperfil input,
+    & #formeditarlocal input {
+        border-color: var(--borda);
+        color: var(--texto);
+    }
+
+    & #formlocal .linkcep,
+    & #formeditarlocal .linkcepconfig {
+        color: var(--texto);
+    }
+
+    /* O QR Code (#qrpix) fica claro de propósito: precisa ser lido */
+
+
+    /* ---------- B9. Perfil ---------- */
+
+    & #contperfil {
+        background-color: var(--fundo);
+    }
+
+    & #menuperfil {
+        background-color: var(--superficie);
+        border-color: var(--borda);
+    }
+
+    & .opcmenuperfil {
+        color: var(--texto);
+    }
+
+    & #blocoperfil,
+    & #divperfil,
+    & #divdelete,
+    & #divlocais {
+        background-color: var(--painel);
+        border: 1px solid var(--painel-borda);
+    }
+
+    & .localconfig {
+        border-color: var(--borda-suave);
+    }
+
+
+    /* ---------- B10. Sobre nós ---------- */
+
+    & #sobrecont {
+        background-color: var(--fundo);
+    }
+
+
+    /* ---------- B11. Dashboard ---------- */
+
+    & .dbx-raiz {
+        background-color: var(--fundo);
+        color: var(--texto);
+    }
+
+    & .dbx-titulo,
+    & .dbx-subtitulo,
+    & .dbx-rotulo,
+    & .dbx-card-info h3,
+    & .dbx-card-info p,
+    & .dbx-x,
+    & .dbx-fechar {
+        color: var(--texto);
+    }
+
+    & .dbx-campo {
+        background-color: var(--campo-fundo);
+        border-color: var(--borda-suave);
+        color: var(--texto);
+    }
+
+    & .dbx-campo:focus {
+        border-color: #7B2CBF;
+    }
+
+    & .dbx-arquivo {
+        background-color: var(--arquivo-fundo);
+        border-color: var(--borda-suave);
+        color: var(--texto-suave);
+    }
+
+    & .dbx-card {
+        background-color: var(--superficie);
+        border-color: var(--borda-suave);
+        color: var(--texto);
+    }
+
+    & .dbx-conta,
+    & .dbx-bloco,
+    & .dbx-prod {
+        border-color: var(--borda-suave);
+    }
+
+    & .dbx-previa,
+    & .dbx-prod-img {
+        background-color: var(--previa);
+    }
+
+    & .dbx-modal {
+        background-color: var(--superficie);
+        color: var(--texto);
+    }
+
+    & .dbx-fechar:hover {
+        background-color: var(--borda-suave);
+    }
+
+    & .dbx-linha {
+        border-top-color: var(--borda-suave);
+    }
+
+    & .dbx-dados div {
+        border-bottom-color: var(--borda-suave);
     }
 }

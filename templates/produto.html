@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/tema.js"></script>
 </head>
 
 <body>
@@ -62,6 +63,12 @@
                     <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
                 </a>
             </li>
+
+            <li>
+                <button type="button" id="btntema" aria-label="Ativar modo escuro" aria-pressed="false">
+                    <img src="../static/images/icones_menu/sol.png" alt="">
+                </button>
+            </li>
         </ul>
     </nav>
 
@@ -75,8 +82,8 @@
             </div>
 
             <div id="produtoinfo">
-                <img id="produtobanner" src="../static/images/banner_drop/banner_lua.png" alt="Banner do drop No Mundo da Lua">
                 <h2 id="produtonome">MOLETOM OVERSIZED</h2>
+                <h3 id="produtodrop">DROP : NO MUNDO DA LUA</h3>
                 <h3 id="produtovalor">R$ 29,99</h3>
 
                 <div class="grupofiltro" id="grupotamroupa">
@@ -101,10 +108,12 @@
                     Fácil combinação com diferentes estilos.
                     <br><br>
                     Vista sua imaginação. Explore seu próprio universo.</p>
+
+                <button type="button" id="adicionar-carrinho">Adicionar ao Carrinho</button>
             </div>
         </div><!-- Fim do box do produto -->
 
-        <button type="button" id="adicionar-carrinho">Adicionar ao Carrinho</button>
+        
 
         <!-- Produtos em destaque -->
         <section class="secao-produtos">
