@@ -1,3 +1,13 @@
+// PÁGINA DE PERFIL - Locais salvos: editar, excluir e adicionar
+//
+// Os locais ficam escritos no HTML, dentro de #listalocaisconfig.
+// Cada local (.localconfig) guarda seus dados em atributos data-*:
+//   data-id, data-nomelocal, data-cep, data-estado, data-cidade,
+//   data-bairro, data-rua, data-numero, data-complemento
+//
+// O JS só lê esses dados e faz os botões (editar, excluir) funcionarem.
+// Para criar um local novo na tela, ele copia o <template id="modelolocalconfig">.
+
 (() => {
     const el = (id) => document.getElementById(id);
 
@@ -5,17 +15,18 @@
     const semLocais = el("semlocaisconfig");
     const modelo    = el("modelolocalconfig");
 
-    if (!lista || !modelo) return;
-
+    // Novo local
     const formNovo  = el("formnovolocal");
     const erroNovo  = el("erronovolocal");
     const btnAdd    = el("btnaddlocal");
 
+    // Modal de edição
     const modalEditar = el("modallocalconfig");
     const formEdit    = el("formeditarlocal");
     const erroEdit    = el("erroeditarlocal");
     const btnSalvar   = el("btnsalvareditar");
 
+    // Modal de exclusão
     const modalExcluir   = el("modalexcluirlocal");
     const textoExcluir   = el("textoexcluirlocal");
     const erroExcluir    = el("erroexcluirlocal");
@@ -23,64 +34,28 @@
 
     const CAMPOS = ["nomelocal", "cep", "estado", "cidade", "bairro", "rua", "numero", "complemento"];
     const soNumeros = (v) => v.replace(/\D/g, "");
-    const getToken = () => localStorage.getItem('token') || localStorage.getItem('driplab_token');
 
-    let itemEditando = null;
-    let itemExcluindo = null;
+    let itemEditando = null;   // elemento .localconfig que está sendo editado
+    let itemExcluindo = null;  // elemento .localconfig que será excluído
 
+    /* ---------- Back-end (Ana) ---------- */
     async function chamarServidor(acao, dados) {
-        const token = getToken();
-        if (!token) {
-            window.location.href = 'login.html';
-            return { ok: false, mensagem: 'Faça login para continuar.' };
-        }
-
-        if (acao === 'local/adicionar') {
-            const resp = await fetch('/api/enderecos', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                },
-                body: JSON.stringify(dados)
-            });
-            const resJson = await resp.json();
-            return { ok: resp.ok, id: resJson.id || (resJson.endereco ? resJson.endereco.id_endereco : null), mensagem: resJson.mensagem };
-        }
-
-        if (acao === 'local/editar') {
-            const resp = await fetch(`/api/enderecos/${dados.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                },
-                body: JSON.stringify(dados)
-            });
-            const resJson = await resp.json();
-            return { ok: resp.ok, mensagem: resJson.mensagem };
-        }
-
-        if (acao === 'local/excluir') {
-            const resp = await fetch(`/api/enderecos/${dados.id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            });
-            const resJson = await resp.json();
-            return { ok: resp.ok, mensagem: resJson.mensagem };
-        }
-
-        return { ok: false, mensagem: 'Ação não reconhecida.' };
+        // TODO (Ana): trocar por fetch real. Ações usadas aqui:
+        //   "local/adicionar" -> deve devolver { ok: true, id: <ID criado no banco> }
+        //   "local/editar"    -> recebe o id do local junto com os campos
+        //   "local/excluir"   -> recebe { id }
+        // O servidor deve validar tudo de novo e conferir que o local pertence ao usuário logado.
+        console.log("Enviar ao servidor:", acao, dados);
+        return { ok: true, id: dados.id ?? "novo-" + Date.now() };
     }
 
+    /* ---------- Utilidades ---------- */
     function mostrarErro(paragrafo, msg) {
-        if (!paragrafo) return;
         paragrafo.textContent = msg;
         paragrafo.hidden = !msg;
     }
 
+    // Tira espaços sobrando e padroniza a sigla do estado
     function limparDados(bruto) {
         const dados = Object.fromEntries(
             CAMPOS.map((c) => [c, (bruto[c] || "").replace(/\s+/g, " ").trim()])
@@ -98,47 +73,41 @@
         if (!d.bairro) return "Informe o bairro.";
         if (!d.rua) return "Informe a rua ou avenida.";
         if (!d.numero) return "Informe o número (ou S/N).";
-        if (d.complemento && d.complemento.length > 60) return "O complemento pode ter no máximo 60 caracteres.";
+        if (d.complemento.length > 60) return "O complemento pode ter no máximo 60 caracteres.";
         return "";
     }
 
+    // Mostra a mensagem "sem locais" só quando a lista está vazia
     function atualizarListaVazia() {
-        if (semLocais && lista) {
-            semLocais.hidden = lista.children.length > 0;
-        }
+        semLocais.hidden = lista.children.length > 0;
     }
 
+    /* ---------- Ler e atualizar um local do HTML ---------- */
     function lerLocal(item) {
         return Object.fromEntries(CAMPOS.map((c) => [c, item.dataset[c] || ""]));
     }
 
+    // Guarda os dados no item e atualiza os textos que aparecem na tela
     function atualizarItem(item, dados) {
         CAMPOS.forEach((c) => {
-            item.dataset[c] = dados[c] || "";
+            item.dataset[c] = dados[c];
         });
 
-        const nomeEl = item.querySelector(".opclocal-nome");
-        if (nomeEl) nomeEl.textContent = (dados.nomelocal || "").toUpperCase();
+        item.querySelector(".opclocal-nome").textContent = dados.nomelocal.toUpperCase();
 
-        const endEl = item.querySelector(".opclocal-end");
-        if (endEl) {
-            endEl.textContent = (dados.rua || "") + ", " + (dados.numero || "") +
-                (dados.complemento ? " - " + dados.complemento : "");
-        }
+        item.querySelector(".opclocal-end").textContent = dados.rua + ", " + dados.numero +
+            (dados.complemento ? " - " + dados.complemento : "");
 
-        const cidEl = item.querySelector(".opclocal-cidade");
-        if (cidEl) {
-            cidEl.textContent = (dados.bairro || "") + " · " + (dados.cidade || "") +
-                " - " + (dados.estado || "").toUpperCase() + " · " + (dados.cep || "");
-        }
+        item.querySelector(".opclocal-cidade").textContent = dados.bairro + " · " + dados.cidade +
+            " - " + dados.estado.toUpperCase() + " · " + dados.cep;
 
-        const btnEd = item.querySelector(".editarperfil");
-        if (btnEd) btnEd.setAttribute("aria-label", "Editar local " + dados.nomelocal);
-
-        const btnEx = item.querySelector(".excluirperfil");
-        if (btnEx) btnEx.setAttribute("aria-label", "Excluir local " + dados.nomelocal);
+        item.querySelector(".editarperfil")
+            .setAttribute("aria-label", "Editar local " + dados.nomelocal);
+        item.querySelector(".excluirperfil")
+            .setAttribute("aria-label", "Excluir local " + dados.nomelocal);
     }
 
+    // Cria um local novo a partir do <template> que está no HTML
     function criarItem(id, dados) {
         const item = modelo.content.firstElementChild.cloneNode(true);
         item.dataset.id = id;
@@ -146,34 +115,10 @@
         return item;
     }
 
-    async function carregarLocaisDoBanco() {
-        const token = getToken();
-        if (!token) {
-            lista.innerHTML = '';
-            atualizarListaVazia();
-            return;
-        }
-
-        try {
-            const resp = await fetch('/api/enderecos', {
-                headers: { 'Authorization': 'Bearer ' + token }
-            });
-            if (resp.ok) {
-                const enderecos = await resp.json();
-                lista.innerHTML = '';
-                enderecos.forEach(end => {
-                    const item = criarItem(end.id_endereco, end);
-                    lista.append(item);
-                });
-                atualizarListaVazia();
-            }
-        } catch (e) {
-            console.error('Erro ao carregar endereços:', e);
-        }
-    }
-    carregarLocaisDoBanco();
-
+    /* ---------- Botões da lista (editar e excluir) ---------- */
     lista.addEventListener("click", (evento) => {
+
+        // Editar: abre o modal já preenchido
         const botaoEditar = evento.target.closest(".editarperfil");
         if (botaoEditar) {
             const item = botaoEditar.closest(".localconfig");
@@ -181,128 +126,119 @@
 
             itemEditando = item;
             CAMPOS.forEach((c) => {
-                const cmp = el("edit-" + c);
-                if (cmp) cmp.value = dados[c];
+                el("edit-" + c).value = dados[c];
             });
             mostrarErro(erroEdit, "");
             modalEditar.showModal();
             return;
         }
 
+        // Excluir: abre o modal de confirmação
         const botaoExcluir = evento.target.closest(".excluirperfil");
         if (botaoExcluir) {
             const item = botaoExcluir.closest(".localconfig");
 
             itemExcluindo = item;
             textoExcluir.textContent =
-                "Tem certeza de que deseja excluir o local " + (item.dataset.nomelocal || '').toUpperCase() +
+                "Tem certeza de que deseja excluir o local " + item.dataset.nomelocal.toUpperCase() +
                 "? Essa ação não pode ser desfeita.";
             mostrarErro(erroExcluir, "");
             modalExcluir.showModal();
         }
     });
 
-    if (formEdit) {
-        formEdit.addEventListener("submit", async (evento) => {
-            evento.preventDefault();
-            mostrarErro(erroEdit, "");
+    /* ---------- Modal de edição ---------- */
+    formEdit.addEventListener("submit", async (evento) => {
+        evento.preventDefault();
+        mostrarErro(erroEdit, "");
 
-            const dados = limparDados(Object.fromEntries(new FormData(formEdit)));
-            const msg = validarLocal(dados);
-            if (msg) return mostrarErro(erroEdit, msg);
+        const dados = limparDados(Object.fromEntries(new FormData(formEdit)));
+        const msg = validarLocal(dados);
+        if (msg) return mostrarErro(erroEdit, msg);
 
-            btnSalvar.disabled = true;
-            try {
-                const r = await chamarServidor("local/editar", { id: itemEditando.dataset.id, ...dados });
-                if (!r.ok) return mostrarErro(erroEdit, r.mensagem || "Não foi possível salvar.");
+        btnSalvar.disabled = true;
+        try {
+            const r = await chamarServidor("local/editar", { id: itemEditando.dataset.id, ...dados });
+            if (!r.ok) return mostrarErro(erroEdit, r.mensagem || "Não foi possível salvar.");
 
-                atualizarItem(itemEditando, dados);
-                modalEditar.close();
-            } catch (err) {
-                mostrarErro(erroEdit, "Erro de conexão. Tente novamente.");
-            } finally {
-                btnSalvar.disabled = false;
-            }
-        });
-    }
+            atualizarItem(itemEditando, dados);
+            modalEditar.close();
+        } catch (err) {
+            mostrarErro(erroEdit, "Erro de conexão. Tente novamente.");
+        } finally {
+            btnSalvar.disabled = false;
+        }
+    });
 
-    if (el("fecharmodallocalconfig")) el("fecharmodallocalconfig").addEventListener("click", () => modalEditar.close());
-    if (el("cancelareditarlocal")) el("cancelareditarlocal").addEventListener("click", () => modalEditar.close());
-    if (modalEditar) {
-        modalEditar.addEventListener("click", (evento) => {
-            if (evento.target === modalEditar) modalEditar.close();
-        });
-        modalEditar.addEventListener("close", () => {
-            itemEditando = null;
-            mostrarErro(erroEdit, "");
-        });
-    }
+    el("fecharmodallocalconfig").addEventListener("click", () => modalEditar.close());
+    el("cancelareditarlocal").addEventListener("click", () => modalEditar.close());
+    modalEditar.addEventListener("click", (evento) => {
+        if (evento.target === modalEditar) modalEditar.close();
+    });
+    modalEditar.addEventListener("close", () => {
+        itemEditando = null;
+        mostrarErro(erroEdit, "");
+    });
 
-    if (btnConfirmarEx) {
-        btnConfirmarEx.addEventListener("click", async () => {
-            mostrarErro(erroExcluir, "");
-            btnConfirmarEx.disabled = true;
+    /* ---------- Modal de exclusão ---------- */
+    btnConfirmarEx.addEventListener("click", async () => {
+        mostrarErro(erroExcluir, "");
+        btnConfirmarEx.disabled = true;
 
-            try {
-                const r = await chamarServidor("local/excluir", { id: itemExcluindo.dataset.id });
-                if (!r.ok) return mostrarErro(erroExcluir, r.mensagem || "Não foi possível excluir o local.");
+        try {
+            const r = await chamarServidor("local/excluir", { id: itemExcluindo.dataset.id });
+            if (!r.ok) return mostrarErro(erroExcluir, r.mensagem || "Não foi possível excluir o local.");
 
-                itemExcluindo.remove();
-                atualizarListaVazia();
-                modalExcluir.close();
-            } catch (err) {
-                mostrarErro(erroExcluir, "Erro de conexão. Tente novamente.");
-            } finally {
-                btnConfirmarEx.disabled = false;
-            }
-        });
-    }
+            itemExcluindo.remove();
+            atualizarListaVazia();
+            modalExcluir.close();
+        } catch (err) {
+            mostrarErro(erroExcluir, "Erro de conexão. Tente novamente.");
+        } finally {
+            btnConfirmarEx.disabled = false;
+        }
+    });
 
-    if (el("cancelarexcluirlocal")) el("cancelarexcluirlocal").addEventListener("click", () => modalExcluir.close());
-    if (modalExcluir) {
-        modalExcluir.addEventListener("click", (evento) => {
-            if (evento.target === modalExcluir) modalExcluir.close();
-        });
-        modalExcluir.addEventListener("close", () => {
-            itemExcluindo = null;
-            mostrarErro(erroExcluir, "");
-        });
-    }
+    el("cancelarexcluirlocal").addEventListener("click", () => modalExcluir.close());
+    modalExcluir.addEventListener("click", (evento) => {
+        if (evento.target === modalExcluir) modalExcluir.close();
+    });
+    modalExcluir.addEventListener("close", () => {
+        itemExcluindo = null;
+        mostrarErro(erroExcluir, "");
+    });
 
-    if (formNovo) {
-        formNovo.addEventListener("submit", async (evento) => {
-            evento.preventDefault();
-            mostrarErro(erroNovo, "");
+    /* ---------- Adicionar local ---------- */
+    formNovo.addEventListener("submit", async (evento) => {
+        evento.preventDefault();
+        mostrarErro(erroNovo, "");
 
-            const dados = limparDados(Object.fromEntries(new FormData(formNovo)));
-            const msg = validarLocal(dados);
-            if (msg) return mostrarErro(erroNovo, msg);
+        const dados = limparDados(Object.fromEntries(new FormData(formNovo)));
+        const msg = validarLocal(dados);
+        if (msg) return mostrarErro(erroNovo, msg);
 
-            btnAdd.disabled = true;
-            try {
-                const r = await chamarServidor("local/adicionar", dados);
-                if (!r.ok) return mostrarErro(erroNovo, r.mensagem || "Não foi possível adicionar o local.");
+        btnAdd.disabled = true;
+        try {
+            const r = await chamarServidor("local/adicionar", dados);
+            if (!r.ok) return mostrarErro(erroNovo, r.mensagem || "Não foi possível adicionar o local.");
 
-                const item = criarItem(r.id, dados);
-                lista.append(item);
-                atualizarListaVazia();
-                formNovo.reset();
-                if (r.id) localStorage.setItem('ultimo_endereco_id', r.id);
+            const item = criarItem(r.id, dados);
+            lista.append(item);
+            atualizarListaVazia();
+            formNovo.reset();
 
-                item.scrollIntoView({ block: "nearest", behavior: "smooth" });
-                btnAdd.textContent = "LOCAL ADICIONADO!";
-                setTimeout(() => (btnAdd.textContent = "ADICIONAR LOCAL"), 2000);
-                if (new URLSearchParams(window.location.search).get('origem') === 'carrinho') {
-                    window.location.href = 'carrinho.html';
-                }
-            } catch (err) {
-                mostrarErro(erroNovo, "Erro de conexão. Tente novamente.");
-            } finally {
-                btnAdd.disabled = false;
-            }
-        });
-    }
+            // Leva a lista até o local novo e avisa no próprio botão
+            item.scrollIntoView({ block: "nearest", behavior: "smooth" });
+            btnAdd.textContent = "LOCAL ADICIONADO!";
+            setTimeout(() => (btnAdd.textContent = "ADICIONAR LOCAL"), 2000);
+        } catch (err) {
+            mostrarErro(erroNovo, "Erro de conexão. Tente novamente.");
+        } finally {
+            btnAdd.disabled = false;
+        }
+    });
 
+    /* ---------- Máscara do CEP (nos dois formulários) ---------- */
     document.addEventListener("input", (evento) => {
         const campo = evento.target;
         if (!campo.classList.contains("campocep")) return;

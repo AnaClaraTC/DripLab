@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Site - DripLab</title>
 
+    <!-- Adicionando a fonte Montserrat do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/menuex.js" defer></script>
-    <script src="../static/js/mascaras.js" defer></script>
     <script src="../static/js/autenticacao.js" defer></script>
     <script src="../static/js/tema.js"></script>
 
@@ -21,6 +21,7 @@
 
 <body>
 
+    <!--Código do Áudio do Site-->
     <audio id="bg-music" loop>
         <source src="../static/music/instrumental.mp3" type="audio/mpeg">
     </audio>
@@ -29,12 +30,14 @@
     const music = document.getElementById("bg-music");
 
     document.addEventListener("click", () => {
-        music.volume = 0.2;
+        music.volume = 0.2; // bem baixo
         music.play();
     }, { once: true });
     </script>
+    <!--Fim do código-->
 
 
+    <!--Menu do Site-->
     <nav id="menugeral">
         <h1><a href="index.html">DRIP LAB</a></h1>
         <ul id="base">
@@ -74,7 +77,7 @@
         </ul>
     </nav>
 
-    <div id="contperfil" hidden>
+    <div id="contperfil">
 
         <div id="divmenuperfil">
             <nav id="menuperfil">
@@ -89,6 +92,7 @@
 
         <div id="contpaginas">
 
+            <!-- Perfil -->
             <section class="pagina-perfil ativa" id="pagperfil">
                 
                 <div id="blocoperfil">
@@ -97,12 +101,12 @@
                     </div>
 
                     <div id="infoperfil">
-                        <p id="nomeuser"></p>
-                        <p id="emailuser"></p>
+                        <p id="nomeuser">GABRIEL MARQUES DE OLIVEIRA</p>
+                        <p id="emailuser">gabrielmarquesdeoliveira@gmail.com</p>
 
                         <div id="divdrip">
                             <img src="../static/images/icones_menu/drippoint.png">
-                            <p><span id="qtdpoints"></span> DRIP POINTS</p>
+                            <p><span id="qtdpoints">15</span> DRIP POINTS</p>
                         </div>
                     </div>
                 </div>
@@ -112,18 +116,398 @@
 
                     <p id="sempedidos" hidden>Você ainda não fez nenhum pedido.</p>
 
-                    <div id="listapedidos"></div>
+                    <!-- Histórico rolável (sem barra). A Ana vai gerar estes cards a partir do banco;
+                        o data-id deve ser o código do pedido. -->
+                    <div id="listapedidos">
+
+                        <article class="pedido" data-id="3DF890">
+                            <a class="pedido-img" href="produto.html" aria-label="Ver produto do pedido #3DF890">
+                                <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Camiseta Graffiti 404">
+                            </a>
+
+                            <div class="pedido-info">
+                                <h3>Pedido #3DF890</h3>
+                                <p class="pedido-data">12 de Out. de 2025</p>
+                                <p class="pedido-status status-entregue">ENTREGUE</p>
+                                <button type="button" class="verpedido" data-id="3DF890">ACESSAR PEDIDO</button>
+                            </div>
+
+                            <p class="pedido-valor">R$199,90</p>
+                        </article>
+
+                    </div>
                 </div>
 
             </section>
 
+            <!-- Favoritos -->
             <section class="pagina-perfil" id="pagfav" hidden>
 
                 <img src="../static/images/promocional/banner_favoritos.png" alt="Banner de favoritos">
 
                 <div id="gradefavoritos">
-                    <p style="grid-column: 1 / -1; text-align: center; color: #888; padding: 40px 0; font-size: 15px;">Você ainda não possui favoritos salvos.</p>
-                </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                            </div>
+                            <div class="item-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-boxy-eclipse.png" alt="Camiseta Boxy Eclipse">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA BOXY ECLIPSE</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-cargo-phantom.png" alt="Calça Cargo Phantom">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA CARGO PHANTOM</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Camiseta Oversized Shadow">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA OVERSIZED SHADOW</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-street-logo.png" alt="Camiseta Street Logo">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA STREET LOGO</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Camiseta Graffiti 404">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA GRAFFITI 404</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Camiseta Heavy Cotton">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA HEAVY COTTON</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Calça Baggy Asphalt">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA BAGGY ASPHALT</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-reta-concrete.png" alt="Calça Reta Concrete">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA RETA CONCRETE</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Bermuda Cargo Utility">
+                            </div>
+                            <div class="item-content">
+                                <h3>BERMUDA CARGO UTILITY</h3>
+                                <p>R$ 49,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Bermuda Baggy Downtown">
+                            </div>
+                            <div class="item-content">
+                                <h3>BERMUDA BAGGY DOWNTOWN</h3>
+                                <p>R$ 49,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Jaqueta Corta-Vento Storm">
+                            </div>
+                            <div class="item-content">
+                                <h3>JAQUETA CORTA-VENTO STORM</h3>
+                                <p>R$ 89,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bone-five-panel.png" alt="Boné Five Panel">
+                            </div>
+                            <div class="item-content">
+                                <h3>BONÉ FIVE PANEL</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/gorro-midnight.png" alt="Gorro Midnight">
+                            </div>
+                            <div class="item-content">
+                                <h3>GORRO MIDNIGHT</h3>
+                                <p>R$ 24,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/shoulder-bag-utility.png" alt="Shoulder Bag Utility">
+                            </div>
+                            <div class="item-content">
+                                <h3>SHOULDER BAG UTILITY</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                            </div>
+                            <div class="item-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-boxy-eclipse.png" alt="Camiseta Boxy Eclipse">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA BOXY ECLIPSE</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-cargo-phantom.png" alt="Calça Cargo Phantom">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA CARGO PHANTOM</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Camiseta Oversized Shadow">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA OVERSIZED SHADOW</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-street-logo.png" alt="Camiseta Street Logo">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA STREET LOGO</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Camiseta Graffiti 404">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA GRAFFITI 404</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Camiseta Heavy Cotton">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA HEAVY COTTON</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Calça Baggy Asphalt">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA BAGGY ASPHALT</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-reta-concrete.png" alt="Calça Reta Concrete">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA RETA CONCRETE</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Bermuda Cargo Utility">
+                            </div>
+                            <div class="item-content">
+                                <h3>BERMUDA CARGO UTILITY</h3>
+                                <p>R$ 49,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Bermuda Baggy Downtown">
+                            </div>
+                            <div class="item-content">
+                                <h3>BERMUDA BAGGY DOWNTOWN</h3>
+                                <p>R$ 49,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Jaqueta Corta-Vento Storm">
+                            </div>
+                            <div class="item-content">
+                                <h3>JAQUETA CORTA-VENTO STORM</h3>
+                                <p>R$ 89,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bone-five-panel.png" alt="Boné Five Panel">
+                            </div>
+                            <div class="item-content">
+                                <h3>BONÉ FIVE PANEL</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/gorro-midnight.png" alt="Gorro Midnight">
+                            </div>
+                            <div class="item-content">
+                                <h3>GORRO MIDNIGHT</h3>
+                                <p>R$ 24,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/shoulder-bag-utility.png" alt="Shoulder Bag Utility">
+                            </div>
+                            <div class="item-content">
+                                <h3>SHOULDER BAG UTILITY</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                </div><!-- Fim da grade de roupas favoritas -->
             </section>
 
             <section class="pagina-perfil" id="pagconfig" hidden>
@@ -138,7 +522,7 @@
                         <div class="infoperfil">
                             <label for="nomeperfil">NOME COMPLETO</label>
                             <div class="valorperfil">
-                                <span id="nomeperfil"></span>
+                                <span id="nomeperfil">Gabriel Marques de Oliveira</span>
                                 <button type="button" class="editarperfil" data-campo="nome" aria-label="Editar nome completo">
                                     <img src="../static/images/icones_menu/editar.png" alt="">
                                 </button>
@@ -156,16 +540,19 @@
                         </div>
 
                         <div class="infoperfil">
-                            <label for="nivelperfil">NÍVEL DRIP</label>
+                            <label for="dataperfil">DATA DE NASCIMENTO</label>
                             <div class="valorperfil">
-                                <span id="nivelperfil"></span>
+                                <span id="dataperfil">05.08.2008</span>
+                                <button type="button" class="editarperfil" data-campo="data" aria-label="Editar data de nascimento">
+                                    <img src="../static/images/icones_menu/editar.png" alt="">
+                                </button>
                             </div>
                         </div>
 
                         <div class="infoperfil">
                             <label for="cpfperfil">CPF</label>
                             <div class="valorperfil" id="valorcpf">
-                                <span id="cpfperfil"></span>
+                                <span id="cpfperfil">000.000.000-00</span>
                                 <span class="dicaconfig">O CPF não pode ser alterado.</span>
                             </div>
                         </div>
@@ -173,7 +560,7 @@
                         <div class="infoperfil">
                             <label for="emailperfil">E-MAIL</label>
                             <div class="valorperfil">
-                                <span id="emailperfil"></span>
+                                <span id="emailperfil">gabrielmarquesdeoliveira@gmail.com</span>
                                 <button type="button" class="editarperfil" data-campo="email" aria-label="Editar e-mail">
                                     <img src="../static/images/icones_menu/editar.png" alt="">
                                 </button>
@@ -183,7 +570,7 @@
                         <div class="infoperfil">
                             <label for="telefoneperfil">TELEFONE</label>
                             <div class="valorperfil">
-                                <span id="telefoneperfil"></span>
+                                <span id="telefoneperfil">+55 (21) 99999-9999</span>
                                 <button type="button" class="editarperfil" data-campo="telefone" aria-label="Editar telefone">
                                     <img src="../static/images/icones_menu/editar.png" alt="">
                                 </button>
@@ -206,8 +593,8 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
+                    </div><!--Fim da grade de informações -->
+                </div><!--Fim do bloco de perfil-->
 
                 <div id="divlocais">
 
@@ -215,11 +602,46 @@
                         <h2>[ADICIONAR OU EDITAR LOCAIS]</h2>
                     </div>
 
+                    <!-- Locais já salvos (cada local guarda seus dados em data-*; a Ana vai gerar estes itens a partir do banco) -->
                     <h3 class="subtitulolocais">LOCAIS SALVOS</h3>
                     <p id="semlocaisconfig" hidden>Você ainda não tem locais salvos.</p>
                     <div id="listalocaisconfig">
+
+                        <div class="localconfig" data-id="1" data-nomelocal="Casa" data-cep="00000-000"
+                            data-estado="RJ" data-cidade="Cidade" data-bairro="Bairro"
+                            data-rua="Rua Exemplo" data-numero="123" data-complemento="Apto 4">
+                            <div class="localconfig-info">
+                                <span class="opclocal-nome">CASA</span>
+                                <span class="opclocal-end">Rua Exemplo, 123 - Apto 4</span>
+                                <span class="opclocal-cidade">Bairro · Cidade - RJ · 00000-000</span>
+                            </div>
+                            <div class="localconfig-acoes">
+                                <button type="button" class="editarperfil" aria-label="Editar local Casa">
+                                    <img src="../static/images/icones_menu/editar.png" alt="">
+                                </button>
+                                <button type="button" class="excluirperfil" aria-label="Excluir local Casa">&times;</button>
+                            </div>
+                        </div>
+
+                        <div class="localconfig" data-id="2" data-nomelocal="Trabalho" data-cep="00000-000"
+                            data-estado="RJ" data-cidade="Cidade" data-bairro="Bairro"
+                            data-rua="Avenida Exemplo" data-numero="456" data-complemento="">
+                            <div class="localconfig-info">
+                                <span class="opclocal-nome">TRABALHO</span>
+                                <span class="opclocal-end">Avenida Exemplo, 456</span>
+                                <span class="opclocal-cidade">Bairro · Cidade - RJ · 00000-000</span>
+                            </div>
+                            <div class="localconfig-acoes">
+                                <button type="button" class="editarperfil" aria-label="Editar local Trabalho">
+                                    <img src="../static/images/icones_menu/editar.png" alt="">
+                                </button>
+                                <button type="button" class="excluirperfil" aria-label="Excluir local Trabalho">&times;</button>
+                            </div>
+                        </div>
+
                     </div>
 
+                    <!-- Modelo usado pelo JavaScript para criar um local novo na tela -->
                     <template id="modelolocalconfig">
                         <div class="localconfig" data-id="">
                             <div class="localconfig-info">
@@ -231,11 +653,12 @@
                                 <button type="button" class="editarperfil" aria-label="Editar local">
                                     <img src="../static/images/icones_menu/editar.png" alt="">
                                 </button>
-                                <button type="button" class="excluirperfil" aria-label="Excluir local">×</button>
+                                <button type="button" class="excluirperfil" aria-label="Excluir local">&times;</button>
                             </div>
                         </div>
                     </template>
 
+                    <!-- Novo local -->
                     <h3 class="subtitulolocais">ADICIONAR NOVO LOCAL</h3>
 
                     <form id="formnovolocal" novalidate>
@@ -249,7 +672,7 @@
 
                             <div class="infoperfil">
                                 <label for="novo-cep">CEP</label>
-                                <input class="inputlocalconfig campocep" type="text" id="novo-cep" name="cep" data-mask="cep"
+                                <input class="inputlocalconfig campocep" type="text" id="novo-cep" name="cep"
                                     placeholder="00000-000" maxlength="9" inputmode="numeric" autocomplete="postal-code">
                                 <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
                                 target="_blank" rel="noopener" class="linkcepconfig">Não sei meu CEP</a>
@@ -257,7 +680,7 @@
 
                             <div class="infoperfil">
                                 <label for="novo-estado">ESTADO</label>
-                                <input class="inputlocalconfig" type="text" id="novo-estado" name="estado" data-mask="uf"
+                                <input class="inputlocalconfig" type="text" id="novo-estado" name="estado"
                                     placeholder="Ex.: RJ" maxlength="2" autocomplete="address-level1">
                             </div>
 
@@ -296,7 +719,7 @@
                         <button type="submit" class="btnform" id="btnaddlocal">ADICIONAR LOCAL</button>
                     </form>
 
-                </div>
+                </div><!--Fim do bloco de locais-->
 
                 <div id="divdelete">
 
@@ -320,17 +743,18 @@
 
         </div>
 
-    </div>
+    </div><!--Fim do conteúdo principal da página-->
 
        <dialog id="modalperfil" aria-labelledby="tituloperfilmodal">
         <div class="conteudomodal">
 
-            <button type="button" id="fecharmodalperfil" aria-label="Fechar">×</button>
+            <button type="button" id="fecharmodalperfil" aria-label="Fechar">&times;</button>
 
             <h2 id="tituloperfilmodal"></h2>
             <p id="textoperfilmodal"></p>
 
             <form id="formperfil" novalidate>
+                <!-- Os campos são criados pelo JavaScript -->
                 <div id="camposperfil"></div>
 
                 <p id="erromodalperfil" role="alert" hidden></p>
@@ -347,7 +771,7 @@
     <dialog id="modallocalconfig" aria-labelledby="titulomodallocalconfig">
         <div class="conteudomodal">
 
-            <button type="button" id="fecharmodallocalconfig" aria-label="Fechar">×</button>
+            <button type="button" id="fecharmodallocalconfig" aria-label="Fechar">&times;</button>
 
             <h2 id="titulomodallocalconfig">EDITAR LOCAL</h2>
             <p id="textomodallocalconfig">Altere as informações do endereço.</p>
@@ -357,7 +781,7 @@
                 <input type="text" id="edit-nomelocal" name="nomelocal" placeholder="Ex.: Casa, Trabalho" maxlength="30">
 
                 <label for="edit-cep">CEP</label>
-                <input type="text" id="edit-cep" name="cep" class="campocep" data-mask="cep" placeholder="00000-000"
+                <input type="text" id="edit-cep" name="cep" class="campocep" placeholder="00000-000"
                     maxlength="9" inputmode="numeric" autocomplete="postal-code">
                 <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
                 target="_blank" rel="noopener" class="linkcepconfig">Não sei meu CEP</a>
@@ -365,7 +789,7 @@
                 <div class="linhalocal">
                     <div>
                         <label for="edit-estado">Estado</label>
-                        <input type="text" id="edit-estado" name="estado" data-mask="uf" placeholder="Ex.: RJ" maxlength="2"
+                        <input type="text" id="edit-estado" name="estado" placeholder="Ex.: RJ" maxlength="2"
                             autocomplete="address-level1">
                     </div>
                     <div>
@@ -423,7 +847,7 @@
     <dialog id="modalpedido" aria-labelledby="titulopedidomodal">
         <div class="conteudomodal">
 
-            <button type="button" id="fecharmodalpedido" aria-label="Fechar">×</button>
+            <button type="button" id="fecharmodalpedido" aria-label="Fechar">&times;</button>
 
             <h2 id="titulopedidomodal">PEDIDO</h2>
 

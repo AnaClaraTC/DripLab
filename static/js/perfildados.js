@@ -1,3 +1,6 @@
+// PÁGINA DE PERFIL - Modal de edição das informações pessoais
+// (nome, data de nascimento, e-mail e telefone)
+
 (() => {
     const modal      = document.getElementById("modalperfil");
     const form       = document.getElementById("formperfil");
@@ -7,17 +10,15 @@
     const erro       = document.getElementById("erromodalperfil");
     const btnEnviar  = document.getElementById("btnenviarperfil");
 
-    if (!modal || !form) return;
-
-    let campoAtual = null;
-    let etapa = 1;
+    let campoAtual = null;   // "nome", "data", "email" ou "telefone"
+    let etapa = 1;           // 1 = formulário, 2 = código de verificação
     let dadosEtapa1 = {};
-    let urlFotoAtual = null;
+    let urlFotoAtual = null; // endereço temporário da foto escolhida
 
     const soNumeros = (v) => v.replace(/\D/g, "");
     const el = (id) => document.getElementById(id);
-    const getToken = () => localStorage.getItem('token') || localStorage.getItem('driplab_token');
 
+    /* ---------- O que muda em cada edição ---------- */
     const CONFIG = {
         nome: {
             titulo: "ALTERAR NOME COMPLETO",
@@ -28,17 +29,17 @@
             campos: [{
                 id: "novoNome", label: "Novo nome", type: "text",
                 placeholder: "Digite seu nome completo", maxlength: 60, autocomplete: "name",
-                atual: () => el("nomeperfil") ? el("nomeperfil").textContent.trim() : ""
+                atual: () => el("nomeperfil").textContent.trim()
             }],
             validar(v) {
-                const n = (v.novoNome || "").replace(/\s+/g, " ").trim();
+                const n = v.novoNome.replace(/\s+/g, " ").trim();
                 if (!n) return "Informe seu nome completo.";
                 if (n.length < 3 || n.length > 60) return "O nome deve ter entre 3 e 60 caracteres.";
                 if (!/^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/.test(n)) return "Use apenas letras, espaços, apóstrofo ou hífen.";
                 if (n.split(" ").length < 2) return "Informe nome e sobrenome.";
                 return "";
             },
-            exibir: (v) => (v.novoNome || "").replace(/\s+/g, " ").trim()
+            exibir: (v) => v.novoNome.replace(/\s+/g, " ").trim()
         },
 
         foto: {
@@ -58,11 +59,36 @@
                 if (arquivo.size > 2 * 1024 * 1024) return "A imagem deve ter no máximo 2 MB.";
                 return "";
             },
+            // Em vez de trocar um texto, troca a imagem mostrada na página
             aplicar(v) {
                 if (urlFotoAtual) URL.revokeObjectURL(urlFotoAtual);
                 urlFotoAtual = URL.createObjectURL(v.novaFoto);
-                if (el("fotoperfil")) el("fotoperfil").src = urlFotoAtual;
+                el("fotoperfil").src = urlFotoAtual;
             }
+        },
+
+        data: {
+            titulo: "ALTERAR DATA DE NASCIMENTO",
+            texto: "Selecione sua nova data de nascimento.",
+            botao: "SALVAR ALTERAÇÃO",
+            verificacao: false,
+            alvo: "dataperfil",
+            campos: [{
+                id: "novaData", label: "Data de nascimento", type: "date",
+                // exibida como 05.08.2008 -> o input date precisa de 2008-08-05
+                atual: () => el("dataperfil").textContent.trim().split(".").reverse().join("-")
+            }],
+            validar(v) {
+                if (!v.novaData) return "Selecione uma data.";
+                const [a, m, d] = v.novaData.split("-").map(Number);
+                const dt = new Date(a, m - 1, d);
+                if (dt.getFullYear() !== a || dt.getMonth() !== m - 1 || dt.getDate() !== d)
+                    return "Essa data não existe.";
+                if (a < 1900) return "Data anterior ao limite permitido.";
+                if (dt > new Date()) return "A data não pode estar no futuro.";
+                return "";
+            },
+            exibir: (v) => v.novaData.split("-").reverse().join(".")
         },
 
         email: {
@@ -73,111 +99,57 @@
             textoCodigo: "Enviamos um código de 6 dígitos para o novo e-mail. Insira-o abaixo.",
             alvo: "emailperfil",
             campos: [
-                {
-                    id: "novoEmail", label: "Novo e-mail", type: "email",
-                    placeholder: "exemplo@dominio.com", maxlength: 80, autocomplete: "email",
-                    atual: () => el("emailperfil") ? el("emailperfil").textContent.trim() : ""
-                },
-                {
-                    id: "senhaAtual", label: "Sua senha atual", type: "password",
-                    placeholder: "Digite sua senha", autocomplete: "current-password"
-                }
+                { id: "novoEmail",      label: "Novo e-mail",       type: "email",    placeholder: "Digite seu novo e-mail", autocomplete: "email" },
+                { id: "confirmarEmail", label: "Confirmar e-mail",  type: "email",    placeholder: "Repita seu novo e-mail" },
+                { id: "senhaAtual",     label: "Senha atual",       type: "password", placeholder: "Confirme sua senha atual", autocomplete: "current-password" }
             ],
             validar(v) {
-                const e = (v.novoEmail || "").trim().toLowerCase();
-                if (!e) return "Informe seu novo e-mail.";
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return "Informe um endereço de e-mail válido.";
-                if (!v.senhaAtual) return "Informe sua senha atual para confirmar a troca.";
+                const novo = v.novoEmail.trim().toLowerCase();
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novo)) return "Informe um e-mail válido.";
+                if (novo !== v.confirmarEmail.trim().toLowerCase()) return "Os e-mails não coincidem.";
+                if (novo === el("emailperfil").textContent.trim().toLowerCase()) return "Esse já é o seu e-mail atual.";
+                if (!v.senhaAtual) return "Informe sua senha atual.";
                 return "";
             },
-            exibir: (v) => (v.novoEmail || "").trim().toLowerCase()
+            exibir: (v) => v.novoEmail.trim().toLowerCase()
         },
 
         telefone: {
             titulo: "ALTERAR TELEFONE",
-            texto: "Informe seu novo número de telefone com DDD, sem código do país.",
-            botao: "SALVAR ALTERAÇÃO",
-            verificacao: false,
+            texto: "Informe seu novo número de telefone.",
+            botao: "ENVIAR CÓDIGO POR SMS",
+            verificacao: true,   // coloque false para a opção A (sem código)
+            textoCodigo: "Enviamos um código de 6 dígitos por SMS para o novo número.",
             alvo: "telefoneperfil",
             campos: [{
                 id: "novoTelefone", label: "Novo telefone", type: "tel",
-                placeholder: "(00) 00000-0000", maxlength: 15, inputmode: "numeric",
-                mask: "telefone", autocomplete: "tel-national",
-                atual: () => el("telefoneperfil") ? el("telefoneperfil").textContent.trim() : ""
+                placeholder: "+XX (XX) XXXXX-XXXX", maxlength: 19, inputmode: "numeric",
+                atual: () => el("telefoneperfil").textContent.trim()
             }],
             validar(v) {
-                const digitos = soNumeros(v.novoTelefone || "");
-                if (digitos.length !== 10 && digitos.length !== 11) {
-                    return "Informe um telefone com DDD: 10 dígitos para fixo ou 11 para celular.";
-                }
-                return "";
+                return soNumeros(v.novoTelefone).length === 13
+                    ? "" : "Informe o telefone no formato +XX (XX) XXXXX-XXXX.";
             },
-            exibir: (v) => window.DripMasks.telefone(v.novoTelefone)
+            exibir: (v) => v.novoTelefone
         }
     };
 
+    // A opção A do telefone não precisa de código: o botão vira "SALVAR"
+    if (!CONFIG.telefone.verificacao) CONFIG.telefone.botao = "SALVAR ALTERAÇÃO";
+
+    /* ---------- Back-end (Ana) ---------- */
     async function chamarServidor(acao, dados) {
-        const token = getToken();
-        if (!token) return { ok: false, mensagem: "Faça login para continuar." };
-
-        try {
-            const body = {};
-            if (acao.startsWith("nome/")) body.nome = dados.novoNome;
-            if (acao.startsWith("telefone/")) body.telefone = dados.novoTelefone;
-
-            const resp = await fetch("/api/usuarios/perfil", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + token
-                },
-                body: JSON.stringify(body)
-            });
-
-            const resJson = await resp.json();
-            return { ok: resp.ok, mensagem: resJson.mensagem };
-        } catch (e) {
-            return { ok: false, mensagem: e.message };
-        }
+        // TODO (Ana): trocar por fetch real. Exemplos de ação:
+        //   "nome/salvar", "data/salvar",
+        //   "email/solicitar-codigo", "email/salvar" (com o código),
+        //   "telefone/solicitar-codigo", "telefone/salvar"
+        // O servidor DEVE validar tudo de novo (nunca confie só no JavaScript),
+        // conferir a senha atual, gerar/validar o código com prazo e limite de tentativas.
+        console.log("Enviar ao servidor:", acao, dados);
+        return { ok: true };
     }
 
-    async function carregarPerfil() {
-        try {
-            const usuario = await window.DripLabPerfilPromise;
-            if (!usuario) return;
-
-            if (el("nomeuser")) el("nomeuser").textContent = usuario.nome.toUpperCase();
-            if (el("emailuser")) el("emailuser").textContent = usuario.email;
-            if (el("qtdpoints")) el("qtdpoints").textContent = usuario.pontos || 0;
-
-            if (el("nomeperfil")) el("nomeperfil").textContent = usuario.nome;
-            if (el("cpfperfil")) el("cpfperfil").textContent = window.DripMasks.cpf(usuario.cpf);
-            if (el("emailperfil")) el("emailperfil").textContent = usuario.email;
-            if (el("telefoneperfil")) el("telefoneperfil").textContent = window.DripMasks.telefone(usuario.telefone);
-            if (el("nivelperfil")) el("nivelperfil").textContent = usuario.nivel || "Iniciante";
-
-            const tipo = usuario.tipo || 'cliente';
-            let badge = document.getElementById("badge-tipo-usuario");
-            if (!badge && el("infoperfil")) {
-                badge = document.createElement("span");
-                badge.id = "badge-tipo-usuario";
-                badge.className = `dbx-nivel dbx-nivel-${tipo}`;
-                badge.style.marginLeft = "10px";
-                badge.style.fontSize = "11px";
-                badge.style.verticalAlign = "middle";
-                if (el("nomeuser")) el("nomeuser").appendChild(badge);
-            }
-            if (badge) {
-                badge.textContent = (usuario.nivel || "Iniciante").toUpperCase();
-                badge.className = `dbx-nivel dbx-nivel-${tipo}`;
-            }
-
-        } catch (e) {
-            console.error("Erro ao carregar perfil:", e);
-        }
-    }
-    carregarPerfil();
-
+    /* ---------- Montagem do modal ---------- */
     function mostrarErro(msg) {
         erro.textContent = msg;
         erro.hidden = false;
@@ -188,47 +160,42 @@
         erro.hidden = true;
     }
 
-    function renderCampos(campos) {
+    function renderCampos(lista) {
         area.replaceChildren();
-        campos.forEach((c) => {
-            const grupo = document.createElement("div");
-            grupo.className = "infoperfil";
 
+        lista.forEach((c) => {
             const label = document.createElement("label");
             label.htmlFor = c.id;
-            label.textContent = c.label.toUpperCase();
+            label.textContent = c.label;
 
             const input = document.createElement("input");
             input.id = c.id;
             input.name = c.id;
             input.type = c.type;
-            input.className = "inputlocalconfig";
-            if (c.placeholder) input.placeholder = c.placeholder;
-            if (c.maxlength) input.maxLength = c.maxlength;
-            if (c.accept) input.accept = c.accept;
-            if (c.inputmode) input.inputMode = c.inputmode;
-            if (c.mask) input.dataset.mask = c.mask;
-            if (c.autocomplete) input.autocomplete = c.autocomplete;
-            if (c.atual) {
-                input.value = c.atual();
-                if (c.mask) input.value = window.DripMasks[c.mask](input.value);
+            input.placeholder = c.placeholder || "";
+            if (c.maxlength)     input.maxLength = c.maxlength;
+            if (c.autocomplete)  input.autocomplete = c.autocomplete;
+            if (c.inputmode)     input.inputMode = c.inputmode;
+            if (c.accept)        input.accept = c.accept;
+            if (c.atual)         input.value = c.atual();
+
+            if (c.type === "date") {
+                input.min = "1900-01-01";
+                input.max = new Date().toLocaleDateString("sv-SE"); // hoje, AAAA-MM-DD
             }
 
-            grupo.append(label, input);
-            area.append(grupo);
+            area.append(label, input);
         });
 
-        const primeiro = area.querySelector("input");
-        if (primeiro) primeiro.focus();
+        area.querySelector("input").focus();
     }
 
     function abrir(campo) {
         const cfg = CONFIG[campo];
-        if (!cfg) return;
-
         campoAtual = campo;
         etapa = 1;
         dadosEtapa1 = {};
+
         titulo.textContent = cfg.titulo;
         texto.textContent = cfg.texto;
         btnEnviar.textContent = cfg.botao;
@@ -237,14 +204,46 @@
         modal.showModal();
     }
 
+    function irParaEtapaCodigo(cfg) {
+        etapa = 2;
+        titulo.textContent = "CÓDIGO DE VERIFICAÇÃO";
+        texto.textContent = cfg.textoCodigo;
+        btnEnviar.textContent = "CONFIRMAR CÓDIGO";
+        limparErro();
+        renderCampos([{
+            id: "codigo", label: "Código", type: "text",
+            placeholder: "000000", maxlength: 6, inputmode: "numeric", autocomplete: "one-time-code"
+        }]);
+    }
+
+    /* ---------- Eventos ---------- */
     document.querySelectorAll(".editarperfil[data-campo]").forEach((botao) => {
         botao.addEventListener("click", () => abrir(botao.dataset.campo));
     });
 
-    if (el("fecharmodalperfil")) el("fecharmodalperfil").addEventListener("click", () => modal.close());
-    if (el("cancelarperfil")) el("cancelarperfil").addEventListener("click", () => modal.close());
+    document.getElementById("fecharmodalperfil").addEventListener("click", () => modal.close());
+    document.getElementById("cancelarperfil").addEventListener("click", () => modal.close());
     modal.addEventListener("click", (evento) => {
         if (evento.target === modal) modal.close();
+    });
+
+    // Máscaras (telefone e código só com números)
+    area.addEventListener("input", (evento) => {
+        const campo = evento.target;
+
+        if (campo.id === "novoTelefone") {
+            const d = soNumeros(campo.value).slice(0, 13);
+            let f = "";
+            if (d.length > 0) f = "+" + d.slice(0, 2);
+            if (d.length > 2) f += " (" + d.slice(2, 4);
+            if (d.length > 4) f += ") " + d.slice(4, 9);
+            if (d.length > 9) f += "-" + d.slice(9, 13);
+            campo.value = f;
+        }
+
+        if (campo.id === "codigo") {
+            campo.value = soNumeros(campo.value).slice(0, 6);
+        }
     });
 
     form.addEventListener("submit", async (evento) => {
@@ -255,22 +254,33 @@
         const valores = Object.fromEntries(new FormData(form));
 
         try {
-            const msg = cfg.validar(valores);
-            if (msg) return mostrarErro(msg);
+            if (etapa === 1) {
+                const msg = cfg.validar(valores);
+                if (msg) return mostrarErro(msg);
 
-            dadosEtapa1 = valores;
-            btnEnviar.disabled = true;
+                dadosEtapa1 = valores;
+                btnEnviar.disabled = true;
 
-            const r = await chamarServidor(campoAtual + "/salvar", valores);
-            if (!r.ok) return mostrarErro(r.mensagem || "Não foi possível salvar.");
+                if (cfg.verificacao) {
+                    const r = await chamarServidor(campoAtual + "/solicitar-codigo", valores);
+                    if (!r.ok) return mostrarErro(r.mensagem || "Não foi possível enviar o código.");
+                    irParaEtapaCodigo(cfg);
+                    return;
+                }
 
-            if (cfg.aplicar) cfg.aplicar(dadosEtapa1);
-            else if (el(cfg.alvo)) el(cfg.alvo).textContent = cfg.exibir(dadosEtapa1);
+                const r = await chamarServidor(campoAtual + "/salvar", valores);
+                if (!r.ok) return mostrarErro(r.mensagem || "Não foi possível salvar.");
+            } else {
+                if (!/^\d{6}$/.test(valores.codigo || "")) return mostrarErro("O código tem 6 dígitos.");
 
-            if (campoAtual === 'nome' && el("nomeuser")) {
-                el("nomeuser").textContent = cfg.exibir(dadosEtapa1).toUpperCase();
+                btnEnviar.disabled = true;
+                const r = await chamarServidor(campoAtual + "/salvar", { ...dadosEtapa1, codigo: valores.codigo });
+                if (!r.ok) return mostrarErro(r.mensagem || "Código inválido ou expirado.");
             }
 
+            // Sucesso: atualiza o valor mostrado na página
+            if (cfg.aplicar) cfg.aplicar(dadosEtapa1);
+            else el(cfg.alvo).textContent = cfg.exibir(dadosEtapa1);
             modal.close();
         } catch (err) {
             mostrarErro("Erro de conexão. Tente novamente.");
@@ -279,6 +289,7 @@
         }
     });
 
+    // Limpa tudo ao fechar (inclusive senha digitada)
     modal.addEventListener("close", () => {
         area.replaceChildren();
         dadosEtapa1 = {};

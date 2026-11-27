@@ -1,18 +1,25 @@
+// Paginação dos destaques
+// Os botões já existem no HTML (#paginacao-destaques).
+// Aqui o JS só controla qual página aparece e qual botão fica ativo.
+
 const grade = document.getElementById('grade-destaques');
 const paginacao = document.getElementById('paginacao-destaques');
+
+// Configuração
 const produtosPorPagina = 8;
 
-window.reconfigurarPaginacao = function() {
-    if (!grade || !paginacao) return;
+if (grade && paginacao) {
 
     const produtos = Array.from(grade.querySelectorAll('.item'));
     const botoesPagina = Array.from(paginacao.querySelectorAll('[data-pagina]'));
     const botaoAvancar = paginacao.querySelector('[data-avancar]');
 
-    const totalPaginas = Math.max(1, Math.ceil(produtos.length / produtosPorPagina));
+    const totalPaginas = botoesPagina.length;
     let paginaAtual = 1;
 
+    // Mostra apenas os produtos da página escolhida
     function mostrarPagina(numeroPagina) {
+
         paginaAtual = numeroPagina;
 
         const inicio = (paginaAtual - 1) * produtosPorPagina;
@@ -25,6 +32,7 @@ window.reconfigurarPaginacao = function() {
         atualizarBotoes();
     }
 
+    // Marca como ativo o botão da página atual
     function atualizarBotoes() {
         botoesPagina.forEach((botao) => {
             const ehAtual = Number(botao.dataset.pagina) === paginaAtual;
@@ -32,23 +40,22 @@ window.reconfigurarPaginacao = function() {
         });
     }
 
+    // Clique nos números
     botoesPagina.forEach((botao) => {
-        botao.onclick = () => {
+        botao.addEventListener('click', () => {
             mostrarPagina(Number(botao.dataset.pagina));
-        };
+        });
     });
 
+    // Clique na seta de avançar
     if (botaoAvancar) {
-        botaoAvancar.onclick = () => {
+        botaoAvancar.addEventListener('click', () => {
             if (paginaAtual < totalPaginas) {
                 mostrarPagina(paginaAtual + 1);
             }
-        };
+        });
     }
 
+    // Inicia na página 1
     mostrarPagina(1);
-};
-
-if (grade && paginacao) {
-    window.reconfigurarPaginacao();
 }

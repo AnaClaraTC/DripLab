@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Site - DripLab</title>
 
+    <!-- Adicionando a fonte Montserrat do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -20,6 +21,7 @@
 
 <body>
 
+    <!--Código do Áudio do Site-->
     <audio id="bg-music" loop>
         <source src="../static/music/instrumental.mp3" type="audio/mpeg">
     </audio>
@@ -28,12 +30,14 @@
     const music = document.getElementById("bg-music");
 
     document.addEventListener("click", () => {
-        music.volume = 0.2;
+        music.volume = 0.2; // bem baixo
         music.play();
     }, { once: true });
     </script>
+    <!--Fim do código-->
 
   
+    <!--Menu do Site-->
     <nav id="menugeral">
         <h1><a href="index.html">DRIP LAB</a></h1>
         <ul id="base">
@@ -70,6 +74,7 @@
                 </button>
             </li>
 
+
         </ul>
     </nav>
 
@@ -79,7 +84,7 @@
 
             <div id="sobretitulo">
                 <h2>NÃO É <br>SÓ SOBRE ROUPA</h2>
-                <h3><em>SOBRE O QUE VOCÊ REPRESENTA.</em></h3>
+                <h3><em> É SOBRE O QUE VOCÊ REPRESENTA.</em></h3>
             </div>
 
             <div id="sobremascote">
@@ -99,8 +104,8 @@
                     nos jogos que joga, nas ideias que compartilha e na maneira como ocupa o mundo. 
                     Por isso, criamos <span id="textolaranja">uma experiência</span> que une moda, tecnologia e comunidade. 
                     Aqui, cada drop tem <span id="textoroxo">uma identidade</span>, cada coleção conta uma história e cada pessoa tem 
-                    espaço para expressar a sua. Não queremos ditar tendências. <b>Queremos abrir espaço para 
-                    quem cria as próprias regras.</b></p>
+                    espaço para expressar a sua. Não queremos ditar tendências.</p>
+                <p><b>Queremos abrir espaço para quem cria as próprias regras.</b></p>
 
             </div>
         </div>

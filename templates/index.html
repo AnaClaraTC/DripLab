@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Site - DripLab</title>
 
+    <!-- Fonte Montserrat do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -13,10 +14,12 @@
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/menuex.js" defer></script>
     <script src="../static/js/tema.js"></script>
+    <script src="../static/js/relogio.js" defer></script>
 </head>
 
 <body>
 
+    <!-- Áudio do site -->
     <audio id="bg-music" loop>
         <source src="../static/music/instrumental.mp3" type="audio/mpeg">
     </audio>
@@ -25,11 +28,13 @@
         const music = document.getElementById("bg-music");
 
         document.addEventListener("click", () => {
-            music.volume = 0.2;
+            music.volume = 0.2; // bem baixo
             music.play();
         }, { once: true });
     </script>
+    <!-- Fim do áudio -->
 
+    <!-- Menu do site -->
     <nav id="menugeral">
         <h1><a href="index.html">DRIP LAB</a></h1>
 
@@ -69,6 +74,7 @@
         </ul>
     </nav>
 
+    <!-- Seção de destaque -->
     <div id="destaque">
         <button id="btnjogo"><a href="jogar.html">JOGAR AGORA</a></button>
         <button id="btnloja"><a href="loja.html">EXPLORAR A LOJA</a></button>
@@ -94,6 +100,7 @@
         </div>
     </div>
 
+    <!-- Drop atual -->
     <div id="dropatual">
         <div id="textodropatual">
             <h2>[DROP ATUAL : POLARIZAÇÃO]</h2>
@@ -109,18 +116,265 @@
 
             <div id="dropslides">
 
+                <!-- Slider 1 -->
                 <div class="dropslider">
-                    <div class="droptrilho"></div>
-                </div>
+                    <div class="droptrilho">
 
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>MOLETOM OVERSIZED</h3>
+                                    <p>R$ 29,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>MOLETOM OVERSIZED</h3>
+                                    <p>R$ 29,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>MOLETOM OVERSIZED</h3>
+                                    <p>R$ 29,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>MOLETOM OVERSIZED</h3>
+                                    <p>R$ 29,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>MOLETOM OVERSIZED</h3>
+                                    <p>R$ 29,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>MOLETOM OVERSIZED</h3>
+                                    <p>R$ 29,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div><!-- Fim do trilho -->
+                </div><!-- Fim do slider 1 -->
+
+                <!-- Slider 2 -->
                 <div class="dropslider">
-                    <div class="droptrilho"></div>
-                </div>
+                    <div class="droptrilho">
 
-            </div>
-        </div>
-    </div>
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>MOLETOM OVERSIZED</h3>
+                                    <p>R$ 29,99</p>
+                                </div>
+                            </a>
+                        </div>
 
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/camiseta-boxy-eclipse.png" alt="Camiseta Boxy Eclipse">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>CAMISETA BOXY ECLIPSE</h3>
+                                    <p>R$ 39,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/calca-cargo-phantom.png" alt="Calça Cargo Phantom">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>CALÇA CARGO PHANTOM</h3>
+                                    <p>R$ 59,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Camiseta Oversized Shadow">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>CAMISETA OVERSIZED SHADOW</h3>
+                                    <p>R$ 39,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/camiseta-street-logo.png" alt="Camiseta Street Logo">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>CAMISETA STREET LOGO</h3>
+                                    <p>R$ 39,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Camiseta Graffiti 404">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>CAMISETA GRAFFITI 404</h3>
+                                    <p>R$ 39,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Camiseta Heavy Cotton">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>CAMISETA HEAVY COTTON</h3>
+                                    <p>R$ 39,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Calça Baggy Asphalt">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>CALÇA BAGGY ASPHALT</h3>
+                                    <p>R$ 59,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/calca-reta-concrete.png" alt="Calça Reta Concrete">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>CALÇA RETA CONCRETE</h3>
+                                    <p>R$ 59,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Bermuda Cargo Utility">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>BERMUDA CARGO UTILITY</h3>
+                                    <p>R$ 49,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Bermuda Baggy Downtown">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>BERMUDA BAGGY DOWNTOWN</h3>
+                                    <p>R$ 49,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Jaqueta Corta-Vento Storm">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>JAQUETA CORTA-VENTO STORM</h3>
+                                    <p>R$ 89,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/bone-five-panel.png" alt="Boné Five Panel">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>BONÉ FIVE PANEL</h3>
+                                    <p>R$ 29,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="dropitem">
+                            <a href="produto.html">
+                                <div class="dropitem-img">
+                                    <img src="../static/images/loja/gorro-midnight.png" alt="Gorro Midnight">
+                                </div>
+                                <div class="dropitem-content">
+                                    <h3>GORRO MIDNIGHT</h3>
+                                    <p>R$ 24,99</p>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div><!-- Fim do trilho -->
+                </div><!-- Fim do slider 2 -->
+
+            </div><!-- Fim do dropslides -->
+        </div><!-- Fim do divdrop -->
+    </div><!-- Fim do dropatual -->
+
+    <!-- Drops anterior e próximo -->
     <div id="trapeziodrops">
         <div class="trapezio" id="cima">
             <h2>DROP ANTERIOR</h2>
@@ -130,8 +384,9 @@
             <h2>PRÓXIMO DROP</h2>
             <p>CONTRAMÃO</p>
         </div>
-    </div>
+    </div><!-- Fim da seção de drops -->
 
+    <!-- Destaques: os mais vendidos -->
     <div id="destaques">
 
         <div id="textodestaque">
@@ -139,15 +394,214 @@
             <p><a href="loja.html">VER TODOS</a></p>
         </div>
 
-        <div id="grade-destaques"></div>
+        <!-- Grade de produtos (8 por página, controlado pelo paginacao.js) -->
+        <div id="grade-destaques">
 
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>MOLETOM OVERSIZED</h3>
+                        <p>R$ 29,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-boxy-eclipse.png" alt="Camiseta Boxy Eclipse">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>CAMISETA BOXY ECLIPSE</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/calca-cargo-phantom.png" alt="Calça Cargo Phantom">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>CALÇA CARGO PHANTOM</h3>
+                        <p>R$ 59,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Camiseta Oversized Shadow">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>CAMISETA OVERSIZED SHADOW</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-street-logo.png" alt="Camiseta Street Logo">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>CAMISETA STREET LOGO</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Camiseta Graffiti 404">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>CAMISETA GRAFFITI 404</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Camiseta Heavy Cotton">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>CAMISETA HEAVY COTTON</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Calça Baggy Asphalt">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>CALÇA BAGGY ASPHALT</h3>
+                        <p>R$ 59,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/calca-reta-concrete.png" alt="Calça Reta Concrete">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>CALÇA RETA CONCRETE</h3>
+                        <p>R$ 59,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Bermuda Cargo Utility">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>BERMUDA CARGO UTILITY</h3>
+                        <p>R$ 49,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Bermuda Baggy Downtown">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>BERMUDA BAGGY DOWNTOWN</h3>
+                        <p>R$ 49,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Jaqueta Corta-Vento Storm">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>JAQUETA CORTA-VENTO STORM</h3>
+                        <p>R$ 89,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/bone-five-panel.png" alt="Boné Five Panel">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>BONÉ FIVE PANEL</h3>
+                        <p>R$ 29,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/gorro-midnight.png" alt="Gorro Midnight">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>GORRO MIDNIGHT</h3>
+                        <p>R$ 24,99</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="produto.html">
+                    <div class="item-img">
+                        <img src="../static/images/loja/shoulder-bag-utility.png" alt="Shoulder Bag Utility">
+                    </div>
+                    <div class="item-content">
+                        <span class="item-tag">MAIS VENDIDO</span>
+                        <h3>SHOULDER BAG UTILITY</h3>
+                        <p>R$ 39,99</p>
+                    </div>
+                </a>
+            </div>
+
+        </div><!-- Fim da grade -->
+
+        <!-- Paginação (botões escritos no HTML; o JS só faz funcionar) -->
         <div id="paginacao-destaques">
             <button type="button" class="ativo" data-pagina="1">1</button>
             <button type="button" data-pagina="2">2</button>
             <button type="button" data-avancar aria-label="Próxima página">➜</button>
         </div>
 
-    </div>
+    </div><!-- Fim dos destaques -->
 
     <section id="secao-votacoes">
 
@@ -160,13 +614,202 @@
             </p>
         </div>
 
-        <div id="grade-propostas-votacao" class="dbx-grade">
+        <!-- Grade de propostas -->
+        <div id="grade-propostas-votacao">
+
+            <!-- Proposta 1 -->
+            <article class="item-votacao" data-id="1">
+
+                <div class="votacao-topo">
+
+                    <h3>PIXEL REBEL</h3>
+
+                    <span class="votacao-contagem">
+                        <span class="quantidade-votos">0</span> VOTOS
+                    </span>
+                    
+                </div>
+
+                
+                <div class="votacao-info">
+                    <p class="votacao-descricao">
+                        Um drop inspirado na estética dos videogames retrô,
+                        na cultura arcade e nos gráficos pixelados que marcaram
+                        gerações. A coleção transforma referências dos jogos
+                        clássicos em peças streetwear com cores vibrantes,
+                        contrastes marcantes e detalhes que lembram telas,
+                        controles e cenários digitais. Imagine camisetas com
+                        sprites e mensagens em 8 bits, moletons com códigos
+                        escondidos nas estampas e acessórios que parecem ter
+                        saído de uma fase secreta. Cada peça combina nostalgia
+                        e atitude urbana, como se vestir fosse desbloquear um
+                        novo nível. A comunidade também pode ajudar a escolher
+                        os personagens, símbolos e combinações de cores que vão
+                        definir essa aventura da DripLab.
+                    </p>
+
+                    <div class="votacao-tags">
+                        <span class="votacao-categoria">STREETWEAR</span>
+                        <span class="votacao-categoria">VIDEOGAMES</span>
+                        <span class="votacao-categoria">RETRO</span>
+                        <span class="votacao-categoria">PIXEL ART</span>
+                        <span class="votacao-categoria">ARCADE</span>
+                    </div>
+                    
+                </div>
+
+                <span class="votacao-criador">
+                    Criado por: Comunidade DripLab
+                </span>
+
+                <button
+                    type="button"
+                    class="btn-votar"
+                    data-acao="votar"
+                >
+                    VOTAR (+10 POINTS)
+                </button>
+
+            </article>
+
+
+            <!-- Proposta 2 -->
+            <article class="item-votacao" data-id="2">
+                <div class="votacao-topo">
+                    <h3>CONCRETE DREAMS</h3>
+                    <span class="votacao-contagem"><span class="quantidade-votos">0</span> VOTOS</span>
+                </div>
+                <div class="votacao-info">
+                    <p class="votacao-descricao">Inspirada nas formas, texturas e contrastes da cidade, esta coleção transforma o concreto em expressão pessoal. A proposta combina tons de cinza, preto e areia com detalhes que remetem a mapas, fachadas e estruturas urbanas. Modelagens amplas, sobreposições e estampas discretas criam peças versáteis para quem encontra beleza no cotidiano das ruas.</p>
+                    <div class="votacao-tags">
+                        <span class="votacao-categoria">MODA URBANA</span><span class="votacao-categoria">ARQUITETURA</span><span class="votacao-categoria">MINIMALISMO</span><span class="votacao-categoria">TONS NEUTROS</span><span class="votacao-categoria">OVERSIZED</span>
+                    </div>
+                </div>
+                <span class="votacao-criador">Criado por: Comunidade DripLab</span>
+                <button type="button" class="btn-votar" data-acao="votar">VOTAR (+10 POINTS)</button>
+            </article>
+
+            <!-- Proposta 3 -->
+            <article class="item-votacao" data-id="3">
+                <div class="votacao-topo">
+                    <h3>GLITCH SOCIETY</h3>
+                    <span class="votacao-contagem"><span class="quantidade-votos">0</span> VOTOS</span>
+                </div>
+                <div class="votacao-info">
+                    <p class="votacao-descricao">Uma coleção sobre as falhas e reinvenções do mundo conectado. Efeitos de tela corrompida, tipografia fragmentada e símbolos de interface aparecem em estampas que misturam caos e composição. A paleta de preto, branco e cores elétricas dá vida a camisetas, moletons e acessórios com visual digital, sem perder a atitude streetwear.</p>
+                    <div class="votacao-tags">
+                        <span class="votacao-categoria">CULTURA DIGITAL</span><span class="votacao-categoria">GLITCH</span><span class="votacao-categoria">TECNOLOGIA</span><span class="votacao-categoria">TIPOGRAFIA</span><span class="votacao-categoria">STREETWEAR</span>
+                    </div>
+                </div>
+                <span class="votacao-criador">Criado por: Comunidade DripLab</span>
+                <button type="button" class="btn-votar" data-acao="votar">VOTAR (+10 POINTS)</button>
+            </article>
+
+            <!-- Proposta 4 -->
+            <article class="item-votacao" data-id="4">
+                <div class="votacao-topo">
+                    <h3>NOCTURNA</h3>
+                    <span class="votacao-contagem"><span class="quantidade-votos">0</span> VOTOS</span>
+                </div>
+                <div class="votacao-info">
+                    <p class="votacao-descricao">Feita para quem sente a cidade ganhar vida depois que escurece, Nocturna explora luzes, sombras e reflexos noturnos. Preto profundo, azul petróleo e toques de roxo aparecem em peças com detalhes refletivos, grafismos de letreiros e silhuetas urbanas. O resultado é uma coleção marcante, confortável e pronta para acompanhar a noite.</p>
+                    <div class="votacao-tags">
+                        <span class="votacao-categoria">NOITE</span><span class="votacao-categoria">REFLETIVO</span><span class="votacao-categoria">NEON</span><span class="votacao-categoria">CIDADE</span><span class="votacao-categoria">DARKWEAR</span>
+                    </div>
+                </div>
+                <span class="votacao-criador">Criado por: Comunidade DripLab</span>
+                <button type="button" class="btn-votar" data-acao="votar">VOTAR (+10 POINTS)</button>
+            </article>
+
+            <!-- Proposta 5 -->
+            <article class="item-votacao" data-id="5">
+                <div class="votacao-topo">
+                    <h3>RAÍZES EM MOVIMENTO</h3>
+                    <span class="votacao-contagem"><span class="quantidade-votos">0</span> VOTOS</span>
+                </div>
+                <div class="votacao-info">
+                    <p class="votacao-descricao">Uma celebração das referências brasileiras que atravessam bairros, gerações e estilos. Formas orgânicas, cores quentes e grafismos inspirados em paisagens e manifestações culturais dão identidade à coleção. A proposta valoriza a mistura de influências e convida a comunidade a escolher os elementos e paletas que melhor representam suas próprias raízes.</p>
+                    <div class="votacao-tags">
+                        <span class="votacao-categoria">CULTURA BRASILEIRA</span><span class="votacao-categoria">IDENTIDADE</span><span class="votacao-categoria">CORES VIBRANTES</span><span class="votacao-categoria">ARTE</span><span class="votacao-categoria">COMUNIDADE</span>
+                    </div>
+                </div>
+                <span class="votacao-criador">Criado por: Comunidade DripLab</span>
+                <button type="button" class="btn-votar" data-acao="votar">VOTAR (+10 POINTS)</button>
+            </article>
+
+            <!-- Proposta 6 -->
+            <article class="item-votacao" data-id="6">
+                <div class="votacao-topo">
+                    <h3>FREQUÊNCIA URBANA</h3>
+                    <span class="votacao-contagem"><span class="quantidade-votos">0</span> VOTOS</span>
+                </div>
+                <div class="votacao-info">
+                    <p class="votacao-descricao">O som da cidade vira linguagem visual nesta proposta inspirada por música, dança e encontros. Ondas sonoras, equalizadores e cartazes de show se traduzem em estampas dinâmicas, com cores contrastantes e composições em movimento. Peças confortáveis e versáteis conectam diferentes cenas musicais sem limitar a coleção a um único ritmo.</p>
+                    <div class="votacao-tags">
+                        <span class="votacao-categoria">MÚSICA</span><span class="votacao-categoria">CULTURA DE RUA</span><span class="votacao-categoria">GRAFISMO</span><span class="votacao-categoria">DANÇA</span><span class="votacao-categoria">URBANO</span>
+                    </div>
+                </div>
+                <span class="votacao-criador">Criado por: Comunidade DripLab</span>
+                <button type="button" class="btn-votar" data-acao="votar">VOTAR (+10 POINTS)</button>
+            </article>
+
+            <!-- Proposta 7 -->
+            <article class="item-votacao" data-id="7">
+                <div class="votacao-topo">
+                    <h3>REWORK LAB</h3>
+                    <span class="votacao-contagem"><span class="quantidade-votos">0</span> VOTOS</span>
+                </div>
+                <div class="votacao-info">
+                    <p class="votacao-descricao">Rework Lab imagina um streetwear mais consciente, no qual materiais reaproveitados e escolhas duráveis fazem parte do design. Recortes, contrastes de tecidos e detalhes utilitários dão personalidade a peças pensadas para serem usadas de muitas maneiras. A comunidade pode sugerir combinações, acabamentos e ideias para reduzir desperdício sem abrir mão do estilo.</p>
+                    <div class="votacao-tags">
+                        <span class="votacao-categoria">SUSTENTABILIDADE</span><span class="votacao-categoria">REUSO</span><span class="votacao-categoria">DESIGN</span><span class="votacao-categoria">UTILITÁRIO</span><span class="votacao-categoria">MODA CONSCIENTE</span>
+                    </div>
+                </div>
+                <span class="votacao-criador">Criado por: Comunidade DripLab</span>
+                <button type="button" class="btn-votar" data-acao="votar">VOTAR (+10 POINTS)</button>
+            </article>
+
+            <!-- Proposta 8 -->
+            <article class="item-votacao" data-id="8">
+                <div class="votacao-topo">
+                    <h3>FUTURO EM TRÂNSITO</h3>
+                    <span class="votacao-contagem"><span class="quantidade-votos">0</span> VOTOS</span>
+                </div>
+                <div class="votacao-info">
+                    <p class="votacao-descricao">Entre estações, avenidas e caminhos improvisados, esta coleção encontra inspiração no movimento diário pela cidade. Linhas de mapas, sinalizações e coordenadas viram estampas e pequenos detalhes funcionais. Cortes confortáveis, bolsos estratégicos e uma paleta de tons escuros com acentos de cor acompanham quem está sempre indo para algum lugar.</p>
+                    <div class="votacao-tags">
+                        <span class="votacao-categoria">MOBILIDADE</span><span class="votacao-categoria">MAPAS</span><span class="votacao-categoria">FUTURISMO</span><span class="votacao-categoria">FUNCIONAL</span><span class="votacao-categoria">CIDADE</span>
+                    </div>
+                </div>
+                <span class="votacao-criador">Criado por: Comunidade DripLab</span>
+                <button type="button" class="btn-votar" data-acao="votar">VOTAR (+10 POINTS)</button>
+            </article>
+
+            <!-- Proposta 9 -->
+            <article class="item-votacao" data-id="9">
+                <div class="votacao-topo">
+                    <h3>CAOS BOTÂNICO</h3>
+                    <span class="votacao-contagem"><span class="quantidade-votos">0</span> VOTOS</span>
+                </div>
+                <div class="votacao-info">
+                    <p class="votacao-descricao">Uma mistura inesperada entre a energia das ruas e formas encontradas na natureza. Folhas, flores e texturas orgânicas aparecem em escala ampliada, combinadas a linhas, recortes e elementos gráficos urbanos. A paleta alterna verdes e terrosos com contrastes intensos, criando peças expressivas que levam um pouco de natureza para o cenário da cidade.</p>
+                    <div class="votacao-tags">
+                        <span class="votacao-categoria">NATUREZA</span><span class="votacao-categoria">BOTÂNICO</span><span class="votacao-categoria">CONTRASTE</span><span class="votacao-categoria">ESTAMPA</span><span class="votacao-categoria">STREETWEAR</span>
+                    </div>
+                </div>
+                <span class="votacao-criador">Criado por: Comunidade DripLab</span>
+                <button type="button" class="btn-votar" data-acao="votar">VOTAR (+10 POINTS)</button>
+            </article>
+
         </div>
 
     </section>
 
+<!-- Fim da votação de drops -->
+
+    <!-- Junte-se ao site -->
     <div id="juntesesite">
-        <a href="https://pt.wikipedia.org/wiki/Auto_da_Compadecida">
+        <a href="">
             <img src="../static/images/promocional/imagem-juntese-site.png" alt="Junte-se ao site">
         </a>
     </div>
@@ -178,9 +821,6 @@
 
     <script src="../static/js/slide.js" defer></script>
     <script src="../static/js/paginacao.js" defer></script>
-    <script src="../static/js/votacao.js" defer></script>
-    <script src="../static/js/index.js" defer></script>
-    <script src="../static/js/countdown.js" defer></script>
 
 </body>
 </html>

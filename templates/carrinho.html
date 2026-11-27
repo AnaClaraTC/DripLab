@@ -6,19 +6,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Site - DripLab</title>
 
+    <!-- Adicionando a fonte Montserrat do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/menuex.js" defer></script>
-    <script src="../static/js/mascaras.js" defer></script>
     <script src="../static/js/tema.js"></script>
     
 </head>
 
 <body>
 
+    <!--Código do Áudio do Site-->
     <audio id="bg-music" loop>
         <source src="../static/music/instrumental.mp3" type="audio/mpeg">
     </audio>
@@ -27,12 +28,14 @@
     const music = document.getElementById("bg-music");
 
     document.addEventListener("click", () => {
-        music.volume = 0.2;
+        music.volume = 0.2; // bem baixo
         music.play();
     }, { once: true });
     </script>
+    <!--Fim do código-->
 
 
+    <!--Menu do Site-->
     <nav id="menugeral">
         <h1><a href="index.html">DRIP LAB</a></h1>
         <ul id="base">
@@ -69,6 +72,7 @@
                 </button>
             </li>
 
+
         </ul>
     </nav>
 
@@ -80,6 +84,7 @@
 
         <div id="carrinho-layout">
 
+                <!-- BLOCO ESQUERDO -->
                 <div id="esqcompra">
 
                         <h2 id="titulocarrinho">[CARRINHO] <span>(15 ITENS)</span></h2>
@@ -89,10 +94,286 @@
                             <span>Selecionar todos</span>
                         </label>
 
-                        <div id="listaprodutos"></div>
+                        <div id="listaprodutos">
+
+                            <section class="itemcarrinho" data-preco="29.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                    <div class="itemcarrinho-img">
+                                        <img src="../static/images/loja/moletom-oversized.png" alt="Imagem do produto">
+                                    </div>
+
+                                    <div class="itemcarrinho-info">
+                                        <h2>MOLETOM OVERSIZED</h2>
+                                        <span>Tamanho : P</span>
+                                    </div>
+
+                                    <div class="itemcarrinho-qtd">
+                                        <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                        <span class="qtd">1</span>
+                                        <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                    </div>
+
+                                    <p  class="preco">R$ 29,99</p>
+                                    <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="39.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/camiseta-boxy-eclipse.png" alt="Camiseta Boxy Eclipse">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>CAMISETA BOXY ECLIPSE</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 39,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="59.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/calca-cargo-phantom.png" alt="Calça Cargo Phantom">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>CALÇA CARGO PHANTOM</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 59,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="39.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Camiseta Oversized Shadow">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>CAMISETA OVERSIZED SHADOW</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 39,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="39.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/camiseta-street-logo.png" alt="Camiseta Street Logo">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>CAMISETA STREET LOGO</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 39,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="39.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Camiseta Graffiti 404">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>CAMISETA GRAFFITI 404</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 39,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="39.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Camiseta Heavy Cotton">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>CAMISETA HEAVY COTTON</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 39,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="59.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Calça Baggy Asphalt">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>CALÇA BAGGY ASPHALT</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 59,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="59.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/calca-reta-concrete.png" alt="Calça Reta Concrete">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>CALÇA RETA CONCRETE</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 59,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="49.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Bermuda Cargo Utility">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>BERMUDA CARGO UTILITY</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 49,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="49.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Bermuda Baggy Downtown">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>BERMUDA BAGGY DOWNTOWN</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 49,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="89.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Jaqueta Corta-Vento Storm">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>JAQUETA CORTA-VENTO STORM</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 89,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="29.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/bone-five-panel.png" alt="Boné Five Panel">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>BONÉ FIVE PANEL</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 29,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="24.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/gorro-midnight.png" alt="Gorro Midnight">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>GORRO MIDNIGHT</h2>
+                                    <span>Tamanho : P</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 24,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                            <section class="itemcarrinho" data-preco="39.99">
+                                <input type="checkbox" class="checkproduto" aria-label="Selecionar produto">
+                                <div class="itemcarrinho-img">
+                                    <img src="../static/images/loja/shoulder-bag-utility.png" alt="Shoulder Bag Utility">
+                                </div>
+                                <div class="itemcarrinho-info">
+                                    <h2>SHOULDER BAG UTILITY</h2>
+                                    <span>Tamanho : Único</span>
+                                </div>
+                                <div class="itemcarrinho-qtd">
+                                    <button type="button" class="menos" aria-label="Diminuir quantidade">&minus;</button>
+                                    <span class="qtd">1</span>
+                                    <button type="button" class="mais" aria-label="Aumentar quantidade">+</button>
+                                </div>
+                                <p class="preco">R$ 39,99</p>
+                                <button type="button" class="remover" aria-label="Remover item">&times;</button>
+                            </section>
+
+                        </div>
 
                     </div>
 
+                <!-- BLOCO DIREITO -->
                 <aside id="recibo">
 
                     <h2 id="recibotitulo">RESUMO DO PEDIDO</h2>
@@ -102,7 +383,26 @@
                     
                         <p id="semlocais" hidden>Você ainda não tem locais salvos.</p>
                     
-                        <div id="listalocais"></div>
+                        <!-- Locais salvos do cadastro.
+                            Hoje são exemplos fixos; a Ana vai gerar estas <label> a partir do banco.
+                            O value do radio deve ser o ID do local no banco. -->
+                        <div id="listalocais">
+                    
+                            <label class="opclocal">
+                                <input type="radio" name="local" value="1" checked required>
+                                <span class="opclocal-nome">CASA</span>
+                                <span class="opclocal-end">Rua Exemplo, 123 - Apto 4</span>
+                                <span class="opclocal-cidade">Bairro · Cidade - UF · 00000-000</span>
+                            </label>
+                    
+                            <label class="opclocal">
+                                <input type="radio" name="local" value="2" required>
+                                <span class="opclocal-nome">TRABALHO</span>
+                                <span class="opclocal-end">Avenida Exemplo, 456</span>
+                                <span class="opclocal-cidade">Bairro · Cidade - UF · 00000-000</span>
+                            </label>
+                    
+                        </div>
                     
                         <button type="button" id="abrirmodallocal">+ ADICIONAR NOVO LOCAL</button>
                     </section>
@@ -158,11 +458,12 @@
                 <dialog id="modalpagamento" aria-labelledby="titulomodal">
                     <div class="conteudomodal">
                 
-                        <button type="button" id="fecharmodal" aria-label="Fechar">×</button>
+                        <button type="button" id="fecharmodal" aria-label="Fechar">&times;</button>
                 
                         <h2 id="titulomodal">PAGAMENTO</h2>
                         <p id="valormodal">Total: <strong id="totalmodal">R$ 0,00</strong></p>
                 
+                        <!-- Cartão -->
                         <form id="formcartao" hidden>
                             <label for="numerocartao">Número do cartão</label>
                             <input type="text" id="numerocartao" inputmode="numeric" autocomplete="cc-number"
@@ -186,6 +487,7 @@
                             </div>
                 
                             <label for="parcelas">Parcelas</label>
+                            <!-- Ajuste conforme a regra da sua loja -->
                             <select id="parcelas">
                                 <option value="1">1x sem juros</option>
                                 <option value="2">2x sem juros</option>
@@ -195,7 +497,9 @@
                             <button type="submit" class="btnmodal btnpagar">PAGAR</button>
                         </form>
                 
+                        <!-- Pix -->
                         <div id="areapix" hidden>
+                            <!-- Troque este quadrado pela imagem do QR Code gerado pelo gateway -->
                             <div id="qrpix" role="img" aria-label="QR Code do Pix">QR CODE</div>
                 
                             <p>Escaneie o QR Code ou copie o código abaixo:</p>
@@ -208,8 +512,64 @@
                     </div>
                 </dialog>
 
-        </div>
-    </div>
+                <dialog id="modallocal" class="modal" aria-labelledby="titulomodallocal">
+                    <div class="conteudomodal">
+                
+                        <button type="button" id="fecharmodallocal" class="fecharmodal" aria-label="Fechar">&times;</button>
+                
+                        <h2 id="titulomodallocal" class="titulomodal">NOVO LOCAL</h2>
+                        <p class="textomodal">Salve um endereço para usar nos próximos pedidos.</p>
+                
+                        <form id="formlocal">
+                            <label for="nomelocal">Nome do local</label>
+                            <input type="text" id="nomelocal" name="nomelocal" placeholder="Ex.: Casa, Trabalho" maxlength="30" required>
+                
+                            <label for="cep">CEP</label>
+                            <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9"
+                                inputmode="numeric" autocomplete="postal-code" required>
+                            <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+                            target="_blank" rel="noopener" class="linkcep">Não sei meu CEP</a>
+                
+                            <div class="linhalocal">
+                                <div>
+                                    <label for="estado">Estado</label>
+                                    <input type="text" id="estado" name="estado" placeholder="Ex.: RJ"
+                                        autocomplete="address-level1" required>
+                                </div>
+                                <div>
+                                    <label for="cidade">Cidade</label>
+                                    <input type="text" id="cidade" name="cidade" placeholder="Digite sua cidade"
+                                        autocomplete="address-level2" required>
+                                </div>
+                            </div>
+                
+                            <label for="bairro">Bairro</label>
+                            <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro" required>
+                
+                            <label for="rua">Rua / Avenida</label>
+                            <input type="text" id="rua" name="rua" placeholder="Digite o nome da rua"
+                                autocomplete="address-line1" required>
+                
+                            <div class="linhalocal">
+                                <div>
+                                    <label for="numero">Número</label>
+                                    <input type="text" id="numero" name="numero" placeholder="Nº" required>
+                                </div>
+                                <div>
+                                    <label for="complemento">Complemento (opcional)</label>
+                                    <input type="text" id="complemento" name="complemento"
+                                        placeholder="Apartamento, bloco, casa..." autocomplete="address-line2">
+                                </div>
+                            </div>
+                
+                            <button type="submit" class="btnmodal btnsalvar">SALVAR LOCAL</button>
+                        </form>
+                
+                    </div>
+                </dialog>
+ 
+        </div><!--Fim do carrinho-layout-->
+    </div><!--Fim do contcarrinho-->
 
     <footer id="rodape">
         <h1>DRIP LAB</h1>

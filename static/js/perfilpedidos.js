@@ -1,3 +1,8 @@
+// PÁGINA DE PERFIL - Histórico de pedidos: modal com os detalhes do pedido
+//
+// Os cards (.pedido) ficam no HTML, dentro de #listapedidos, com data-id.
+// Ao clicar em "ACESSAR PEDIDO", o JS busca os detalhes e preenche o modal.
+
 (() => {
     const el = (id) => document.getElementById(id);
 
@@ -9,129 +14,55 @@
     const corpo      = el("corpopedido");
     const produtos   = el("pedidoprodutos");
 
-    if (!lista || !modal) return;
+    const PAGAMENTOS = { cartao: "Cartão", pix: "Pix" };
 
-    const PAGAMENTOS = { cartao: "Cartão", Cartao: "Cartão", pix: "Pix", Pix: "Pix", Boleto: "Boleto", boleto: "Boleto" };
-    const getToken = () => localStorage.getItem('token') || localStorage.getItem('driplab_token');
+    const moeda = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-    const moeda = (v) => Number(v || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
+    // "2025-10-12" -> "12 DE OUT. DE 2025"
     function formatarData(iso) {
-        if (!iso) return "";
-        const d = new Date(iso);
-        return d.toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
+        const [a, m, d] = iso.split("-").map(Number);
+        return new Date(a, m - 1, d)
+            .toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" })
+            .toUpperCase();
     }
 
-    function classeStatus(status) {
-        const s = (status || "").toLowerCase();
-        if (s.includes("entregue")) return "status-entregue";
-        if (s.includes("cancelado")) return "status-cancelado";
-        if (s.includes("pago")) return "status-pago";
-        if (s.includes("separação") || s.includes("embalado")) return "status-separacao";
-        if (s.includes("transito") || s.includes("enviado")) return "status-enviado";
-        return "status-pendente";
-    }
-
+    /* ---------- Back-end (Ana) ---------- */
     async function chamarServidor(acao, dados) {
-        const token = getToken();
-        if (!token) return { ok: false, mensagem: "Faça login para continuar." };
+        // TODO (Ana): trocar por fetch real. Ação usada aqui:
+        //   "pedido/detalhes" -> recebe { id } e devolve { ok: true, pedido: {...} }
+        // O servidor deve conferir que o pedido pertence ao usuário logado.
+        // Formato esperado de "pedido":
+        //   { id, data: "AAAA-MM-DD", frete, total, pagamento: "cartao" | "pix",
+        //     local: { nomelocal, rua, numero, complemento, bairro, cidade, estado, cep },
+        //     produtos: [{ nome, tamanho, preco, imagem, link }] }
+        console.log("Enviar ao servidor:", acao, dados);
 
-        if (acao === "pedido/detalhes") {
-            const resp = await fetch(`/api/pedidos/${dados.id}`, {
-                headers: { "Authorization": "Bearer " + token }
-            });
-            const ped = await resp.json();
-            if (!resp.ok) return { ok: false, mensagem: ped.mensagem };
-
-            const endereco = ped.endereco_entrega || {
-                nomelocal: "Padrão", rua: "Endereço cadastrado", numero: "S/N", complemento: "",
-                bairro: "", cidade: "", estado: "", cep: ""
-            };
-
-            const itens = (ped.itens || []).map(item => ({
-                nome: item.produto ? item.produto.nome : `Produto #${item.id_produto}`,
-                tamanho: item.tamanho || "P",
-                preco: Number(item.preco_unitario),
-                quantidade: item.quantidade,
-                imagem: (item.produto && item.produto.imagem) ? item.produto.imagem : "../static/images/loja/camiseta-grafitti-404.png",
-                link: `produto.html?id=${item.id_produto}`
-            }));
-
-            return {
-                ok: true,
-                pedido: {
-                    id: ped.id_pedido,
-                    data: ped.data_pedido,
-                    frete: Number(ped.valor_frete || 0),
-                    total: Number(ped.valor_total || 0),
-                    pagamento: ped.metodo_pagamento || "Pix",
-                    local: endereco,
-                    produtos: itens
-                }
-            };
-        }
-
-        return { ok: false, mensagem: "Ação não encontrada." };
-    }
-
-    async function carregarMeusPedidos() {
-        const token = getToken();
-        if (!token) {
-            lista.innerHTML = "";
-            if (semPedidos) semPedidos.hidden = false;
-            return;
-        }
-
-        try {
-            const resp = await fetch("/api/pedidos/meus", {
-                headers: { "Authorization": "Bearer " + token }
-            });
-
-            if (!resp.ok) return;
-
-            const pedidos = await resp.json();
-            lista.innerHTML = "";
-
-            if (!pedidos || pedidos.length === 0) {
-                if (semPedidos) semPedidos.hidden = false;
-                return;
+        // Dados de exemplo, só para testar a tela
+        return {
+            ok: true,
+            pedido: {
+                id: dados.id,
+                data: "2025-10-12",
+                frete: 9.93,
+                total: 199.90,
+                pagamento: "cartao",
+                local: {
+                    nomelocal: "Casa", rua: "Rua Exemplo", numero: "123", complemento: "Apto 4",
+                    bairro: "Bairro", cidade: "Cidade", estado: "RJ", cep: "00000-000"
+                },
+                produtos: [
+                    { nome: "CAMISETA GRAFFITI 404", tamanho: "P", preco: 39.99,
+                      imagem: "../static/images/loja/camiseta-grafitti-404.png", link: "produto.html" },
+                    { nome: "CALÇA CARGO PHANTOM", tamanho: "P", preco: 59.99,
+                      imagem: "../static/images/loja/calca-cargo-phantom.png", link: "produto.html" },
+                    { nome: "JAQUETA CORTA-VENTO STORM", tamanho: "P", preco: 89.99,
+                      imagem: "../static/images/loja/jaqueta-corta-vento-storm.png", link: "produto.html" }
+                ]
             }
-
-            if (semPedidos) semPedidos.hidden = true;
-
-            pedidos.forEach(p => {
-                const article = document.createElement("article");
-                article.className = "pedido";
-                article.dataset.id = p.id_pedido;
-
-                const cStatus = classeStatus(p.status_atual);
-                const primeiroItem = (p.itens && p.itens[0]) || {};
-                const prod = primeiroItem.produto || {};
-                const imgSrc = prod.imagem || "../static/images/loja/camiseta-grafitti-404.png";
-
-                article.innerHTML = `
-                    <a class="pedido-img" href="produto.html?id=${prod.id_produto || ''}" aria-label="Ver produto do pedido #${p.id_pedido}">
-                        <img src="${imgSrc}" alt="${prod.nome || 'Produto'}">
-                    </a>
-
-                    <div class="pedido-info">
-                        <h3>Pedido #${p.id_pedido}</h3>
-                        <p class="pedido-data">${formatarData(p.data_pedido)}</p>
-                        <p class="pedido-status ${cStatus}">${(p.status_atual || 'PENDENTE').toUpperCase()}</p>
-                        <button type="button" class="verpedido" data-id="${p.id_pedido}">ACESSAR PEDIDO</button>
-                    </div>
-
-                    <p class="pedido-valor">${moeda(p.valor_total)}</p>
-                `;
-
-                lista.appendChild(article);
-            });
-        } catch (e) {
-            console.error("Erro ao carregar pedidos do usuário:", e);
-        }
+        };
     }
-    carregarMeusPedidos();
 
+    /* ---------- Utilidades ---------- */
     function mostrarErro(msg) {
         erro.textContent = msg;
         erro.hidden = !msg;
@@ -139,12 +70,12 @@
     }
 
     function textoLocal(l) {
-        if (!l) return "Não informado";
-        return (l.nomelocal || "LOCAL").toUpperCase() + " - " +
-            (l.rua || "") + ", " + (l.numero || "") + (l.complemento ? " - " + l.complemento : "") + " - " +
-            (l.bairro || "") + " · " + (l.cidade || "") + " - " + (l.estado || "").toUpperCase() + " · " + (l.cep || "");
+        return l.nomelocal.toUpperCase() + " - " +
+            l.rua + ", " + l.numero + (l.complemento ? " - " + l.complemento : "") + " - " +
+            l.bairro + " · " + l.cidade + " - " + l.estado.toUpperCase() + " · " + l.cep;
     }
 
+    // Monta cada produto com textContent (nunca innerHTML)
     function criarItem(p) {
         const item = document.createElement("div");
         item.className = "pedidoitem";
@@ -167,15 +98,16 @@
         nome.textContent = p.nome;
 
         const tamanho = document.createElement("span");
-        tamanho.className = "pedidoitem-detalhe";
-        tamanho.textContent = "TAMANHO: " + p.tamanho + (p.quantidade > 1 ? ` (QTD: ${p.quantidade})` : "");
+        tamanho.className = "pedidoitem-tamanho";
+        tamanho.textContent = "Tamanho : " + p.tamanho;
+
+        info.append(nome, tamanho);
 
         const preco = document.createElement("span");
-        preco.className = "pedidoitem-detalhe";
+        preco.className = "pedidoitem-preco";
         preco.textContent = moeda(p.preco);
 
-        info.append(nome, tamanho, preco);
-        item.append(link, info);
+        item.append(link, info, preco);
         return item;
     }
 
@@ -183,13 +115,15 @@
         titulo.textContent = "PEDIDO #" + p.id;
         el("pedidodata").textContent = formatarData(p.data);
         el("pedidototal").textContent = moeda(p.total);
-        el("pedidofrete").textContent = moeda(p.frete);
+        el("pedidofrete").textContent = p.frete > 0 ? moeda(p.frete) : "Grátis";
         el("pedidopagamento").textContent = PAGAMENTOS[p.pagamento] || p.pagamento;
         el("pedidolocal").textContent = textoLocal(p.local);
 
+        // Lista de produtos por último
         produtos.replaceChildren(...p.produtos.map(criarItem));
     }
 
+    /* ---------- Abrir o modal ---------- */
     lista.addEventListener("click", async (evento) => {
         const botao = evento.target.closest(".verpedido");
         if (!botao) return;
@@ -205,15 +139,25 @@
                 preencherModal(r.pedido);
             }
             modal.showModal();
+        } catch (err) {
+            titulo.textContent = "PEDIDO";
+            mostrarErro("Erro de conexão. Tente novamente.");
+            modal.showModal();
         } finally {
             botao.disabled = false;
         }
     });
 
-    const fechar = el("fecharmodalpedido");
-    if (fechar) fechar.addEventListener("click", () => modal.close());
-
+    /* ---------- Fechar o modal ---------- */
+    el("fecharmodalpedido").addEventListener("click", () => modal.close());
     modal.addEventListener("click", (evento) => {
         if (evento.target === modal) modal.close();
     });
+    modal.addEventListener("close", () => {
+        produtos.replaceChildren();
+        mostrarErro("");
+    });
+
+    /* ---------- Lista vazia ---------- */
+    semPedidos.hidden = lista.children.length > 0;
 })();

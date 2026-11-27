@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Site - DripLab</title>
 
+    <!-- Fonte Montserrat do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -16,6 +17,7 @@
 
 <body>
 
+    <!-- Áudio do site -->
     <audio id="bg-music" loop>
         <source src="../static/music/instrumental.mp3" type="audio/mpeg">
     </audio>
@@ -24,11 +26,13 @@
         const music = document.getElementById("bg-music");
 
         document.addEventListener("click", () => {
-            music.volume = 0.2;
+            music.volume = 0.2; // bem baixo
             music.play();
         }, { once: true });
     </script>
+    <!-- Fim do áudio -->
 
+    <!-- Menu do site -->
     <nav id="menugeral">
         <h1><a href="index.html">DRIP LAB</a></h1>
 
@@ -70,6 +74,7 @@
 
     <div id="produto-container">
 
+        <!-- Box do produto -->
         <div id="produtobox">
 
             <div id="produtoimg">
@@ -77,8 +82,8 @@
             </div>
 
             <div id="produtoinfo">
-                <img id="produtobanner" src="../static/images/banner_drop/banner_lua.png" alt="Banner do drop No Mundo da Lua">
                 <h2 id="produtonome">MOLETOM OVERSIZED</h2>
+                <h3 id="produtodrop">DROP : NO MUNDO DA LUA</h3>
                 <h3 id="produtovalor">R$ 29,99</h3>
 
                 <div class="grupofiltro" id="grupotamroupa">
@@ -103,52 +108,386 @@
                     Fácil combinação com diferentes estilos.
                     <br><br>
                     Vista sua imaginação. Explore seu próprio universo.</p>
+
+                <button type="button" id="adicionar-carrinho">Adicionar ao Carrinho</button>
             </div>
-        </div>
+        </div><!-- Fim do box do produto -->
 
-        <button type="button" id="adicionar-carrinho">Adicionar ao Carrinho</button>
+        
 
-        <div class="frete-box">
-            <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 8px;">CALCULAR FRETE E PRAZO</h3>
-            <div style="display: flex; gap: 8px; max-width: 420px;">
-                <input type="text" id="calc-frete-cep" class="inputlocalconfig campocep" data-mask="cep" placeholder="00000-000" maxlength="9" inputmode="numeric" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
-                <button type="button" id="btn-calc-frete" class="dbx-btn dbx-roxo" style="padding: 10px 16px;">CALCULAR</button>
-            </div>
-            <div id="calc-frete-resultado" class="frete-resultado" hidden></div>
-        </div>
-
-        <section class="secao-produtos" style="margin-top: 30px;">
-            <h2>[AVALIAÇÕES E COMENTÁRIOS]</h2>
-            <div id="lista-comentarios" style="margin: 16px 0; display: flex; flex-direction: column; gap: 12px;">
-                <p id="sem-comentarios" style="color: #666; font-size: 14px;">Ainda não há comentários sobre este produto.</p>
-            </div>
-
-            <form id="form-novo-comentario" style="max-width: 600px; display: flex; flex-direction: column; gap: 8px; margin-top: 16px;">
-                <label for="texto-comentario" style="font-weight: 700; font-size: 14px;">Deixe sua opinião sobre esta peça:</label>
-                <textarea id="texto-comentario" class="inputlocalconfig" rows="3" placeholder="Escreva seu comentário..." style="width: 100%; border: 1px solid #ccc; border-radius: 6px; padding: 10px;" required></textarea>
-                <button type="submit" class="dbx-btn dbx-roxo" style="width: auto; align-self: flex-start; padding: 10px 20px;">ENVIAR COMENTÁRIO</button>
-            </form>
-        </section>
-
+        <!-- Produtos em destaque -->
         <section class="secao-produtos">
 
             <h2>[PRODUTOS EM DESTAQUE]</h2>
 
             <div class="slider">
-                <div class="trilho"></div>
-            </div>
+                <div class="trilho">
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                            </div>
+                            <div class="item-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-boxy-eclipse.png" alt="Camiseta Boxy Eclipse">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA BOXY ECLIPSE</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-cargo-phantom.png" alt="Calça Cargo Phantom">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA CARGO PHANTOM</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Camiseta Oversized Shadow">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA OVERSIZED SHADOW</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-street-logo.png" alt="Camiseta Street Logo">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA STREET LOGO</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Camiseta Graffiti 404">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA GRAFFITI 404</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Camiseta Heavy Cotton">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA HEAVY COTTON</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Calça Baggy Asphalt">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA BAGGY ASPHALT</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-reta-concrete.png" alt="Calça Reta Concrete">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA RETA CONCRETE</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Bermuda Cargo Utility">
+                            </div>
+                            <div class="item-content">
+                                <h3>BERMUDA CARGO UTILITY</h3>
+                                <p>R$ 49,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Bermuda Baggy Downtown">
+                            </div>
+                            <div class="item-content">
+                                <h3>BERMUDA BAGGY DOWNTOWN</h3>
+                                <p>R$ 49,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Jaqueta Corta-Vento Storm">
+                            </div>
+                            <div class="item-content">
+                                <h3>JAQUETA CORTA-VENTO STORM</h3>
+                                <p>R$ 89,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bone-five-panel.png" alt="Boné Five Panel">
+                            </div>
+                            <div class="item-content">
+                                <h3>BONÉ FIVE PANEL</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/gorro-midnight.png" alt="Gorro Midnight">
+                            </div>
+                            <div class="item-content">
+                                <h3>GORRO MIDNIGHT</h3>
+                                <p>R$ 24,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/shoulder-bag-utility.png" alt="Shoulder Bag Utility">
+                            </div>
+                            <div class="item-content">
+                                <h3>SHOULDER BAG UTILITY</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                </div><!-- Fim do trilho -->
+            </div><!-- Fim do slider -->
         </section>
 
+        <!-- Produtos do drop -->
         <section class="secao-produtos">
 
-            <h2>[MAIS DO DROP]</h2>
+            <h2>[MAIS DO DROP: NO MUNDO DA LUA]</h2>
 
             <div class="slider">
-                <div class="trilho"></div>
-            </div>
+                <div class="trilho">
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+                            </div>
+                            <div class="item-content">
+                                <h3>MOLETOM OVERSIZED</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-cargo-phantom.png" alt="Calça Cargo Phantom">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA CARGO PHANTOM</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camisa-oversized-shadow.png" alt="Camiseta Oversized Shadow">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA OVERSIZED SHADOW</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-street-logo.png" alt="Camiseta Street Logo">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA STREET LOGO</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-grafitti-404.png" alt="Camiseta Graffiti 404">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA GRAFFITI 404</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/camiseta-heavy-cotton.png" alt="Camiseta Heavy Cotton">
+                            </div>
+                            <div class="item-content">
+                                <h3>CAMISETA HEAVY COTTON</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-baggy-asphalt.png" alt="Calça Baggy Asphalt">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA BAGGY ASPHALT</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/calca-reta-concrete.png" alt="Calça Reta Concrete">
+                            </div>
+                            <div class="item-content">
+                                <h3>CALÇA RETA CONCRETE</h3>
+                                <p>R$ 59,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bermuda-cargo-utility.png" alt="Bermuda Cargo Utility">
+                            </div>
+                            <div class="item-content">
+                                <h3>BERMUDA CARGO UTILITY</h3>
+                                <p>R$ 49,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bermuda-baggy-downtown.png" alt="Bermuda Baggy Downtown">
+                            </div>
+                            <div class="item-content">
+                                <h3>BERMUDA BAGGY DOWNTOWN</h3>
+                                <p>R$ 49,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/jaqueta-corta-vento-storm.png" alt="Jaqueta Corta-Vento Storm">
+                            </div>
+                            <div class="item-content">
+                                <h3>JAQUETA CORTA-VENTO STORM</h3>
+                                <p>R$ 89,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/bone-five-panel.png" alt="Boné Five Panel">
+                            </div>
+                            <div class="item-content">
+                                <h3>BONÉ FIVE PANEL</h3>
+                                <p>R$ 29,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/gorro-midnight.png" alt="Gorro Midnight">
+                            </div>
+                            <div class="item-content">
+                                <h3>GORRO MIDNIGHT</h3>
+                                <p>R$ 24,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="produto.html">
+                            <div class="item-img">
+                                <img src="../static/images/loja/shoulder-bag-utility.png" alt="Shoulder Bag Utility">
+                            </div>
+                            <div class="item-content">
+                                <h3>SHOULDER BAG UTILITY</h3>
+                                <p>R$ 39,99</p>
+                            </div>
+                        </a>
+                    </div>
+
+                </div><!-- Fim do trilho -->
+            </div><!-- Fim do slider -->
         </section>
 
-    </div>
+    </div><!-- Fim do produto-container -->
 
     <footer id="rodape">
         <h1>DRIP LAB</h1>
@@ -156,9 +495,7 @@
     </footer>
 
     <script src="../static/js/menuex.js" defer></script>
-    <script src="../static/js/mascaras.js" defer></script>
     <script src="../static/js/slide.js" defer></script>
-    <script src="../static/js/produto.js" defer></script>
 
 </body>
 </html>
