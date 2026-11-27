@@ -1,11 +1,11 @@
 /* =====================================================
-   DRIP LAB - style.css  (versão responsiva)
+   DRIP LAB - style.css  (versão responsiva + tema escuro)
 
    ORDEM DO ARQUIVO
 
    PARTE A - MEDIA QUERIES (vêm primeiro)
      A0. Geral (menu, rodapé, base)
-     A1. Página inicial
+     A1. Página inicial (inclui a votação de drops)
      A2. Página da loja
      A3. Página de login
      A4. Página de produto
@@ -16,9 +16,10 @@
 
    PARTE B - CÓDIGO NORMAL
      B1.  Base (reset, links, body, atributo hidden, dialog)
-     B2.  Menu
+     B2.  Menu (inclui o botão de tema)
      B3.  Componentes compartilhados
-     B4.  Página inicial
+     B4.  Página inicial (destaque, drop atual, trapézios,
+          destaques, votação, faixa "Junte-se")
      B5.  Página da loja
      B6.  Página de login
      B7.  Página de produto
@@ -27,7 +28,10 @@
      B10. Página sobre nós
      B11. Dashboard
 
-    PARTE C - VARIÁVEIS DE MODO ESCURO E CLARO  
+   PARTE C - TEMA CLARO / ESCURO
+     C1. Paleta (variáveis de cor)
+     C2. Transição da troca de tema
+     C3. Aplicação do modo escuro, na mesma ordem da Parte B
 
    BREAKPOINTS USADOS
      1280px  notebooks pequenos
@@ -52,6 +56,11 @@
    usam vários IDs. Ao criar um novo media query, mantenha o
    padrão: abra o bloco com o prefixo e escreva cada seletor
    começando com "& ".
+
+   COMO O TEMA ESCURO FUNCIONA (PARTE C)
+   O tema.js coloca data-tema="claro" ou "escuro" no <html>.
+   A Parte C só muda CORES. Como os media queries só mexem em
+   tamanho e layout, os dois sistemas não se atrapalham.
    ===================================================== */
 
 
@@ -189,6 +198,12 @@
         & #menugeral h1 {
             font-size: 22px;
         }
+
+        /* Três ícones no menu (conta, carrinho e tema): mais juntos */
+        & #conta {
+            gap: 12px;
+            padding-right: 12px;
+        }
     }
 }
 
@@ -304,6 +319,16 @@
         & #textodestaque a {
             font-size: 16px;
         }
+
+        /* Votação: duas colunas */
+        & #secao-votacoes {
+            width: 92%;
+            padding: 24px 20px;
+        }
+
+        & #grade-propostas-votacao {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
     }
 }
 
@@ -362,6 +387,11 @@
         /* Grade de destaques */
         & #destaques #grade-destaques {
             grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        /* Votação */
+        & #cabecalho-votacoes h2 {
+            font-size: 22px;
         }
     }
 }
@@ -482,6 +512,36 @@
         & #paginacao-destaques button {
             width: 36px;
             height: 36px;
+        }
+
+        /* Votação: uma coluna */
+        & #secao-votacoes {
+            width: 94%;
+            margin: 30px auto;
+            padding: 20px 14px;
+            border-radius: 12px;
+        }
+
+        & #cabecalho-votacoes {
+            margin-bottom: 20px;
+        }
+
+        & #cabecalho-votacoes h2 {
+            font-size: 18px;
+        }
+
+        & #cabecalho-votacoes p {
+            font-size: 13px;
+        }
+
+        & #grade-propostas-votacao {
+            height: 520px;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        & .item-votacao h3 {
+            font-size: 18px;
         }
     }
 }
@@ -1288,6 +1348,8 @@
 
 /* =====================================================
    A7. PÁGINA SOBRE NÓS
+   (as cartas usam flex: #divtopicos é uma linha que
+   quebra em coluna nos celulares)
    ===================================================== */
 
 @media (max-width: 1100px) {
@@ -1310,22 +1372,22 @@
             font-size: 22px;
         }
 
-        /* Cartas */
+        /* Cartas: dividem a largura e mantêm a proporção */
         & #divtopicos {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 12px;
             padding: 30px 12px;
         }
 
         & .cartasobre {
-            width: 100%;
-            max-width: 400px;
+            flex: 1 1 0;
+            width: auto;
+            max-width: 320px;
             height: auto;
             aspect-ratio: 5 / 6;
         }
 
         & .cartatexto {
-            font-size: 18px;
+            font-size: 14px;
             padding: 16px;
         }
 
@@ -1399,11 +1461,16 @@
             font-size: 18px;
             text-align: left;
         }
+    }
+}
 
-        /* Cartas em duas colunas */
-        & #divtopicos {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            justify-items: center;
+@media (max-width: 700px) {
+    html:not(#r):not(#r):not(#r) {
+
+        /* Cartas bem estreitas: texto um pouco menor */
+        & .cartatexto {
+            font-size: 13px;
+            padding: 12px;
         }
     }
 }
@@ -1415,12 +1482,20 @@
             font-size: 16px;
         }
 
+        /* Cartas empilhadas, uma por linha */
         & #divtopicos {
-            grid-template-columns: 1fr;
+            flex-direction: column;
         }
 
         & .cartasobre {
+            flex: none;
+            width: 90%;
             max-width: 340px;
+        }
+
+        & .cartatexto {
+            font-size: 16px;
+            padding: 20px;
         }
 
         & #jogosobre {
@@ -1732,7 +1807,7 @@ dialog {
     width: 100%;
 }
 
-/* Ícones de conta e carrinho */
+/* Ícones de conta, carrinho e tema */
 #conta {
     width: 20%;
     display: flex;
@@ -1753,6 +1828,7 @@ dialog {
     filter: drop-shadow(0 0 5px #FF5A1F);
 }
 
+/* Botões do menu (perfil e tema): sem o visual padrão do navegador */
 #btnperfil,
 #btntema {
     background-color: transparent;
@@ -2429,6 +2505,223 @@ dialog {
 }
 
 
+/* ---------- Votação de drops e propostas ---------- */
+
+#secao-votacoes {
+    width: 75%;
+    margin: 50px auto;
+    padding: 30px;
+    box-sizing: border-box;
+
+    background-color: #fff;
+    border: 2px solid #181818;
+    border-radius: 15px;
+
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Cabeçalho */
+#cabecalho-votacoes {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+#cabecalho-votacoes h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #181818;
+    margin-bottom: 10px;
+}
+
+#cabecalho-votacoes p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    line-height: 1.6;
+}
+
+#cabecalho-votacoes strong {
+    color: #7B2CBF;
+    font-weight: 800;
+}
+
+/* Grade de propostas (com rolagem vertical, sem barra) */
+#grade-propostas-votacao {
+    width: 100%;
+    height: 480px;              /* altura da janela de rolagem */
+    padding: 20px 6px 10px;     /* folga para o hover (-5px) e a sombra não serem cortados */
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 400px;      /* altura fixa de cada card */
+    gap: 20px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 20px;
+}
+
+#grade-propostas-votacao::-webkit-scrollbar {
+    display: none;
+}
+
+/* Card de proposta */
+.item-votacao {
+    width: 100%;
+    height: 100%;               /* ocupa os 400px da linha */
+    min-height: 0;
+    box-sizing: border-box;
+    padding: 14px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: #fff;
+    border: 2px solid #D9D9D9;
+    border-radius: 10px;
+    scroll-snap-align: start;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.item-votacao:hover {
+    transform: translateY(-5px);
+    border-color: #7B2CBF;
+    box-shadow: 0 5px 15px rgba(24, 24, 24, 0.10);
+}
+
+/* Topo: nome e contagem de votos */
+.votacao-topo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.item-votacao h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #181818;
+}
+
+.votacao-contagem {
+    font-size: 13px;
+    font-weight: 800;
+    color: #7B2CBF;
+    white-space: nowrap;
+}
+
+/* Descrição e tags (a área rola se o texto for grande) */
+.votacao-info {
+    flex: 1;
+    min-height: 0;              /* essencial para o overflow funcionar dentro do flex */
+    width: 100%;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.votacao-info::-webkit-scrollbar {
+    display: none;
+}
+
+.votacao-descricao {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+    text-align: justify;
+    color: #555;
+    margin-bottom: 18px;
+}
+
+.votacao-tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;            /* quebra para a linha de baixo quando não couber */
+    gap: 6px;
+
+    flex-shrink: 0;             /* não deixa o flex espremer o bloco */
+    margin-top: 4px;
+    padding-bottom: 6px;
+}
+
+.votacao-categoria {
+    white-space: nowrap;        /* a quebra só acontece entre tags, nunca dentro de uma */
+
+    padding: 5px 10px;
+    background-color: #7B2CBF;
+    color: #fff;
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Rodapé do card: criador e botão */
+.votacao-criador {
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    padding-top: 10px;
+}
+
+.btn-votar {
+    width: 100%;
+    min-height: 42px;
+
+    margin-top: 15px;
+    padding: 10px;
+
+    background-color: #7B2CBF;
+    color: #fff;
+
+    border: none;
+    border-radius: 6px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.btn-votar:hover {
+    background-color: #9D4EDD;
+    transform: translateY(-2px);
+}
+
+.votacao-criador,
+.btn-votar {
+    flex-shrink: 0;
+}
+
+/* Botão depois de votar */
+.btn-votar.votado {
+    background-color: #F77F00;
+}
+
+.btn-votar.votado:hover {
+    background-color: #FF5A1F;
+}
+
+
 /* ---------- Faixa "Junte-se" ---------- */
 
 #juntesesite {
@@ -2482,8 +2775,7 @@ dialog {
 
 #boxtimeloja {
     width: 75%;
-    margin: 0 auto; 
-    margin-bottom: 50px;
+    margin: 0 auto 50px;
     padding: 15px;
     background-color: #181818;
     border-radius: 10px;
@@ -2565,8 +2857,7 @@ dialog {
     width: 100%;
     display: flex;
     background-color: #fff;
-    padding: 5px 0 20px 0;
-    padding-bottom: 80px;
+    padding: 5px 0 80px 0;
 }
 
 #pesquisaloja {
@@ -2801,7 +3092,10 @@ dialog {
 }
 
 
-/* ---------- Grade de roupas ---------- */
+/* ---------- Grade de roupas ----------
+   O fundo fica na própria grade (largura total), então
+   mudar gap, padding ou margin dos itens não deixa o
+   fundo preto aparecer. */
 
 #graderoupas {
     width: 100%;
@@ -2811,13 +3105,13 @@ dialog {
     grid-template-columns: repeat(7, minmax(0, 220px));
     justify-content: center;   /* centraliza as colunas */
     gap: 8px 12px;             /* vertical | horizontal */
-    background-color: #fff;    /* mantém o fundo */
+    background-color: #fff;
     font-family: 'Montserrat', sans-serif;
 }
 
 #graderoupas .item {
     width: 100%;
-    margin-bottom: 0;          /* o espaço vertical agora vem do gap */
+    margin-bottom: 0;          /* o espaço vertical vem do gap */
 }
 
 
@@ -3027,6 +3321,7 @@ dialog {
 }
 
 /* Drop */
+
 #produtodrop {
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
@@ -3036,7 +3331,8 @@ dialog {
     cursor: pointer;
     text-align: center;
 }
-#produtodrop:hover{
+
+#produtodrop:hover {
     color: #7B2CBF;
 }
 
@@ -3128,7 +3424,7 @@ dialog {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center; /* Centraliza as opções */
+    justify-content: center;
     align-items: center;
     gap: 8px;
     width: 100%;
@@ -3511,9 +3807,7 @@ dialog {
 #confirmarcompra {
     width: 300px;
     height: 34px;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px auto;
     text-align: center;
     border: none;
     box-shadow: none;
@@ -4459,9 +4753,8 @@ dialog {
 #pagfav img {
     width: 60%;
     height: auto;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     border-radius: 20px;
-    margin-bottom: 20px;
 }
 
 #gradefavoritos {
@@ -4524,8 +4817,7 @@ dialog {
 
 #gradeinfoperfil {
     width: 100%;
-    margin: 0 auto;
-    margin-top: 20px;
+    margin: 20px auto 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
@@ -5055,10 +5347,9 @@ dialog {
     width: 100%;
     max-width: 700px;
     padding: 8px;
-    margin: 0 auto;
+    margin: 20px auto 0;
     border: 2px dotted #fff;
     border-radius: 10px;
-    margin-top: 20px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -5104,9 +5395,8 @@ dialog {
 #btndelete {
     width: 300px;
     height: 34px;
-    margin: 0 auto;
+    margin: 20px auto 0;
     text-align: center;
-    margin-top: 20px;
     border: none;
     box-shadow: none;
     border-radius: 10px;
@@ -5225,7 +5515,9 @@ dialog {
 }
 
 
-/* ---------- Cartas de tópicos ---------- */
+/* ---------- Cartas de tópicos ----------
+   Linha de cartas (flex). Em telas menores as cartas dividem
+   a largura (A7) e, nos celulares, ficam uma embaixo da outra. */
 
 #divtopicos {
     width: 100%;
@@ -5233,6 +5525,8 @@ dialog {
     padding: 40px 0;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
     align-items: center;
 }
@@ -5322,7 +5616,7 @@ dialog {
     background-color: #181818;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
 }
 
@@ -6090,38 +6384,19 @@ dialog {
     font-size: 14px;
 }
 
-/* ---------- Responsividade das cartas ---------- */
 
-@media (max-width: 1000px) {
-    #divtopicos {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 650px) {
-    #divtopicos {
-        grid-template-columns: 1fr;
-    }
-
-    .cartasobre {
-        width: 90%;
-        max-width: 300px;
-        height: 360px;
-    }
-}
 
 /* =====================================================
    =====================================================
-   PARTE C - TEMA (CLARO / ESCURO)
+   PARTE C - TEMA CLARO / ESCURO
    =====================================================
-   Cole este bloco no FINAL do style.css.
-   (Adicione no índice do topo:  PARTE C - TEMA CLARO/ESCURO)
-
    COMO FUNCIONA
    - O tema.js coloca data-tema="claro" ou "escuro" no <html>.
    - C1 define a paleta (variáveis) para os dois temas.
-   - C2 aplica a paleta, SOMENTE no modo escuro. O modo claro
-     continua usando as cores originais da Parte B.
+   - C2 cuida da transição suave da troca de tema.
+   - C3 aplica a paleta SOMENTE no modo escuro, na mesma
+     ordem da Parte B. O modo claro continua usando as
+     cores originais da Parte B.
 
    POR QUE :where(...)
    :where() zera a especificidade do prefixo. Assim cada regra
@@ -6130,6 +6405,9 @@ dialog {
    continuam funcionando normalmente.
 
    PARA MUDAR UMA COR DO MODO ESCURO: altere só o valor em C1.
+   PARA ADICIONAR UM ELEMENTO NOVO: crie a regra dentro do
+   bloco de C3, na seção da página correspondente, e use as
+   variáveis de C1 (var(--texto), var(--superficie)...).
    ===================================================== */
 
 
@@ -6143,7 +6421,7 @@ dialog {
     --fundo-pagina: #181818;       /* atrás de tudo (body) */
     --fundo: #ffffff;              /* seções de largura total */
     --superficie: #ffffff;         /* cards, caixas, modais */
-    --superficie-cinza: #D9D9D9;   /* caixas cinzas (descrição, carrinho) */
+    --superficie-cinza: #D9D9D9;   /* caixas cinzas (descrição, carrinho, cards de votação) */
     --texto: #181818;
     --texto-suave: #555555;
     --borda: #181818;              /* bordas fortes (inputs, filtros) */
@@ -6185,24 +6463,29 @@ html[data-tema="escuro"] {
 
 
 /* =====================================================
-   C2. APLICAÇÃO DO TEMA ESCURO
+   C2. TRANSIÇÃO DA TROCA DE TEMA
+   (não sobrescreve as transições dos elementos)
    ===================================================== */
 
-/* Troca suave de cor (não sobrescreve transições dos elementos) */
 body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
+/* =====================================================
+   C3. APLICAÇÃO DO MODO ESCURO
+   ===================================================== */
+
 :where(html[data-tema="escuro"]) {
 
-    /* ---------- Base ---------- */
+    /* ---------- B1. Base ---------- */
 
     & body {
         background-color: var(--fundo-pagina);
         color: var(--texto);
     }
 
-    /* Campos e selects nativos sem estilo próprio */
+    /* Campo de busca da loja (sem estilo próprio de cor) */
     & #campopesquisa {
         background-color: var(--campo-fundo);
         border-color: var(--borda);
@@ -6259,6 +6542,27 @@ body {
 
     & #paginacao-destaques button:hover {
         background-color: var(--botao-neutro-hover);
+    }
+
+    /* Votação de drops */
+    & #secao-votacoes {
+        background-color: var(--superficie);
+        border-color: var(--borda-suave);
+    }
+
+    & #cabecalho-votacoes h2,
+    & .item-votacao h3 {
+        color: var(--texto);
+    }
+
+    & #cabecalho-votacoes p,
+    & .votacao-descricao {
+        color: var(--texto-suave);
+    }
+
+    & .item-votacao {
+        background-color: var(--superficie-cinza);
+        border-color: var(--borda-suave);
     }
 
 
