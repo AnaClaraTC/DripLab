@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Site - DripLab</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/mascaras.js" defer></script>
+    <script src="../static/js/autenticacao.js" defer></script>
+    <script src="../static/js/tema.js"></script>
+
+    
+</head>
+
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    const music = document.getElementById("bg-music");
+
+    document.addEventListener("click", () => {
+        music.volume = 0.2;
+        music.play();
+    }, { once: true });
+    </script>
+
+
+    <nav id="menugeral">
+        <h1><a href="index.html">DRIP LAB</a></h1>
+        <ul id="base">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="jogar.html">Jogar</a></li>
+            <li><a href="loja.html">Loja</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+        </ul>
+
+        <ul id="conta">
+            <li class="perfil">
+                <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                    <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                </button>
+
+                <div id="menuextra" class="menuextra">
+                    <ul id="loginfo">
+                        <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                        <li><a href="perfil.html">ACESSAR PERFIL</a></li>
+                        <li><button type="button">DESCONECTAR</button></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a href="carrinho.html">
+                    <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                </a>
+            </li>
+
+            <li>
+                <button type="button" id="btntema" aria-label="Ativar modo escuro" aria-pressed="false">
+                    <img src="../static/images/icones_menu/sol.png" alt="">
+                </button>
+            </li>
+
+        </ul>
+    </nav>
+
+    <div id="contperfil" hidden>
+
+        <div id="divmenuperfil">
+            <nav id="menuperfil">
+                <ul>
+                    <li><button type="button" class="opcmenuperfil ativo" data-pagina="pagperfil">PERFIL</button></li>
+                    <li><button type="button" class="opcmenuperfil" data-pagina="pagfav">FAVORITOS</button></li>
+                    <li><button type="button" class="opcmenuperfil" data-pagina="pagconfig">CONFIGURAÇÕES</button></li>
+                    <li><button type="button" class="opcmenuperfil" id="sair"><a href="index.html">SAIR</a></button></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div id="contpaginas">
+
+            <section class="pagina-perfil ativa" id="pagperfil">
+                
+                <div id="blocoperfil">
+                    <div id="imgperfil">
+                        <img src="../uploads/fotos_perfil/usuario_img.png" alt="Foto de perfil do usuário">
+                    </div>
+
+                    <div id="infoperfil">
+                        <p id="nomeuser"></p>
+                        <p id="emailuser"></p>
+
+                        <div id="divdrip">
+                            <img src="../static/images/icones_menu/drippoint.png">
+                            <p><span id="qtdpoints"></span> DRIP POINTS</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="blococompras">
+                    <h2>[SEUS PEDIDOS]</h2>
+
+                    <p id="sempedidos" hidden>Você ainda não fez nenhum pedido.</p>
+
+                    <div id="listapedidos"></div>
+                </div>
+
+            </section>
+
+            <section class="pagina-perfil" id="pagfav" hidden>
+
+                <img src="../static/images/promocional/banner_favoritos.png" alt="Banner de favoritos">
+
+                <div id="gradefavoritos">
+                    <p style="grid-column: 1 / -1; text-align: center; color: #888; padding: 40px 0; font-size: 15px;">Você ainda não possui favoritos salvos.</p>
+                </div>
+            </section>
+
+            <section class="pagina-perfil" id="pagconfig" hidden>
+                <div id="divperfil">
+
+                    <div class="tituloconfig">
+                        <h2>[INFORMAÇÕES PESSOAIS]</h2>
+                    </div>
+
+                    <div id="gradeinfoperfil">
+
+                        <div class="infoperfil">
+                            <label for="nomeperfil">NOME COMPLETO</label>
+                            <div class="valorperfil">
+                                <span id="nomeperfil"></span>
+                                <button type="button" class="editarperfil" data-campo="nome" aria-label="Editar nome completo">
+                                    <img src="../static/images/icones_menu/editar.png" alt="">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="infoperfil">
+                            <label>FOTO DE PERFIL</label>
+                            <div class="valorperfil">
+                                <img id="fotoperfil" src="../static/images/icones_menu/usuario.png" alt="Foto de perfil atual">
+                                <button type="button" class="editarperfil" data-campo="foto" aria-label="Editar foto de perfil">
+                                    <img src="../static/images/icones_menu/editar.png" alt="">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="infoperfil">
+                            <label for="nivelperfil">NÍVEL DRIP</label>
+                            <div class="valorperfil">
+                                <span id="nivelperfil"></span>
+                            </div>
+                        </div>
+
+                        <div class="infoperfil">
+                            <label for="cpfperfil">CPF</label>
+                            <div class="valorperfil" id="valorcpf">
+                                <span id="cpfperfil"></span>
+                                <span class="dicaconfig">O CPF não pode ser alterado.</span>
+                            </div>
+                        </div>
+
+                        <div class="infoperfil">
+                            <label for="emailperfil">E-MAIL</label>
+                            <div class="valorperfil">
+                                <span id="emailperfil"></span>
+                                <button type="button" class="editarperfil" data-campo="email" aria-label="Editar e-mail">
+                                    <img src="../static/images/icones_menu/editar.png" alt="">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="infoperfil">
+                            <label for="telefoneperfil">TELEFONE</label>
+                            <div class="valorperfil">
+                                <span id="telefoneperfil"></span>
+                                <button type="button" class="editarperfil" data-campo="telefone" aria-label="Editar telefone">
+                                    <img src="../static/images/icones_menu/editar.png" alt="">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="infoperfil">
+                            <label>SENHA</label>
+
+                            <div class="valorperfil">
+                                <span id="senhaperfil">••••••••••</span>
+
+                                <a href="login.html#recuperar-senha"
+                                class="editarperfil"
+                                aria-label="Recuperar ou alterar senha">
+
+                                    <img src="../static/images/icones_menu/editar.png" alt="">
+
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="divlocais">
+
+                    <div class="tituloconfig">
+                        <h2>[ADICIONAR OU EDITAR LOCAIS]</h2>
+                    </div>
+
+                    <h3 class="subtitulolocais">LOCAIS SALVOS</h3>
+                    <p id="semlocaisconfig" hidden>Você ainda não tem locais salvos.</p>
+                    <div id="listalocaisconfig">
+                    </div>
+
+                    <template id="modelolocalconfig">
+                        <div class="localconfig" data-id="">
+                            <div class="localconfig-info">
+                                <span class="opclocal-nome"></span>
+                                <span class="opclocal-end"></span>
+                                <span class="opclocal-cidade"></span>
+                            </div>
+                            <div class="localconfig-acoes">
+                                <button type="button" class="editarperfil" aria-label="Editar local">
+                                    <img src="../static/images/icones_menu/editar.png" alt="">
+                                </button>
+                                <button type="button" class="excluirperfil" aria-label="Excluir local">×</button>
+                            </div>
+                        </div>
+                    </template>
+
+                    <h3 class="subtitulolocais">ADICIONAR NOVO LOCAL</h3>
+
+                    <form id="formnovolocal" novalidate>
+                        <div id="gradenovolocal">
+
+                            <div class="infoperfil">
+                                <label for="novo-nomelocal">NOME DO LOCAL</label>
+                                <input class="inputlocalconfig" type="text" id="novo-nomelocal" name="nomelocal"
+                                    placeholder="Ex.: Casa, Trabalho" maxlength="30">
+                            </div>
+
+                            <div class="infoperfil">
+                                <label for="novo-cep">CEP</label>
+                                <input class="inputlocalconfig campocep" type="text" id="novo-cep" name="cep" data-mask="cep"
+                                    placeholder="00000-000" maxlength="9" inputmode="numeric" autocomplete="postal-code">
+                                <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+                                target="_blank" rel="noopener" class="linkcepconfig">Não sei meu CEP</a>
+                            </div>
+
+                            <div class="infoperfil">
+                                <label for="novo-estado">ESTADO</label>
+                                <input class="inputlocalconfig" type="text" id="novo-estado" name="estado" data-mask="uf"
+                                    placeholder="Ex.: RJ" maxlength="2" autocomplete="address-level1">
+                            </div>
+
+                            <div class="infoperfil">
+                                <label for="novo-cidade">CIDADE</label>
+                                <input class="inputlocalconfig" type="text" id="novo-cidade" name="cidade"
+                                    placeholder="Digite sua cidade" autocomplete="address-level2">
+                            </div>
+
+                            <div class="infoperfil">
+                                <label for="novo-bairro">BAIRRO</label>
+                                <input class="inputlocalconfig" type="text" id="novo-bairro" name="bairro"
+                                    placeholder="Digite seu bairro">
+                            </div>
+
+                            <div class="infoperfil">
+                                <label for="novo-rua">RUA / AVENIDA</label>
+                                <input class="inputlocalconfig" type="text" id="novo-rua" name="rua"
+                                    placeholder="Digite o nome da rua" autocomplete="address-line1">
+                            </div>
+
+                            <div class="infoperfil">
+                                <label for="novo-numero">NÚMERO</label>
+                                <input class="inputlocalconfig" type="text" id="novo-numero" name="numero" placeholder="Nº">
+                            </div>
+
+                            <div class="infoperfil">
+                                <label for="novo-complemento">COMPLEMENTO (OPCIONAL)</label>
+                                <input class="inputlocalconfig" type="text" id="novo-complemento" name="complemento"
+                                    placeholder="Apartamento, bloco, casa..." autocomplete="address-line2">
+                            </div>
+
+                        </div>
+
+                        <p id="erronovolocal" class="erroform" role="alert" hidden></p>
+                        <button type="submit" class="btnform" id="btnaddlocal">ADICIONAR LOCAL</button>
+                    </form>
+
+                </div>
+
+                <div id="divdelete">
+
+                    <div class="tituloconfig">
+                        <h2>[DELETAR SUA CONTA]</h2>
+                    </div>
+
+                    <div class="infodelete">
+                        <label for="emaildelete">E-MAIL</label>
+                        <input class="inputdelete" type="email" name="email" id="emaildelete" required placeholder="Insira seu E-mail">
+                    </div>
+
+                    <div class="infodelete">
+                        <label for="senhadelete">SENHA</label>
+                        <input class="inputdelete" type="password" name="senha" id="senhadelete" required placeholder="Insira seu E-mail">
+                    </div>
+
+                    <button type="button" id="btndelete">DELETAR</button>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+       <dialog id="modalperfil" aria-labelledby="tituloperfilmodal">
+        <div class="conteudomodal">
+
+            <button type="button" id="fecharmodalperfil" aria-label="Fechar">×</button>
+
+            <h2 id="tituloperfilmodal"></h2>
+            <p id="textoperfilmodal"></p>
+
+            <form id="formperfil" novalidate>
+                <div id="camposperfil"></div>
+
+                <p id="erromodalperfil" role="alert" hidden></p>
+
+                <div class="acoesmodalperfil">
+                    <button type="button" class="btnmodal btncancelar" id="cancelarperfil">CANCELAR</button>
+                    <button type="submit" class="btnmodal btnsalvar" id="btnenviarperfil">SALVAR ALTERAÇÃO</button>
+                </div>
+            </form>
+
+        </div>
+    </dialog>
+
+    <dialog id="modallocalconfig" aria-labelledby="titulomodallocalconfig">
+        <div class="conteudomodal">
+
+            <button type="button" id="fecharmodallocalconfig" aria-label="Fechar">×</button>
+
+            <h2 id="titulomodallocalconfig">EDITAR LOCAL</h2>
+            <p id="textomodallocalconfig">Altere as informações do endereço.</p>
+
+            <form id="formeditarlocal" novalidate>
+                <label for="edit-nomelocal">Nome do local</label>
+                <input type="text" id="edit-nomelocal" name="nomelocal" placeholder="Ex.: Casa, Trabalho" maxlength="30">
+
+                <label for="edit-cep">CEP</label>
+                <input type="text" id="edit-cep" name="cep" class="campocep" data-mask="cep" placeholder="00000-000"
+                    maxlength="9" inputmode="numeric" autocomplete="postal-code">
+                <a href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+                target="_blank" rel="noopener" class="linkcepconfig">Não sei meu CEP</a>
+
+                <div class="linhalocal">
+                    <div>
+                        <label for="edit-estado">Estado</label>
+                        <input type="text" id="edit-estado" name="estado" data-mask="uf" placeholder="Ex.: RJ" maxlength="2"
+                            autocomplete="address-level1">
+                    </div>
+                    <div>
+                        <label for="edit-cidade">Cidade</label>
+                        <input type="text" id="edit-cidade" name="cidade" placeholder="Digite sua cidade"
+                            autocomplete="address-level2">
+                    </div>
+                </div>
+
+                <label for="edit-bairro">Bairro</label>
+                <input type="text" id="edit-bairro" name="bairro" placeholder="Digite seu bairro">
+
+                <label for="edit-rua">Rua / Avenida</label>
+                <input type="text" id="edit-rua" name="rua" placeholder="Digite o nome da rua" autocomplete="address-line1">
+
+                <div class="linhalocal">
+                    <div>
+                        <label for="edit-numero">Número</label>
+                        <input type="text" id="edit-numero" name="numero" placeholder="Nº">
+                    </div>
+                    <div>
+                        <label for="edit-complemento">Complemento (opcional)</label>
+                        <input type="text" id="edit-complemento" name="complemento" placeholder="Apartamento, bloco, casa..."
+                            autocomplete="address-line2">
+                    </div>
+                </div>
+
+                <p id="erroeditarlocal" class="erroform" role="alert" hidden></p>
+
+                <div class="acoesmodalperfil">
+                    <button type="button" class="btnmodal btncancelar" id="cancelareditarlocal">CANCELAR</button>
+                    <button type="submit" class="btnmodal btnsalvar" id="btnsalvareditar">SALVAR ALTERAÇÃO</button>
+                </div>
+            </form>
+
+        </div>
+    </dialog>
+
+    <dialog id="modalexcluirlocal" aria-labelledby="tituloexcluirlocal">
+        <div class="conteudomodal">
+
+            <h2 id="tituloexcluirlocal">EXCLUIR LOCAL</h2>
+            <p id="textoexcluirlocal"></p>
+
+            <p id="erroexcluirlocal" class="erroform" role="alert" hidden></p>
+
+            <div class="acoesmodalperfil">
+                <button type="button" class="btnmodal btncancelar" id="cancelarexcluirlocal">CANCELAR</button>
+                <button type="button" class="btnmodal btnpagar" id="confirmarexcluirlocal">EXCLUIR</button>
+            </div>
+
+        </div>
+    </dialog>
+
+    <dialog id="modalpedido" aria-labelledby="titulopedidomodal">
+        <div class="conteudomodal">
+
+            <button type="button" id="fecharmodalpedido" aria-label="Fechar">×</button>
+
+            <h2 id="titulopedidomodal">PEDIDO</h2>
+
+            <p id="erropedido" class="erroform" role="alert" hidden></p>
+
+            <div id="corpopedido">
+
+                <dl id="resumopedido">
+                    <div><dt>Data do pedido</dt><dd id="pedidodata"></dd></div>
+                    <div><dt>Valor total</dt><dd id="pedidototal"></dd></div>
+                    <div><dt>Frete</dt><dd id="pedidofrete"></dd></div>
+                    <div><dt>Pagamento</dt><dd id="pedidopagamento"></dd></div>
+                    <div><dt>Local de entrega</dt><dd id="pedidolocal"></dd></div>
+                </dl>
+
+                <h3 id="titulopedidoprodutos">PRODUTOS</h3>
+                <div id="pedidoprodutos"></div>
+
+            </div>
+
+        </div>
+    </dialog>
+ 
+    <footer id="rodape">
+        <h1>DRIP LAB</h1>
+        <p>© 2026 DripLab. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../static/js/perfil.js"></script>
+    <script src="../static/js/perfildados.js"></script>
+    <script src="../static/js/perfillocais.js"></script>
+    <script src="../static/js/perfilpedidos.js"></script>
+</body>
+</html>

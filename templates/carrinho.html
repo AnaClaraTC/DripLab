@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Site - DripLab</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/mascaras.js" defer></script>
+    <script src="../static/js/tema.js"></script>
+    
+</head>
+
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    const music = document.getElementById("bg-music");
+
+    document.addEventListener("click", () => {
+        music.volume = 0.2;
+        music.play();
+    }, { once: true });
+    </script>
+
+
+    <nav id="menugeral">
+        <h1><a href="index.html">DRIP LAB</a></h1>
+        <ul id="base">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="jogar.html">Jogar</a></li>
+            <li><a href="loja.html">Loja</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+        </ul>
+
+        <ul id="conta">
+            <li class="perfil">
+                <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                    <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                </button>
+
+                <div id="menuextra" class="menuextra">
+                    <ul id="loginfo">
+                        <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                        <li><a href="perfil.html">ACESSAR PERFIL</a></li>
+                        <li><button type="button">DESCONECTAR</button></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a href="carrinho.html">
+                    <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                </a>
+            </li>
+
+            <li>
+                <button type="button" id="btntema" aria-label="Ativar modo escuro" aria-pressed="false">
+                    <img src="../static/images/icones_menu/sol.png" alt="">
+                </button>
+            </li>
+
+        </ul>
+    </nav>
+
+    <div id="contcarrinho">
+
+        <img src="../static/images/promocional/banner_carrinho.png" class="imgcompra">
+
+        <form id="compra">
+
+        <div id="carrinho-layout">
+
+                <div id="esqcompra">
+
+                        <h2 id="titulocarrinho">[CARRINHO] <span>(15 ITENS)</span></h2>
+
+                        <label id="selecionartodos">
+                            <input type="checkbox" id="checktodos">
+                            <span>Selecionar todos</span>
+                        </label>
+
+                        <div id="listaprodutos"></div>
+
+                    </div>
+
+                <aside id="recibo">
+
+                    <h2 id="recibotitulo">RESUMO DO PEDIDO</h2>
+
+                    <section id="entrega">
+                        <h2>LOCAL DE ENTREGA</h2>
+                    
+                        <p id="semlocais" hidden>Você ainda não tem locais salvos.</p>
+                    
+                        <div id="listalocais"></div>
+                    
+                        <button type="button" id="abrirmodallocal">+ ADICIONAR NOVO LOCAL</button>
+                    </section>
+ 
+
+                    <section id="resumovalores">
+
+                        <h2>RESUMO FINANCEIRO</h2>
+
+                        <div class="linha-valor">
+                            <span>Subtotal</span>
+                            <span id="subtotal">R$ 0,00</span>
+                        </div>
+
+                        <div class="linha-valor">
+                            <span>Frete</span>
+                            <span id="valorfrete">R$ 0,00</span>
+                        </div>
+
+                        <div class="linha-valor">
+                            <span>Desconto</span>
+                            <span id="desconto">R$ 0,00</span>
+                        </div>
+
+                        <div class="linha-valor-total">
+                            <h3>TOTAL</h3>
+                            <h2 id="totalcompra">R$ 0,00</h2>
+                        </div>
+
+                    </section>
+
+                    <section id="formapagamento">
+                        <h2>FORMA DE PAGAMENTO</h2>
+                    
+                        <div id="opcpagamento">
+                            <label class="opcpagamento">
+                                <input type="radio" name="pagamento" value="cartao" checked>
+                                <span>CARTÃO</span>
+                            </label>
+                            <label class="opcpagamento">
+                                <input type="radio" name="pagamento" value="pix">
+                                <span>PIX</span>
+                            </label>
+                        </div>
+                    </section>
+                    
+                    <button type="submit" id="confirmarcompra">IR PARA O PAGAMENTO</button>
+
+                </aside>
+
+        </form>
+
+                <dialog id="modalpagamento" aria-labelledby="titulomodal">
+                    <div class="conteudomodal">
+                
+                        <button type="button" id="fecharmodal" aria-label="Fechar">×</button>
+                
+                        <h2 id="titulomodal">PAGAMENTO</h2>
+                        <p id="valormodal">Total: <strong id="totalmodal">R$ 0,00</strong></p>
+                
+                        <form id="formcartao" hidden>
+                            <label for="numerocartao">Número do cartão</label>
+                            <input type="text" id="numerocartao" inputmode="numeric" autocomplete="cc-number"
+                                placeholder="0000 0000 0000 0000" maxlength="19" required>
+                
+                            <label for="nomecartao">Nome impresso no cartão</label>
+                            <input type="text" id="nomecartao" autocomplete="cc-name"
+                                placeholder="Como está no cartão" required>
+                
+                            <div class="linhacartao">
+                                <div>
+                                    <label for="validadecartao">Validade</label>
+                                    <input type="text" id="validadecartao" inputmode="numeric" autocomplete="cc-exp"
+                                        placeholder="MM/AA" maxlength="5" required>
+                                </div>
+                                <div>
+                                    <label for="cvvcartao">CVV</label>
+                                    <input type="text" id="cvvcartao" inputmode="numeric" autocomplete="cc-csc"
+                                        placeholder="123" maxlength="4" required>
+                                </div>
+                            </div>
+                
+                            <label for="parcelas">Parcelas</label>
+                            <select id="parcelas">
+                                <option value="1">1x sem juros</option>
+                                <option value="2">2x sem juros</option>
+                                <option value="3">3x sem juros</option>
+                            </select>
+                
+                            <button type="submit" class="btnmodal btnpagar">PAGAR</button>
+                        </form>
+                
+                        <div id="areapix" hidden>
+                            <div id="qrpix" role="img" aria-label="QR Code do Pix">QR CODE</div>
+                
+                            <p>Escaneie o QR Code ou copie o código abaixo:</p>
+                            <input type="text" id="codigopix" value="00020126EXEMPLO-DE-CODIGO-PIX" readonly>
+                
+                            <button type="button" id="copiarpix" class="btnmodal btncopiar">COPIAR CÓDIGO</button>
+                            <p class="avisopix">O pagamento é confirmado em instantes.</p>
+                        </div>
+                
+                    </div>
+                </dialog>
+
+        </div>
+    </div>
+
+    <footer id="rodape">
+        <h1>DRIP LAB</h1>
+        <p>© 2026 DripLab. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../static/js/carrinho.js"></script>
+    <script src="../static/js/carrinhopagamento.js"></script>
+    <script src="../static/js/carrinholocais.js"></script>
+</body>
+</html>

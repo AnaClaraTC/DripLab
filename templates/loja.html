@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Site - DripLab</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/tema.js"></script>
+</head>
+
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    const music = document.getElementById("bg-music");
+
+    document.addEventListener("click", () => {
+        music.volume = 0.2;
+        music.play();
+    }, { once: true });
+    </script>
+
+
+    <nav id="menugeral">
+        <h1><a href="index.html">DRIP LAB</a></h1>
+        <ul id="base">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="jogar.html">Jogar</a></li>
+            <li><a href="loja.html">Loja</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+        </ul>
+
+        <ul id="conta">
+            <li class="perfil">
+                <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                    <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                </button>
+
+                <div id="menuextra" class="menuextra">
+                    <ul id="loginfo">
+                        <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                        <li><a href="perfil.html">ACESSAR PERFIL</a></li>
+                        <li><button type="button">DESCONECTAR</button></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a href="carrinho.html">
+                    <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                </a>
+            </li>
+
+            <li>
+                <button type="button" id="btntema" aria-label="Ativar modo escuro" aria-pressed="false">
+                    <img src="../static/images/icones_menu/sol.png" alt="">
+                </button>
+            </li>
+
+
+        </ul>
+    </nav>
+
+
+    <div id="bannerloja">
+        <img src="../static/images/promocional/banner_loja_colecao.png">
+    </div>
+
+    <div id="droptimeloja">
+
+        <div id="boxtimeloja">
+            <div id="textodroptimeloja">
+                <h2>PRÓXIMO</h2>
+                <p>DROP EM :</p>
+            </div>
+
+            <div id="conttempodrop">
+
+               <div id="tempo">
+                    <span>02</span>
+                    <span>:</span>
+                    <span>45</span>
+                    <span>:</span>
+                    <span>05</span>
+                </div>
+
+                <div id="legendas">
+                    <span>DIAS</span>
+                    <span>HORAS</span>
+                    <span>MIN</span>
+                </div>
+            </div>
+
+            <div id="imgdroptimeloja">
+                <img src="../static/images/promocional/banner_contramao.jpg">
+            </div>
+
+        </div>
+    </div>
+
+    <div id="contbuscaloja">
+        <form id="pesquisaloja" method="get">
+
+            <section class="pesquisaroupa">
+                <button type="submit" aria-label="Pesquisar">
+                    <img src="../static/images/icones_menu/pesquisa.png" alt="">
+                </button>
+                <input type="text" id="campopesquisa" name="busca" placeholder="PESQUISE O DESEJADO...">
+            </section>
+
+            <div class="linhafiltros">
+
+                <div class="grupofiltro" id="grupotiporoupa">
+                    <span class="titulopesqform">TIPO DE ROUPA</span>
+                    <div id="opcroupatipo">
+                        <label class="opcroupa"><input type="radio" name="roupa" value="camisa"><span>CAMISA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="camiseta"><span>CAMISETA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="bermuda"><span>BERMUDA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="calca"><span>CALÇA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="casaco"><span>CASACO</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="jaqueta"><span>JAQUETA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="acessorios"><span>ACESSÓRIOS</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="bolsa"><span>BOLSA</span></label>
+                        <label class="opcroupa"><input type="radio" name="roupa" value="meia"><span>MEIAS</span></label>
+                    </div>
+                </div>
+
+                <div class="grupofiltro" id="grupotamroupa">
+                    <span class="titulopesqform">TAMANHO</span>
+                    <div id="opctamanhoroupa">
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="PP"><span>PP</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="P"><span>P</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="M"><span>M</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="G"><span>G</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="GG"><span>GG</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="XGG"><span>XGG</span></label>
+                    </div>
+                </div>
+
+                <div class="grupofiltro" id="grupoordena">
+                    <label class="titulopesqform" for="ordenar">ORDENAR POR</label>
+                    <select id="ordenar" name="ordem">
+                        <option value="recente">MAIS RECENTE</option>
+                        <option value="antigo">MAIS ANTIGO</option>
+                        <option value="comprado">MAIS COMPRADO</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="acoesfiltro">
+                <button type="reset" class="btn-limpar">LIMPAR FILTROS</button>
+                <button type="submit" class="btn-aplicar">APLICAR</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div id="graderoupas"></div>
+
+   <footer id="rodape">
+        <h1>DRIP LAB</h1>
+        <p>© 2026 DripLab. Todos os direitos reservados.</p>
+    </footer>
+    <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/loja.js" defer></script>
+    <script src="../static/js/countdown.js" defer></script>
+</body>
+</html>

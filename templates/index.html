@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Site - DripLab</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/tema.js"></script>
+</head>
+
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const music = document.getElementById("bg-music");
+
+        document.addEventListener("click", () => {
+            music.volume = 0.2;
+            music.play();
+        }, { once: true });
+    </script>
+
+    <nav id="menugeral">
+        <h1><a href="index.html">DRIP LAB</a></h1>
+
+        <ul id="base">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="jogar.html">Jogar</a></li>
+            <li><a href="loja.html">Loja</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+        </ul>
+
+        <ul id="conta">
+            <li class="perfil">
+                <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                    <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                </button>
+
+                <div id="menuextra" class="menuextra">
+                    <ul id="loginfo">
+                        <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                        <li><a href="perfil.html">ACESSAR PERFIL</a></li>
+                        <li><button type="button">DESCONECTAR</button></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a href="carrinho.html">
+                    <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                </a>
+            </li>
+
+            <li>
+                <button type="button" id="btntema" aria-label="Ativar modo escuro" aria-pressed="false">
+                    <img src="../static/images/icones_menu/sol.png" alt="">
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="destaque">
+        <button id="btnjogo"><a href="jogar.html">JOGAR AGORA</a></button>
+        <button id="btnloja"><a href="loja.html">EXPLORAR A LOJA</a></button>
+
+        <div id="droptime">
+            <div id="drop">
+                <h2>PRÓXIMO DROP EM : </h2>
+
+                <div id="tempo">
+                    <span>02</span>
+                    <span>:</span>
+                    <span>45</span>
+                    <span>:</span>
+                    <span>05</span>
+                </div>
+
+                <div id="legendas">
+                    <span>DIAS</span>
+                    <span>HORAS</span>
+                    <span>MIN</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dropatual">
+        <div id="textodropatual">
+            <h2>[DROP ATUAL : POLARIZAÇÃO]</h2>
+            <p>DOIS LADOS DE UM ESTILO</p>
+        </div>
+
+        <div id="divdrop">
+            <div id="dropimg">
+                <a href="loja.html">
+                    <img src="../static/images/promocional/banner_polarizacao.png" alt="Imagem do Drop Atual">
+                </a>
+            </div>
+
+            <div id="dropslides">
+
+                <div class="dropslider">
+                    <div class="droptrilho"></div>
+                </div>
+
+                <div class="dropslider">
+                    <div class="droptrilho"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="trapeziodrops">
+        <div class="trapezio" id="cima">
+            <h2>DROP ANTERIOR</h2>
+            <p>ZONA MORTA</p>
+        </div>
+        <div class="trapezio" id="baixo">
+            <h2>PRÓXIMO DROP</h2>
+            <p>CONTRAMÃO</p>
+        </div>
+    </div>
+
+    <div id="destaques">
+
+        <div id="textodestaque">
+            <h2>[DESTAQUES - OS MAIS VENDIDOS]</h2>
+            <p><a href="loja.html">VER TODOS</a></p>
+        </div>
+
+        <div id="grade-destaques"></div>
+
+        <div id="paginacao-destaques">
+            <button type="button" class="ativo" data-pagina="1">1</button>
+            <button type="button" data-pagina="2">2</button>
+            <button type="button" data-avancar aria-label="Próxima página">➜</button>
+        </div>
+
+    </div>
+
+    <section id="secao-votacoes">
+
+        <div id="cabecalho-votacoes">
+            <h2>[VOTAÇÃO DE DROPS E PROPOSTAS]</h2>
+
+            <p>
+                Participe decidindo os próximos temas e modelos da DripLab.
+                Ganhe <strong>10 Drip Points</strong> por cada voto computado!
+            </p>
+        </div>
+
+        <div id="grade-propostas-votacao" class="dbx-grade">
+        </div>
+
+    </section>
+
+    <div id="juntesesite">
+        <a href="https://pt.wikipedia.org/wiki/Auto_da_Compadecida">
+            <img src="../static/images/promocional/imagem-juntese-site.png" alt="Junte-se ao site">
+        </a>
+    </div>
+
+    <footer id="rodape">
+        <h1>DRIP LAB</h1>
+        <p>© 2026 DripLab. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../static/js/slide.js" defer></script>
+    <script src="../static/js/paginacao.js" defer></script>
+    <script src="../static/js/votacao.js" defer></script>
+    <script src="../static/js/index.js" defer></script>
+    <script src="../static/js/countdown.js" defer></script>
+
+</body>
+</html>

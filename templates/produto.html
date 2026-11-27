@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Site - DripLab</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/tema.js"></script>
+</head>
+
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const music = document.getElementById("bg-music");
+
+        document.addEventListener("click", () => {
+            music.volume = 0.2;
+            music.play();
+        }, { once: true });
+    </script>
+
+    <nav id="menugeral">
+        <h1><a href="index.html">DRIP LAB</a></h1>
+
+        <ul id="base">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="jogar.html">Jogar</a></li>
+            <li><a href="loja.html">Loja</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+        </ul>
+
+        <ul id="conta">
+            <li class="perfil">
+                <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                    <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                </button>
+
+                <div id="menuextra" class="menuextra">
+                    <ul id="loginfo">
+                        <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                        <li><a href="perfil.html">ACESSAR PERFIL</a></li>
+                        <li><button type="button">DESCONECTAR</button></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a href="carrinho.html">
+                    <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                </a>
+            </li>
+
+            <li>
+                <button type="button" id="btntema" aria-label="Ativar modo escuro" aria-pressed="false">
+                    <img src="../static/images/icones_menu/sol.png" alt="">
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="produto-container">
+
+        <div id="produtobox">
+
+            <div id="produtoimg">
+                <img src="../static/images/loja/moletom-oversized.png" alt="Moletom Oversized">
+            </div>
+
+            <div id="produtoinfo">
+                <img id="produtobanner" src="../static/images/banner_drop/banner_lua.png" alt="Banner do drop No Mundo da Lua">
+                <h2 id="produtonome">MOLETOM OVERSIZED</h2>
+                <h3 id="produtovalor">R$ 29,99</h3>
+
+                <div class="grupofiltro" id="grupotamroupa">
+                    <label>TAMANHO</label>
+                    <div id="opctamanhoroupa">
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="PP"><span>PP</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="P"><span>P</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="M"><span>M</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="G"><span>G</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="GG"><span>GG</span></label>
+                        <label class="opctamanho"><input type="checkbox" name="tamanho" value="XGG"><span>XGG</span></label>
+                    </div>
+                </div>
+
+                <p id="produtodescricao">O Moletom Oversized chega com uma proposta que combina a estética urbana com a liberdade de expressão. Sua modelagem ampla proporciona um caimento descontraído, enquanto a estampa exclusiva traz personalidade e identidade ao visual.
+                    Inspirado na atmosfera cósmica do drop No Mundo da Lua, é a escolha ideal para quem gosta de explorar diferentes combinações e transformar o básico em algo extraordinário.<br>
+                    <br>
+                    Destaques da peça:
+                    Modelagem oversized.
+                    Estampa gráfica exclusiva.
+                    Visual urbano e contemporâneo.
+                    Fácil combinação com diferentes estilos.
+                    <br><br>
+                    Vista sua imaginação. Explore seu próprio universo.</p>
+            </div>
+        </div>
+
+        <button type="button" id="adicionar-carrinho">Adicionar ao Carrinho</button>
+
+        <div class="frete-box">
+            <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 8px;">CALCULAR FRETE E PRAZO</h3>
+            <div style="display: flex; gap: 8px; max-width: 420px;">
+                <input type="text" id="calc-frete-cep" class="inputlocalconfig campocep" data-mask="cep" placeholder="00000-000" maxlength="9" inputmode="numeric" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                <button type="button" id="btn-calc-frete" class="dbx-btn dbx-roxo" style="padding: 10px 16px;">CALCULAR</button>
+            </div>
+            <div id="calc-frete-resultado" class="frete-resultado" hidden></div>
+        </div>
+
+        <section class="secao-produtos" style="margin-top: 30px;">
+            <h2>[AVALIAÇÕES E COMENTÁRIOS]</h2>
+            <div id="lista-comentarios" style="margin: 16px 0; display: flex; flex-direction: column; gap: 12px;">
+                <p id="sem-comentarios" style="color: #666; font-size: 14px;">Ainda não há comentários sobre este produto.</p>
+            </div>
+
+            <form id="form-novo-comentario" style="max-width: 600px; display: flex; flex-direction: column; gap: 8px; margin-top: 16px;">
+                <label for="texto-comentario" style="font-weight: 700; font-size: 14px;">Deixe sua opinião sobre esta peça:</label>
+                <textarea id="texto-comentario" class="inputlocalconfig" rows="3" placeholder="Escreva seu comentário..." style="width: 100%; border: 1px solid #ccc; border-radius: 6px; padding: 10px;" required></textarea>
+                <button type="submit" class="dbx-btn dbx-roxo" style="width: auto; align-self: flex-start; padding: 10px 20px;">ENVIAR COMENTÁRIO</button>
+            </form>
+        </section>
+
+        <section class="secao-produtos">
+
+            <h2>[PRODUTOS EM DESTAQUE]</h2>
+
+            <div class="slider">
+                <div class="trilho"></div>
+            </div>
+        </section>
+
+        <section class="secao-produtos">
+
+            <h2>[MAIS DO DROP]</h2>
+
+            <div class="slider">
+                <div class="trilho"></div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer id="rodape">
+        <h1>DRIP LAB</h1>
+        <p>© 2026 DripLab. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/mascaras.js" defer></script>
+    <script src="../static/js/slide.js" defer></script>
+    <script src="../static/js/produto.js" defer></script>
+
+</body>
+</html>

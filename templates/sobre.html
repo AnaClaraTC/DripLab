@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Site - DripLab</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/menuex.js" defer></script>
+    <script src="../static/js/autenticacao.js" defer></script>
+    <script src="../static/js/tema.js"></script>
+
+    
+</head>
+
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="../static/music/instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    const music = document.getElementById("bg-music");
+
+    document.addEventListener("click", () => {
+        music.volume = 0.2;
+        music.play();
+    }, { once: true });
+    </script>
+
+  
+    <nav id="menugeral">
+        <h1><a href="index.html">DRIP LAB</a></h1>
+        <ul id="base">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="jogar.html">Jogar</a></li>
+            <li><a href="loja.html">Loja</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+        </ul>
+
+        <ul id="conta">
+            <li class="perfil">
+                <button type="button" id="btnperfil" aria-expanded="false" aria-controls="menuextra">
+                    <img src="../static/images/icones_menu/usuario.png" alt="Minha conta">
+                </button>
+
+                <div id="menuextra" class="menuextra">
+                    <ul id="loginfo">
+                        <li><a href="login.html">CADASTRAR/LOGAR</a></li>
+                        <li><a href="perfil.html">ACESSAR PERFIL</a></li>
+                        <li><button type="button">DESCONECTAR</button></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a href="carrinho.html">
+                    <img src="../static/images/icones_menu/carrinho.png" alt="Carrinho">
+                </a>
+            </li>
+
+            <li>
+                <button type="button" id="btntema" aria-label="Ativar modo escuro" aria-pressed="false">
+                    <img src="../static/images/icones_menu/sol.png" alt="">
+                </button>
+            </li>
+
+        </ul>
+    </nav>
+
+    <div id="sobrecont">
+
+        <div class="sobrecontainer">
+
+            <div id="sobretitulo">
+                <h2>NÃO É <br>SÓ SOBRE ROUPA</h2>
+                <h3><em>SOBRE O QUE VOCÊ REPRESENTA.</em></h3>
+            </div>
+
+            <div id="sobremascote">
+                <img src="../static/images/promocional/icone_mascote.png">
+            </div>
+        </div>
+
+        <div class="sobrecontainer">
+
+            <div id="divbanner">
+                <img src="../static/images/promocional/banner_sobre.png">
+            </div>
+
+            <div id="divbannertexto">
+                <p>A DRIP LAB nasceu da conexão entre streetwear, cultura urbana e universo digital. 
+                    Acreditamos que estilo vai muito além do que você veste: está na música que escuta, 
+                    nos jogos que joga, nas ideias que compartilha e na maneira como ocupa o mundo. 
+                    Por isso, criamos <span id="textolaranja">uma experiência</span> que une moda, tecnologia e comunidade. 
+                    Aqui, cada drop tem <span id="textoroxo">uma identidade</span>, cada coleção conta uma história e cada pessoa tem 
+                    espaço para expressar a sua. Não queremos ditar tendências. <b>Queremos abrir espaço para 
+                    quem cria as próprias regras.</b></p>
+
+            </div>
+        </div>
+
+        <div id="divtopicos">
+
+            <div class="cartasobre">
+                <div class="cartaimg">
+                    <img src="../static/images/promocional/icone_comunidade.png">
+                </div>
+
+                <div class="cartatexto">
+                    <p id="textocomunidade">Moda urbana com personalidade, peças marcantes e coleções que fogem 
+                        do óbvio. Vista o que representa você, não o que esperam de você.</p>
+                </div>
+            </div>
+
+            <div class="cartasobre">
+                <div class="cartaimg">
+                    <img src="../static/images/promocional/icone_gamificacao.png">
+                </div>
+
+                <div class="cartatexto">
+                    <p >Exploramos o universo dos games com desafios, 
+                        interações e recompensas que conectam o mundo da moda ao digital.</p>
+                </div>
+            </div>
+
+            <div class="cartasobre">
+                <div class="cartaimg">
+                    <img src="../static/images/promocional/icone_streetwear.png">
+                </div>
+
+                <div class="cartatexto">
+                    <p id="textostreet">Moda urbana com personalidade, peças marcantes e coleções que fogem 
+                        do óbvio. Vista o que representa você, não o que esperam de você.</p>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div id="jogosobre">
+            <h2><em>SEU ESTILO. SUAS REGRAS.</em></h2>
+
+            <div id="btnsobre">
+                <button id="btnsobrejogo"><a href="jogar.html">JOGAR AGORA</a></button>
+                <button id="btnsobreloja"><a href="loja.html">EXPLORAR A LOJA</a></button>
+            </div>
+        </div>
+
+        <div id="imgbannersobre">
+            <img src="../static/images/promocional/banner_rodape.png">
+        </div>
+
+
+    </div>
+    <footer id="rodape">
+        <h1>DRIP LAB</h1>
+        <p>© 2026 DripLab. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
